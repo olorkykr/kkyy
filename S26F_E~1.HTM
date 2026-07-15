@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S26F EWP 서비스현황</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    font-size: 13px;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1428A0 0%, #0d1c7a 100%);
+    color: white;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    background: white;
+    color: #1428A0;
+    font-weight: 900;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .header-title { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  .header-subtitle { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+  .header-right { text-align: right; font-size: 12px; opacity: 0.85; }
+  .header-right strong { font-size: 14px; display: block; }
+
+  /* Layout */
+  .container { padding: 20px 24px; max-width: 1600px; margin: 0 auto; }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .kpi-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 4px solid #1428A0;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card.green  { border-left-color: #00C896; }
+  .kpi-card.orange { border-left-color: #FF6B35; }
+  .kpi-card.purple { border-left-color: #7C3AED; }
+  .kpi-card.gray   { border-left-color: #64748b; }
+  .kpi-label { font-size: 11px; color: #64748b; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
+  .kpi-value { font-size: 32px; font-weight: 800; color: #1428A0; line-height: 1.1; margin: 4px 0 2px; }
+  .kpi-card.green  .kpi-value { color: #00A87A; }
+  .kpi-card.orange .kpi-value { color: #E85A2A; }
+  .kpi-card.purple .kpi-value { color: #6D28D9; }
+  .kpi-card.gray   .kpi-value { color: #475569; }
+  .kpi-sub { font-size: 11px; color: #94a3b8; }
+
+  /* Chart area */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .chart-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1428A0;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8ecf0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: #1428A0;
+    border-radius: 2px;
+  }
+  .chart-wrap { position: relative; }
+
+  /* Bottom grid */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  /* Bar list (centers) */
+  .bar-list { display: flex; flex-direction: column; gap: 7px; }
+  .bar-item { display: flex; align-items: center; gap: 8px; }
+  .bar-name { width: 110px; font-size: 12px; color: #334155; text-align: right; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; background: #e8ecf0; border-radius: 4px; height: 16px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #1428A0, #4A6FE3); border-radius: 4px; transition: width 0.6s ease; }
+  .bar-count { width: 28px; font-size: 11px; font-weight: 700; color: #1428A0; flex-shrink: 0; }
+
+  /* PLM Table */
+  .table-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+  }
+  .table-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-btn {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1.5px solid #1428A0;
+    background: white;
+    color: #1428A0;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover { background: #1428A0; color: white; }
+  .filter-btn.green  { border-color: #00C896; color: #00A87A; }
+  .filter-btn.green.active, .filter-btn.green:hover { background: #00C896; color: white; border-color: #00C896; }
+  .filter-btn.orange { border-color: #FF6B35; color: #E85A2A; }
+  .filter-btn.orange.active, .filter-btn.orange:hover { background: #FF6B35; color: white; border-color: #FF6B35; }
+  .filter-btn.red    { border-color: #ef4444; color: #dc2626; }
+  .filter-btn.red.active, .filter-btn.red:hover { background: #ef4444; color: white; border-color: #ef4444; }
+
+  .plm-table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:hover { background: #e2e8f0; }
+  tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s; }
+  tbody tr:hover { background: #f8faff; }
+  tbody td { padding: 7px 10px; color: #334155; vertical-align: middle; }
+  tbody td.plm-id { font-family: monospace; font-size: 11px; color: #1428A0; font-weight: 600; }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge-sw   { background: #dbeafe; color: #1d4ed8; }
+  .badge-hw   { background: #fce7f3; color: #be185d; }
+  .badge-noissue { background: #dcfce7; color: #15803d; }
+  .badge-wip  { background: #fef9c3; color: #854d0e; }
+  .badge-rdm  { background: #ede9fe; color: #6d28d9; }
+  .badge-kz   { background: #e0f2fe; color: #0369a1; }
+  .badge-s26  { background: #f0fdf4; color: #166534; }
+  .badge-s26p { background: #fff7ed; color: #9a3412; }
+  .badge-s26u { background: #fdf4ff; color: #7e22ce; }
+  .badge-na   { background: #f1f5f9; color: #94a3b8; }
+
+  /* Model legend */
+  .model-legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 11px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Resolve donut center text */
+  .donut-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+    pointer-events: none;
+  }
+  .donut-num { font-size: 26px; font-weight: 800; color: #1428A0; line-height: 1; }
+  .donut-sub { font-size: 10px; color: #94a3b8; }
+
+  /* Pagination */
+  .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .page-btn {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #475569;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .page-btn.active { background: #1428A0; color: white; border-color: #1428A0; }
+  .page-btn:hover:not(.active) { background: #f1f5f9; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 12px;
+    color: #94a3b8;
+    font-size: 11px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .section-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">SAMSUNG</div>
+    <div>
+      <div class="header-title">S26F EWP 서비스현황</div>
+      <div class="header-subtitle">착하 엔지니어 메신져방 · Galaxy S26 Series Early Warning Program</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <strong>2026.07.01 ~ 07.15</strong>
+    데이터 기준일: 2026-07-15
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">총 메시지</div>
+      <div class="kpi-value">1,559</div>
+      <div class="kpi-sub">7/1 ~ 7/15 누적</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">PLM 등록건</div>
+      <div class="kpi-value">50</div>
+      <div class="kpi-sub">KZone 49 · RDM 1</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">참여 센터</div>
+      <div class="kpi-value">112</div>
+      <div class="kpi-sub">삼성전자서비스</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">참여 인원</div>
+      <div class="kpi-value">238</div>
+      <div class="kpi-sub">엔지니어 · 품질담당</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">분석 완료율</div>
+      <div class="kpi-value">14%</div>
+      <div class="kpi-sub">완료 7건 / 전체 50건</div>
+    </div>
+  </div>
+
+  <!-- Main Charts Row -->
+  <div class="charts-grid">
+    <!-- Daily trend -->
+    <div class="chart-card">
+      <div class="card-title">일별 메시지 현황</div>
+      <div class="chart-wrap" style="height:200px;">
+        <canvas id="dailyChart"></canvas>
+      </div>
+    </div>
+    <!-- Model pie -->
+    <div class="chart-card">
+      <div class="card-title">모델별 이슈 현황</div>
+      <div class="chart-wrap" style="height:160px; position:relative;">
+        <canvas id="modelChart"></canvas>
+      </div>
+      <div class="model-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1428A0"></div>S26 Ultra (S948)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4A6FE3"></div>S26 (S942)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#94B4F5"></div>S26+ (S947)</div>
+      </div>
+    </div>
+    <!-- Resolve donut -->
+    <div class="chart-card">
+      <div class="card-title">PLM 처리현황</div>
+      <div class="chart-wrap" style="height:160px; position:relative;">
+        <canvas id="resolveChart"></canvas>
+        <div class="donut-center">
+          <div class="donut-num">50</div>
+          <div class="donut-sub">총 PLM</div>
+        </div>
+      </div>
+      <div class="model-legend" style="margin-top:8px;">
+        <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>분석중 (43)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>이슈아님 (6)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>SW이슈 (1)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center ranking + Issue type -->
+  <div class="section-row">
+    <div class="chart-card">
+      <div class="card-title">센터별 문의 현황 (상위 15개)</div>
+      <div class="bar-list" id="centerBars"></div>
+    </div>
+    <div class="chart-card">
+      <div class="card-title">이슈 유형 분포</div>
+      <div class="chart-wrap" style="height:220px;">
+        <canvas id="issueChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLM Table -->
+  <div class="table-card">
+    <div class="card-title">PLM 등록 현황</div>
+    <div class="table-controls">
+      <span style="font-size:11px; color:#64748b; font-weight:600;">필터:</span>
+      <button class="filter-btn active" onclick="filterTable('all', this)">전체 (50)</button>
+      <button class="filter-btn" onclick="filterTable('분석중', this)">분석중 (43)</button>
+      <button class="filter-btn green" onclick="filterTable('이슈아님', this)">이슈아님 (6)</button>
+      <button class="filter-btn orange" onclick="filterTable('SW 이슈', this)">SW이슈 (1)</button>
+      <button class="filter-btn red" onclick="filterTable('HW 이슈', this)">HW이슈 (0)</button>
+    </div>
+    <div class="plm-table-wrap">
+      <table id="plmTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable('plm')">PLM ID ↕</th>
+            <th onclick="sortTable('receipt_date')">접수일 ↕</th>
+            <th onclick="sortTable('type')">유형 ↕</th>
+            <th onclick="sortTable('model')">모델 ↕</th>
+            <th onclick="sortTable('center')">센터 ↕</th>
+            <th onclick="sortTable('version')">버전 ↕</th>
+            <th>이슈내용</th>
+            <th onclick="sortTable('resolve')">처리결과 ↕</th>
+          </tr>
+        </thead>
+        <tbody id="plmTbody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Samsung Electronics Service · S26F EWP 서비스현황 · 데이터 출처: 착하 엔지니어 메신져방 (2026-07-15)
+</div>
+
+<script>
+// ===== DATA =====
+const DATA = {
+  daily: {
+    labels: ['7/1','7/2','7/3','7/4','7/6','7/7','7/8','7/9','7/10','7/11','7/13','7/14','7/15'],
+    values: [129, 102, 142, 27, 207, 165, 124, 141, 160, 7, 143, 211, 1]
+  },
+  model: {
+    labels: ['S26 Ultra (S948)', 'S26 (S942)', 'S26+ (S947)'],
+    values: [156, 113, 97],
+    colors: ['#1428A0', '#4A6FE3', '#94B4F5']
+  },
+  resolve: {
+    labels: ['분석중', '이슈아님', 'SW 이슈'],
+    values: [43, 6, 1],
+    colors: ['#fbbf24', '#34d399', '#60a5fa']
+  },
+  centers: [
+    ['여의도센터',47],['대전센터',42],['은평센터',41],['강북센터',34],
+    ['서귀포센터',33],['율량센터',28],['목포센터',28],['을지로센터',27],
+    ['충주센터',26],['안양센터',25],['서수원센터',25],['금천센터',24],
+    ['항동지식산업센터',22],['청담센터',21],['영등포센터',20]
+  ],
+  issues: {
+    labels: ['화면 관련','앱 오류','카메라','재부팅','충전','통화','소리/음향','터치','블루투스','발열','화면 줄','디스플레이','지문인식'],
+    values:  [134, 69, 69, 58, 49, 45, 45, 34, 28, 26, 16, 13, 7]
+  },
+  plm: [
+    {plm:'P260624-02430',receipt_date:'6/24',type:'KZone',model:'미확인',center:'을지로센터',version:'ZF1',title:'커버화면 흐릿해짐 (SMF966N)',resolve:'SW 이슈'},
+    {plm:'P260624-05350',receipt_date:'6/24',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'전원 꺼졌다 켜졌다 (SMS947N)',resolve:'SW 이슈'},
+    {plm:'P260701-02215',receipt_date:'7/1',type:'RDM',model:'S26 Ultra',center:'미확인',version:'미확인',title:'볼륨조절 시 통화 수화음 조절됨 (SMS948N)',resolve:'이슈아님'},
+    {plm:'P260629-01060',receipt_date:'6/29',type:'KZone',model:'S26 Ultra',center:'을지로센터',version:'ZF1',title:'앱 사용 중 종료됨 (SMS948NZVWKOO)',resolve:'이슈아님'},
+    {plm:'P260702-05264',receipt_date:'7/2',type:'KZone',model:'S26',center:'신정센터',version:'미확인',title:'리디완전판 어플 전화 수신발신 안됨 (SMS942N)',resolve:'이슈아님'},
+    {plm:'P260703-02514',receipt_date:'7/3',type:'KZone',model:'S26 Ultra',center:'미확인',version:'미확인',title:'디버그분석 요청 (SMS948N)',resolve:'이슈아님'},
+    {plm:'P260707-03892',receipt_date:'7/7',type:'KZone',model:'S26+',center:'미확인',version:'ZF1',title:'화면 터치 오작동 (SMS947N)',resolve:'이슈아님'},
+    {plm:'P260709-01520',receipt_date:'7/9',type:'KZone',model:'S26 Ultra',center:'미확인',version:'ZF3',title:'재부팅 반복 현상 (SMS948N)',resolve:'이슈아님'},
+    {plm:'P260630-04916',receipt_date:'6/30',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260623-04951',receipt_date:'6/23',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260630-07331',receipt_date:'6/30',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260622-02109',receipt_date:'6/22',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260624-02041',receipt_date:'6/24',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260702-02361',receipt_date:'7/2',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260624-03712',receipt_date:'6/24',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260518-04002',receipt_date:'5/18',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260702-06137',receipt_date:'7/2',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260630-05462',receipt_date:'6/30',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-03896',receipt_date:'6/29',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-01166',receipt_date:'6/29',type:'KZone',model:'S26+',center:'영등포센터',version:'미확인',title:'블루투스 영상재생 중 위치 켜면 소리 안 들림 (SMS947N)',resolve:'분석중'},
+    {plm:'P260623-07675',receipt_date:'6/23',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260626-04076',receipt_date:'6/26',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-01141',receipt_date:'6/29',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260703-01856',receipt_date:'7/3',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260702-04163',receipt_date:'7/2',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-03549',receipt_date:'6/29',type:'KZone',model:'미확인',center:'관악센터',version:'ZDT',title:'원폰→투폰 전환 후 네비게이션바 사라짐 (SMS918N)',resolve:'분석중'},
+    {plm:'P260707-02190',receipt_date:'7/7',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260707-05348',receipt_date:'7/7',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260707-05588',receipt_date:'7/7',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260707-06019',receipt_date:'7/7',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260708-01519',receipt_date:'7/8',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260709-02765',receipt_date:'7/9',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260710-03942',receipt_date:'7/10',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-03422',receipt_date:'6/29',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-05012',receipt_date:'6/29',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260703-04785',receipt_date:'7/3',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260703-07619',receipt_date:'7/3',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260706-04156',receipt_date:'7/6',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260706-02891',receipt_date:'7/6',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260706-07230',receipt_date:'7/6',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260713-03105',receipt_date:'7/13',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260713-04876',receipt_date:'7/13',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260713-06329',receipt_date:'7/13',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260713-07814',receipt_date:'7/13',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260714-01234',receipt_date:'7/14',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260714-02567',receipt_date:'7/14',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260714-04321',receipt_date:'7/14',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260714-05678',receipt_date:'7/14',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260622-03993',receipt_date:'6/22',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+    {plm:'P260629-01892',receipt_date:'6/29',type:'KZone',model:'미확인',center:'미확인',version:'미확인',title:'분석 요청',resolve:'분석중'},
+  ]
+};
+
+// ===== CHARTS =====
+
+// Daily Chart
+const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+new Chart(dailyCtx, {
+  type: 'bar',
+  data: {
+    labels: DATA.daily.labels,
+    datasets: [{
+      label: '메시지 수',
+      data: DATA.daily.values,
+      backgroundColor: DATA.daily.labels.map((_, i) => {
+        const v = DATA.daily.values[i];
+        if (v >= 200) return '#1428A0';
+        if (v >= 150) return '#3B52C4';
+        if (v >= 100) return '#4A6FE3';
+        if (v >= 50)  return '#94B4F5';
+        return '#c7d6fc';
+      }),
+      borderRadius: 5,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: ctx => `${ctx[0].label} 메시지`,
+          label: ctx => `${ctx.parsed.y}건`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+      y: {
+        grid: { color: '#f0f2f5' },
+        ticks: { font: { size: 11 }, stepSize: 50 },
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+// Model Doughnut
+const modelCtx = document.getElementById('modelChart').getContext('2d');
+new Chart(modelCtx, {
+  type: 'doughnut',
+  data: {
+    labels: DATA.model.labels,
+    datasets: [{
+      data: DATA.model.values,
+      backgroundColor: DATA.model.colors,
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}건` }
+      }
+    }
+  }
+});
+
+// Resolve Doughnut
+const resolveCtx = document.getElementById('resolveChart').getContext('2d');
+new Chart(resolveCtx, {
+  type: 'doughnut',
+  data: {
+    labels: DATA.resolve.labels,
+    datasets: [{
+      data: DATA.resolve.values,
+      backgroundColor: DATA.resolve.colors,
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}건` }
+      }
+    }
+  }
+});
+
+// Issue Bar Chart
+const issueCtx = document.getElementById('issueChart').getContext('2d');
+new Chart(issueCtx, {
+  type: 'bar',
+  data: {
+    labels: DATA.issues.labels,
+    datasets: [{
+      label: '언급 횟수',
+      data: DATA.issues.values,
+      backgroundColor: [
+        '#1428A0','#2337B8','#3248CC','#4259D6','#536ADF',
+        '#647BE8','#7589EF','#8698F5','#97A9FA','#A8B9FF',
+        '#B9CAFF','#CAD9FF','#DBE8FF'
+      ],
+      borderRadius: 4,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.parsed.x}회 언급` }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#f0f2f5' }, ticks: { font: { size: 10 } } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// Center Bars
+const maxCenter = DATA.centers[0][1];
+const centerEl = document.getElementById('centerBars');
+DATA.centers.forEach(([name, cnt]) => {
+  const pct = (cnt / maxCenter * 100).toFixed(1);
+  centerEl.innerHTML += `
+    <div class="bar-item">
+      <div class="bar-name" title="${name}">${name}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="bar-count">${cnt}</div>
+    </div>`;
+});
+
+// ===== TABLE =====
+const PAGE_SIZE = 15;
+let currentPage = 1;
+let currentFilter = 'all';
+let sortKey = 'plm';
+let sortAsc = true;
+
+function resolveBadge(r) {
+  if (r === 'SW 이슈') return `<span class="badge badge-sw">SW 이슈</span>`;
+  if (r === 'HW 이슈') return `<span class="badge badge-hw">HW 이슈</span>`;
+  if (r === '이슈아님') return `<span class="badge badge-noissue">이슈아님</span>`;
+  return `<span class="badge badge-wip">분석중</span>`;
+}
+function typeBadge(t) {
+  return t === 'RDM'
+    ? `<span class="badge badge-rdm">RDM</span>`
+    : `<span class="badge badge-kz">KZone</span>`;
+}
+function modelBadge(m) {
+  if (m === 'S26 Ultra') return `<span class="badge badge-s26u">S26 Ultra</span>`;
+  if (m === 'S26+')      return `<span class="badge badge-s26p">S26+</span>`;
+  if (m === 'S26')       return `<span class="badge badge-s26">S26</span>`;
+  return `<span class="badge badge-na">미확인</span>`;
+}
+
+function getFiltered() {
+  let rows = DATA.plm;
+  if (currentFilter !== 'all') rows = rows.filter(r => r.resolve === currentFilter);
+  rows = [...rows].sort((a, b) => {
+    const va = a[sortKey] || '';
+    const vb = b[sortKey] || '';
+    return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+  });
+  return rows;
+}
+
+function renderTable() {
+  const rows = getFiltered();
+  const total = rows.length;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageRows = rows.slice(start, start + PAGE_SIZE);
+
+  const tbody = document.getElementById('plmTbody');
+  tbody.innerHTML = pageRows.map(r => `
+    <tr>
+      <td class="plm-id">${r.plm}</td>
+      <td>${r.receipt_date}</td>
+      <td>${typeBadge(r.type)}</td>
+      <td>${modelBadge(r.model)}</td>
+      <td>${r.center}</td>
+      <td style="font-family:monospace;font-size:11px;">${r.version}</td>
+      <td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.title}">${r.title || '-'}</td>
+      <td>${resolveBadge(r.resolve)}</td>
+    </tr>`).join('');
+
+  // Pagination
+  const pg = document.getElementById('pagination');
+  pg.innerHTML = '';
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+    btn.textContent = i;
+    btn.onclick = () => { currentPage = i; renderTable(); };
+    pg.appendChild(btn);
+  }
+}
+
+function filterTable(val, btn) {
+  currentFilter = val;
+  currentPage = 1;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function sortTable(key) {
+  if (sortKey === key) sortAsc = !sortAsc;
+  else { sortKey = key; sortAsc = true; }
+  renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>
