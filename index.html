@@ -3,380 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S26F EWP 서비스현황</title>
+<title>FFF8 EWP 서비스현황</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Malgun Gothic','맑은 고딕',sans-serif; background:#f0f2f5; color:#1a1a2e; font-size:13px; }
-
-  .header {
-    background: linear-gradient(135deg,#1428A0 0%,#0d1c7a 100%);
-    color:white; padding:18px 30px;
-    display:flex; align-items:center; justify-content:space-between;
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
-  }
-  .header-left { display:flex; align-items:center; gap:14px; }
-  .header-logo { background:white; color:#1428A0; font-weight:900; font-size:16px; padding:5px 10px; border-radius:4px; }
-  .header-title { font-size:20px; font-weight:700; }
-  .header-subtitle { font-size:12px; opacity:.8; margin-top:2px; }
-  .header-right { text-align:right; font-size:12px; opacity:.85; }
-  .header-right strong { font-size:14px; display:block; }
-
-  .container { padding:20px 24px; max-width:1600px; margin:0 auto; }
-
-  .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:18px; }
-  .kpi-card { background:white; border-radius:10px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,.08); border-left:4px solid #1428A0; }
-  .kpi-card.green  { border-left-color:#00C896; }
-  .kpi-card.orange { border-left-color:#FF6B35; }
-  .kpi-card.purple { border-left-color:#7C3AED; }
-  .kpi-card.gray   { border-left-color:#64748b; }
-  .kpi-label { font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase; }
-  .kpi-value { font-size:32px; font-weight:800; color:#1428A0; line-height:1.1; margin:4px 0 2px; }
-  .kpi-card.green  .kpi-value { color:#00A87A; }
-  .kpi-card.orange .kpi-value { color:#E85A2A; }
-  .kpi-card.purple .kpi-value { color:#6D28D9; }
-  .kpi-card.gray   .kpi-value { color:#475569; }
-  .kpi-sub { font-size:11px; color:#94a3b8; }
-
-  .charts-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:14px; margin-bottom:18px; }
-  .chart-card { background:white; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
-  .card-title {
-    font-size:13px; font-weight:700; color:#1428A0;
-    margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid #e8ecf0;
-    display:flex; align-items:center; gap:6px;
-  }
-  .card-title::before { content:''; display:inline-block; width:3px; height:14px; background:#1428A0; border-radius:2px; }
-
-  .middle-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:18px; }
-
-  /* Insights panel */
-  .insight-panel { display:flex; flex-direction:column; gap:10px; }
-  .insight-card {
-    border-radius:8px; padding:11px 13px;
-    border-left:4px solid #ccc;
-    background:white;
-    box-shadow:0 1px 3px rgba(0,0,0,.06);
-  }
-  .insight-card.red    { border-left-color:#ef4444; background:#fff5f5; }
-  .insight-card.orange { border-left-color:#f97316; background:#fff8f0; }
-  .insight-card.yellow { border-left-color:#eab308; background:#fffef0; }
-  .insight-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; }
-  .insight-cat { font-weight:700; font-size:13px; color:#1a1a2e; }
-  .insight-signal { font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; white-space:nowrap; }
-  .signal-red    { background:#fee2e2; color:#b91c1c; }
-  .signal-orange { background:#ffedd5; color:#c2410c; }
-  .signal-yellow { background:#fef9c3; color:#854d0e; }
-  .insight-stat { font-size:11px; color:#64748b; margin-bottom:4px; }
-  .insight-stat strong { color:#1428A0; }
-  .insight-desc { font-size:11px; color:#475569; line-height:1.5; }
-
-  .model-legend { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:10px; font-size:11px; }
-  .legend-item { display:flex; align-items:center; gap:5px; }
-  .legend-dot { width:10px; height:10px; border-radius:50%; }
-
-  .donut-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-55%); text-align:center; pointer-events:none; }
-  .donut-num { font-size:26px; font-weight:800; color:#1428A0; line-height:1; }
-  .donut-sub { font-size:10px; color:#94a3b8; }
-
-  .table-card { background:white; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.08); margin-bottom:18px; }
-  .plm-table-wrap { overflow-x:auto; }
-  table { width:100%; border-collapse:collapse; font-size:12px; }
-  thead th { background:#f1f5f9; color:#475569; padding:8px 10px; text-align:left; font-weight:700; font-size:11px; border-bottom:2px solid #e2e8f0; white-space:nowrap; }
-  tbody tr { border-bottom:1px solid #f1f5f9; transition:background .15s; }
-  tbody tr:hover { background:#f8faff; }
-  tbody td { padding:7px 10px; color:#334155; vertical-align:middle; }
-
-  .cat-header td { color:white; font-weight:700; font-size:12px; padding:6px 12px; }
-  .cat-app-sw td    { background:#3B52C4; }
-  .cat-screen td    { background:#0369a1; }
-  .cat-charge td    { background:#16a34a; }
-  .cat-camera td    { background:#7c3aed; }
-  .cat-sound td     { background:#b45309; }
-  .cat-battery td   { background:#dc2626; }
-  .cat-signal td    { background:#0891b2; }
-  .cat-power td     { background:#4338ca; }
-  .cat-spen td      { background:#0f766e; }
-  .cat-heat td      { background:#ea580c; }
-  .cat-exterior td  { background:#78716c; }
-  .cat-sensor td    { background:#7c3aed; }
-  .cat-touch td     { background:#0284c7; }
-  .cat-usim td      { background:#475569; }
-  .cat-bt td        { background:#1d4ed8; }
-  .cat-button td    { background:#374151; }
-  .cat-mech td      { background:#92400e; }
-  .cat-reboot td    { background:#b91c1c; }
-  .cat-wifi td      { background:#0369a1; }
-  .cat-damage td    { background:#6b7280; }
-  .cat-etc td       { background:#9ca3af; }
-  .cat-badge { display:inline-block; background:rgba(255,255,255,.25); padding:1px 7px; border-radius:10px; font-size:10px; margin-left:8px; }
-
-  .badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; white-space:nowrap; }
-  .badge-sw      { background:#dbeafe; color:#1d4ed8; }
-  .badge-hw      { background:#fce7f3; color:#be185d; }
-  .badge-noissue { background:#dcfce7; color:#15803d; }
-  .badge-wip     { background:#fef9c3; color:#854d0e; }
-
-  .plm-id { font-family:monospace; font-size:11px; color:#1428A0; font-weight:600; }
-  .footer { text-align:center; padding:12px; color:#94a3b8; font-size:11px; border-top:1px solid #e2e8f0; }
-  .new-signal { color:#FF6B35; font-size:10px; font-weight:700; margin-left:4px; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI','Noto Sans KR',sans-serif;min-height:100vh;}
+.header{background:linear-gradient(135deg,#1c2333 0%,#21262d 100%);border-bottom:1px solid #30363d;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.header-left h1{font-size:20px;font-weight:700;color:#58a6ff;letter-spacing:-0.3px;}
+.header-left .sub{font-size:12px;color:#8b949e;margin-top:2px;}
+.header-right{text-align:right;font-size:12px;color:#8b949e;}
+.badge{display:inline-block;background:#1f6feb;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;}
+.badge.green{background:#238636;}
+.content{padding:16px 24px;}
+/* KPI */
+.kpi-row{display:flex;gap:12px;margin-bottom:16px;}
+.kpi{flex:1;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px 16px;position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,#58a6ff);}
+.kpi-label{font-size:11px;color:#8b949e;font-weight:500;letter-spacing:.3px;}
+.kpi-val{font-size:26px;font-weight:700;color:#e6edf3;line-height:1.2;margin-top:4px;}
+.kpi-unit{font-size:12px;color:#8b949e;margin-left:2px;}
+.kpi-sub{font-size:11px;color:#6e7681;margin-top:4px;}
+/* Charts row */
+.row2{display:flex;gap:12px;margin-bottom:16px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;}
+.card-title{font-size:12px;font-weight:600;color:#8b949e;margin-bottom:10px;letter-spacing:.3px;text-transform:uppercase;}
+.chart-wrap{position:relative;}
+.row2 .card:nth-child(1){flex:2;}
+.row2 .card:nth-child(2){flex:1;}
+.row2 .card:nth-child(3){flex:1;}
+/* Middle row */
+.row3{display:flex;gap:12px;margin-bottom:16px;}
+.row3 .card{flex:1;}
+/* Insights */
+.insight-card{background:#161b22;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--ic,#58a6ff);}
+.insight-card:last-child{margin-bottom:0;}
+.insight-rank{font-size:10px;color:#8b949e;margin-bottom:4px;font-weight:600;}
+.insight-title{font-size:14px;font-weight:700;color:#e6edf3;margin-bottom:4px;}
+.insight-meta{font-size:11px;color:#8b949e;}
+.insight-bar-wrap{margin-top:6px;height:4px;background:#21262d;border-radius:2px;}
+.insight-bar{height:4px;border-radius:2px;background:var(--ic,#58a6ff);}
+/* Table */
+.table-section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:16px;}
+.table-section .card-title{margin-bottom:10px;}
+.tbl-wrap{overflow-x:auto;max-height:420px;overflow-y:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:#21262d;color:#8b949e;font-weight:600;padding:8px 10px;text-align:left;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:1;}
+td{padding:7px 10px;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top;}
+tr:hover td{background:#1c2333;}
+.cat-badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;background:#21262d;color:#8b949e;}
+.cat-화면{background:#1a3a5c;color:#79c0ff;}
+.cat-카메라{background:#1f3a1a;color:#56d364;}
+.cat-외관{background:#3a2a1a;color:#ffa657;}
+.cat-APP{background:#2a1a3a;color:#d2a8ff;}
+.cat-기타{background:#21262d;color:#8b949e;}
+.cat-송수신{background:#1a3a3a;color:#56cfcf;}
+.cat-송수화{background:#3a3a1a;color:#e3b341;}
+.cat-충전{background:#2a1a1a;color:#f78166;}
+/* Category group header */
+.cat-group-hdr td{background:#1c2333 !important;color:#58a6ff;font-weight:700;font-size:11px;letter-spacing:.5px;padding:6px 10px;}
+/* footer */
+.footer{text-align:center;padding:12px;color:#6e7681;font-size:11px;border-top:1px solid #21262d;}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-left">
-    <div class="header-logo">SAMSUNG</div>
-    <div>
-      <div class="header-title">S26F EWP 서비스현황</div>
-      <div class="header-subtitle">착하 엔지니어 메신져방 · Galaxy S26 Series Early Warning Program</div>
-    </div>
+    <h1>FFF8 EWP 서비스현황 <span class="badge">Galaxy Z Fold8 · Flip8</span></h1>
+    <div class="sub">Samsung MX Service Engineer HotLine · 엔지니어 문의 분석 대시보드</div>
   </div>
   <div class="header-right">
-    <strong>2026.07.01 ~ 07.15</strong>
-    최신 데이터: 2026-07-14 기준
+    <div>기준일: <strong style="color:#e6edf3">2026-08-04</strong></div>
+    <div style="margin-top:2px">최종 업데이트: 2026-08-05</div>
   </div>
 </div>
 
-<div class="container">
-
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">총 메시지</div>
-      <div class="kpi-value">1,559</div>
-      <div class="kpi-sub">7/1 ~ 7/15 누적</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">PLM 등록건</div>
-      <div class="kpi-value">30</div>
-      <div class="kpi-sub">KZone 29 · RDM 1</div>
-    </div>
-    <div class="kpi-card orange">
-      <div class="kpi-label">참여 센터</div>
-      <div class="kpi-value">112</div>
-      <div class="kpi-sub">삼성전자서비스</div>
-    </div>
-    <div class="kpi-card purple">
-      <div class="kpi-label">참여 인원</div>
-      <div class="kpi-value">238</div>
-      <div class="kpi-sub">엔지니어 · 품질담당</div>
-    </div>
-    <div class="kpi-card gray">
-      <div class="kpi-label">분석 완료율</div>
-      <div class="kpi-value">23%</div>
-      <div class="kpi-sub">완료 7건 / 전체 30건</div>
-    </div>
+<div class="content">
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi" style="--accent:#58a6ff">
+    <div class="kpi-label">총 문의</div>
+    <div class="kpi-val">192<span class="kpi-unit">건</span></div>
+    <div class="kpi-sub">단말 문의 양식 기준</div>
   </div>
-
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="card-title">일별 메시지 현황</div>
-      <div style="height:200px;"><canvas id="dailyChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="card-title">모델별 이슈 현황</div>
-      <div style="height:160px;position:relative;"><canvas id="modelChart"></canvas></div>
-      <div class="model-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#1428A0"></div>S26 Ultra</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#4A6FE3"></div>S26</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#94B4F5"></div>S26+</div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="card-title">PLM 처리현황</div>
-      <div style="height:160px;position:relative;">
-        <canvas id="resolveChart"></canvas>
-        <div class="donut-center"><div class="donut-num">30</div><div class="donut-sub">총 PLM</div></div>
-      </div>
-      <div class="model-legend" style="margin-top:8px;">
-        <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>분석중 (23)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>이슈아님 (6)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>SW이슈 (1)</div>
-      </div>
-    </div>
+  <div class="kpi" style="--accent:#3fb950">
+    <div class="kpi-label">총 메시지</div>
+    <div class="kpi-val">771<span class="kpi-unit">건</span></div>
+    <div class="kpi-sub">전체 채팅 메시지</div>
   </div>
-
-  <div class="middle-row">
-    <!-- 좌: 이슈 유형 분포 (누적+오늘 겹쳐보기) -->
-    <div class="chart-card">
-      <div class="card-title">이슈 유형 분포</div>
-      <div style="height:290px;"><canvas id="issueChart"></canvas></div>
-    </div>
-
-    <!-- 중: 7/14 신규 이슈 감지 차트 -->
-    <div class="chart-card">
-      <div class="card-title">이슈 유형 분포 (7/14)<span class="new-signal" style="color:#FF6B35;font-size:10px;font-weight:700;margin-left:6px;">▲ 신규이슈 감지</span></div>
-      <div style="height:260px;"><canvas id="todayChart"></canvas></div>
-    </div>
-
-    <!-- 우: 인사이트 -->
-    <div class="chart-card" style="overflow-y:auto;">
-      <div class="card-title">품질 인사이트 (7/14 기준)</div>
-      <div class="insight-panel">
-
-        <div class="insight-card red">
-          <div class="insight-header">
-            <span class="insight-cat">🔴 전원</span>
-            <span class="insight-signal signal-red">신규감지 · 일평균 4.8배</span>
-          </div>
-          <div class="insight-stat">오늘 <strong>10건</strong> · 일평균 2.1건</div>
-          <div class="insight-desc">SM-F966N(성남), SM-M366K(경산) 등 다수 센터에서 전원 꺼짐 증상 집중 접수. 특정 모델/버전 공통 패턴 여부 확인 필요.</div>
-        </div>
-
-        <div class="insight-card red">
-          <div class="insight-header">
-            <span class="insight-cat">🔴 USIM</span>
-            <span class="insight-signal signal-red">신규감지 · 일평균 4.7배</span>
-          </div>
-          <div class="insight-stat">오늘 <strong>4건</strong> · 일평균 0.9건</div>
-          <div class="insight-desc">SM-S947N(덕양센터) 중심 USIM 인식 불량 문의 급증. 누적 대비 이례적 수치로 유심 슬롯 또는 펌웨어 연관성 점검 권고.</div>
-        </div>
-
-        <div class="insight-card red">
-          <div class="insight-header">
-            <span class="insight-cat">🔴 송수신</span>
-            <span class="insight-signal signal-red">신규감지 · 일평균 4.7배</span>
-          </div>
-          <div class="insight-stat">오늘 <strong>4건</strong> · 일평균 0.9건</div>
-          <div class="insight-desc">IMEI 조회 불가 및 표준모델 공란 이슈 복수 접수. 해외향 단말 혼입 또는 시스템 오류 가능성 검토 필요.</div>
-        </div>
-
-      </div>
-    </div>
+  <div class="kpi" style="--accent:#f78166">
+    <div class="kpi-label">참여 센터</div>
+    <div class="kpi-val">76<span class="kpi-unit">개</span></div>
+    <div class="kpi-sub">전국 서비스센터</div>
   </div>
-
-  <div class="table-card">
-    <div class="card-title">PLM 등록 현황 — 증상 그룹별</div>
-    <div class="plm-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:130px;">증상</th>
-            <th style="width:130px;">PLM ID</th>
-            <th style="width:65px;">접수일</th>
-            <th>이슈 내용</th>
-            <th style="width:90px;">진행사항</th>
-          </tr>
-        </thead>
-        <tbody id="plmTbody"></tbody>
-      </table>
-    </div>
+  <div class="kpi" style="--accent:#d2a8ff">
+    <div class="kpi-label">참여 인원</div>
+    <div class="kpi-val">107<span class="kpi-unit">명</span></div>
+    <div class="kpi-sub">엔지니어/품질팀</div>
   </div>
-
+  <div class="kpi" style="--accent:#e3b341">
+    <div class="kpi-label">주요 기종</div>
+    <div class="kpi-val" style="font-size:18px">Z Fold8</div>
+    <div class="kpi-sub">SM-F971N 124건 · SM-F976N 57건</div>
+  </div>
 </div>
 
-<div class="footer">
-  Samsung Electronics Service · S26F EWP 서비스현황 · 데이터: 착하 엔지니어 메신져방 (2026-07-15)
+<!-- Charts row -->
+<div class="row2">
+  <div class="card">
+    <div class="card-title">📊 시간대별 문의 현황 (8월 4일)</div>
+    <div class="chart-wrap" style="height:200px"><canvas id="hourlyChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📱 모델별 분포</div>
+    <div class="chart-wrap" style="height:200px"><canvas id="modelChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔧 이슈 유형 TOP 8</div>
+    <div class="chart-wrap" style="height:200px"><canvas id="issueChart"></canvas></div>
+  </div>
 </div>
+
+<!-- Middle row -->
+<div class="row3">
+  <div class="card">
+    <div class="card-title">🏢 센터별 문의 현황 (상위 15)</div>
+    <div class="chart-wrap" style="height:260px"><canvas id="centerChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 이슈 유형 집중도 분석</div>
+    <div class="chart-wrap" style="height:260px"><canvas id="concentChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💡 품질 인사이트 (Worst 3)</div>
+    <div id="insights" style="padding-top:4px"></div>
+  </div>
+</div>
+
+<!-- Inquiry Table -->
+<div class="table-section">
+  <div class="card-title">📝 접수 문의 현황 (이슈 유형별 · 86건)</div>
+  <div class="tbl-wrap">
+    <table id="inqTable">
+      <thead>
+        <tr>
+          <th>이슈유형</th>
+          <th>접수번호</th>
+          <th>제조번호(SN)</th>
+          <th>모델</th>
+          <th>센터</th>
+          <th>버전</th>
+          <th>문의 내용</th>
+          <th>시간</th>
+        </tr>
+      </thead>
+      <tbody id="tblBody"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · 2026-08-05 생성</div>
 
 <script>
-const DAILY = {
-  labels:['7/1','7/2','7/3','7/4','7/6','7/7','7/8','7/9','7/10','7/11','7/13','7/14'],
-  values:[129,102,142,27,207,165,124,141,160,7,143,211]
-};
-const MODEL={labels:['S26 Ultra','S26','S26+'],values:[156,113,97],colors:['#1428A0','#4A6FE3','#94B4F5']};
-const RESOLVE={labels:['분석중','이슈아님','SW 이슈'],values:[23,6,1],colors:['#fbbf24','#34d399','#60a5fa']};
-const ISSUE_CATS=['APP·S/W','화면','충전','카메라','송수화/사운드','급방전','송수신','전원','S펜','발열','외관','센서','터치','USIM','BT','버튼','재부팅','WiFi'];
-const ISSUE_CUMUL=[154,166,49,209,63,22,12,29,9,26,80,7,34,12,28,23,58,19];
-// 7/14 재분석 값 (전원 10건 반영, 송수신 4건 반영, APP·S/W 21건)
-const ISSUE_TODAY=[21,16,9,6,6,4,4,10,2,4,3,0,0,4,2,4,3,1];
+const HOURS = [8,9,10,11,12,13,14,15,16,17,18];
+const HOUR_COUNTS = [13,57,41,14,117,67,109,147,91,84,31];
 
-new Chart(document.getElementById('dailyChart'),{type:'bar',data:{labels:DAILY.labels,datasets:[{label:'메시지',data:DAILY.values,backgroundColor:DAILY.values.map(v=>v>=200?'#1428A0':v>=150?'#3B52C4':v>=100?'#4A6FE3':v>=50?'#94B4F5':'#c7d6fc'),borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y}건`}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'#f0f2f5'},ticks:{font:{size:11}},beginAtZero:true}}}});
-new Chart(document.getElementById('modelChart'),{type:'doughnut',data:{labels:MODEL.labels,datasets:[{data:MODEL.values,backgroundColor:MODEL.colors,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('resolveChart'),{type:'doughnut',data:{labels:RESOLVE.labels,datasets:[{data:RESOLVE.values,backgroundColor:RESOLVE.colors,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:false}}}});
+const MODELS = ['SM-F971N\n(Fold8)','SM-F976N\n(Fold8 Ultra)','SM-F776N\n(Flip8)'];
+const MODEL_COUNTS = [124,57,19];
 
-new Chart(document.getElementById('issueChart'),{type:'bar',data:{labels:ISSUE_CATS,datasets:[{label:'누적',data:ISSUE_CUMUL,backgroundColor:'#1428A0',borderRadius:3,borderSkipped:false},{label:'7/14',data:ISSUE_TODAY,backgroundColor:'#FF6B35',borderRadius:3,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},boxWidth:12}}},scales:{x:{grid:{color:'#f0f2f5'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+const ISSUE_CATS = ['화면','카메라','외관','APP·S/W','기타','송수신','송수화/사운드','충전','USIM','WiFi','전원'];
+const ISSUE_VALS = [68,31,31,16,15,13,6,4,3,2,2];
 
+const CENTER_LABELS = ['분당센터','광명센터','동탄센터','북전주센터','대곡센터','양주센터','광양센터','강동센터','방배센터','수지센터','진주센터','부산센터','서대구센터','강서센터','당진센터'];
+const CENTER_VALS = [8,7,6,5,5,5,4,4,4,4,4,4,4,4,4];
 
-// 7/14 차트: 3건 이상만 필터링, 오늘 수치 내림차순 정렬
-const avg14 = ISSUE_CUMUL.map(v => v / 14);
-const filtered = ISSUE_CATS
-  .map((cat, i) => ({ cat, today: ISSUE_TODAY[i], cumul: ISSUE_CUMUL[i], avg: avg14[i] }))
-  .filter(d => d.today >= 3)
-  .sort((a, b) => b.today - a.today);
+// --- Chart defaults ---
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
 
-const todayLabels = filtered.map(d => d.cat);
-const todayVals   = filtered.map(d => d.today);
-const todayColors = filtered.map(d => d.today > d.avg * 3.0 ? '#ef4444' : d.today > d.avg * 1.8 ? '#f97316' : '#94B4F5');
-
-new Chart(document.getElementById('todayChart'), {
+// Hourly bar chart
+new Chart(document.getElementById('hourlyChart'), {
   type: 'bar',
-  data: { labels: todayLabels, datasets: [{ label:'7/14', data: todayVals, backgroundColor: todayColors, borderRadius:4, borderSkipped:false }] },
+  data: {
+    labels: HOURS.map(h => h+'시'),
+    datasets: [{
+      data: HOUR_COUNTS,
+      backgroundColor: HOUR_COUNTS.map(v => v === Math.max(...HOUR_COUNTS) ? '#f85149' : v > 80 ? '#f97316' : '#58a6ff'),
+      borderRadius: 4, borderSkipped: false,
+    }]
+  },
   options: {
-    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: (c) => {
-        const d = filtered[c.dataIndex];
-        const ratio = (d.today / d.avg).toFixed(1);
-        return [`${c.parsed.x}건`, `일평균 ${d.avg.toFixed(1)}건 (${ratio}배)`];
-      }}}
-    },
+    responsive: true, maintainAspectRatio: false,
+    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
     scales: {
-      x: { grid: { color: '#f0f2f5' }, ticks: { font: { size: 10 } }, beginAtZero: true },
-      y: { grid: { display: false }, ticks: { font: { size: 11 }, color: (ctx) => {
-        const d = filtered[ctx.index];
-        return d && d.today > d.avg * 3.0 ? '#b91c1c' : d && d.today > d.avg * 1.8 ? '#c2410c' : '#334155';
-      }}}
+      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:11}}},
+      y: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:11}}}
     }
   }
 });
 
-const PLM_DATA=[
-  {cat:'APP·S/W',plm:'P260624-02041',date:'6/24',issue:'AOD 화면 누르면 표시 기능 / 쇼파 위에서 작동 안됨',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260624-02068',date:'6/24',issue:'카톡 앱 내 링크 페이지 화면전환 시 깜빡임',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260629-01060',date:'6/29',issue:'앱 사용 중 종료됨 (SMS948NZVWKOO / ZF1)',resolve:'이슈아님'},
-  {cat:'APP·S/W',plm:'P260629-03549',date:'6/29',issue:'원폰→투폰 전환 후 하단 네비게이션바 사라짐',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260629-03814',date:'6/29',issue:'넷플릭스 영상 표시 불, 음성·자막 O',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260630-05554',date:'6/30',issue:'유튜브 PIP 모드 조절 불가',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260702-05264',date:'7/2', issue:'리디완전판 어플 사용 시 전화 수신·발신 안됨 / 전원 꺼짐',resolve:'이슈아님'},
-  {cat:'APP·S/W',plm:'P260702-02417',date:'7/2', issue:'스마트스위치 데이터 이동 중 재부팅 후 데이터 삭제',resolve:'분석중'},
-  {cat:'APP·S/W',plm:'P260703-04353',date:'7/3', issue:'스마트스위치 카톡 이동 시 데이터 누락 (72GB→68GB)',resolve:'이슈아님'},
-  {cat:'APP·S/W',plm:'P260706-03860',date:'7/6', issue:'One UI 8.5 업데이트 후 모든 소리 불 / 동영상·카메라 촬영 불',resolve:'분석중'},
-  {cat:'화면',plm:'P260624-02430',date:'6/24',issue:'커버화면 흐릿해짐 (SM-F966N / ZF1)',resolve:'SW 이슈'},
-  {cat:'화면',plm:'P260626-03022',date:'6/26',issue:'상단바 및 Edge 패널 터치시 화면 깜빡거림 (재현 영상 첨부)',resolve:'분석중'},
-  {cat:'화면',plm:'P260702-02361',date:'7/2', issue:'서브화면 초록색 화면 발생 (충전 아닌 상태에서도 발생)',resolve:'분석중'},
-  {cat:'화면',plm:'P260702-06206',date:'7/2', issue:'화면 불량 디버그 분석 요청 (SMS948N)',resolve:'분석중'},
-  {cat:'화면',plm:'P260706-07044',date:'7/6', issue:'대기화면 및 터치 작동 시 멈춤 / UI 중지 팝업 발생 / 초기화 후 재발',resolve:'분석중'},
-  {cat:'화면',plm:'P260707-02606',date:'7/7', issue:'사용 중 화면 떨림 / 마지막 재현 7/5 20:26 (SM-X730NZAAKOO / ZE3)',resolve:'분석중'},
-  {cat:'송수화/사운드',plm:'P260629-01166',date:'6/29',issue:'블루투스 버즈3 FE 연결 후 영상 시청 중 위치 켜면 소리 안들림',resolve:'분석중'},
-  {cat:'송수화/사운드',plm:'P260701-02215',date:'7/1', issue:'미디어 실행 도중 볼륨 조절 시 통화 수화음 조절됨',resolve:'이슈아님'},
-  {cat:'S펜',plm:'P260713-03311',date:'7/13',issue:'구매 후 업그레이드 진행 후 S펜 인식 불가 / 착탈 인식 불량',resolve:'이슈아님'},
-  {cat:'재부팅',plm:'P260713-00995',date:'7/13',issue:'구입 7일째 전원 자동 재부팅 / 진단툴 DP 4회 확인 / 특정 조건 불명확',resolve:'이슈아님'},
-  {cat:'기타',plm:'P260622-02109',date:'6/22',issue:'메인보드 교체 후 동일 증상 반복 (KP 다발생)',resolve:'분석중'},
-  {cat:'기타',plm:'P260623-04951',date:'6/23',issue:'분석 요청 (상세내용 미확인)',resolve:'분석중'},
-  {cat:'기타',plm:'P260624-05350',date:'6/24',issue:'분석 요청 (상세내용 미확인)',resolve:'분석중'},
-  {cat:'기타',plm:'P260626-04076',date:'6/26',issue:'분석 요청 (상세내용 미확인)',resolve:'분석중'},
-  {cat:'기타',plm:'P260629-01141',date:'6/29',issue:'분석 결과 문의',resolve:'분석중'},
-  {cat:'기타',plm:'P260630-02521',date:'6/30',issue:'고객 지속 불만 제기 / 분석 결과 문의',resolve:'분석중'},
-  {cat:'기타',plm:'P260702-06137',date:'7/2', issue:'7/2 펌웨어 업그레이드 이후 송수화음 불 및 카메라 이슈 (연관 가능성)',resolve:'분석중'},
-  {cat:'기타',plm:'P260703-04619',date:'7/3', issue:'분석 답변 확인 문의',resolve:'분석중'},
-  {cat:'기타',plm:'P260709-02166',date:'7/9', issue:'분석 결과 확인 문의',resolve:'분석중'},
-  {cat:'기타',plm:'P260713-00982',date:'7/13',issue:'14일 이내 분석 확인 요청',resolve:'분석중'},
+// Model donut
+new Chart(document.getElementById('modelChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['SM-F971N\n(Fold8)','SM-F976N\n(Fold8 Ultra)','SM-F776N\n(Flip8)'],
+    datasets: [{
+      data: MODEL_COUNTS,
+      backgroundColor: ['#58a6ff','#3fb950','#e3b341'],
+      borderWidth: 0, hoverOffset: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout:'65%',
+    plugins: {
+      legend:{position:'right', labels:{font:{size:11}, padding:8, color:'#c9d1d9'}},
+      tooltip:{callbacks:{label: ctx => ` ${ctx.label.split('\n')[0]}: ${ctx.raw}건 (${Math.round(ctx.raw/200*100)}%)`}}
+    }
+  }
+});
+
+// Issue bar (top 8)
+new Chart(document.getElementById('issueChart'), {
+  type: 'bar',
+  data: {
+    labels: ISSUE_CATS.slice(0,8),
+    datasets: [{
+      data: ISSUE_VALS.slice(0,8),
+      backgroundColor: ['#f85149','#f85149','#f85149','#58a6ff','#8b949e','#58a6ff','#58a6ff','#58a6ff'],
+      borderRadius: 4, borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
+    scales: {
+      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:10}}},
+      y: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:10}}}
+    }
+  }
+});
+
+// Center chart
+new Chart(document.getElementById('centerChart'), {
+  type: 'bar',
+  data: {
+    labels: CENTER_LABELS,
+    datasets: [{data: CENTER_VALS, backgroundColor:'#94B4F5', borderRadius:3, borderSkipped:false}]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
+    scales: {
+      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:10}}},
+      y: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:9}}}
+    }
+  }
+});
+
+// Concentration chart
+const total = ISSUE_VALS.reduce((a,b)=>a+b,0);
+const concCats = ISSUE_CATS.slice(0,6);
+const concVals = ISSUE_VALS.slice(0,6);
+const concPct = concVals.map(v => parseFloat((v/total*100).toFixed(1)));
+
+new Chart(document.getElementById('concentChart'), {
+  type: 'bar',
+  data: {
+    labels: concCats,
+    datasets: [{
+      label: '비율(%)',
+      data: concPct,
+      backgroundColor: concPct.map(p => p > 30 ? '#f85149' : p > 14 ? '#f97316' : '#58a6ff'),
+      borderRadius: 4, borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend:{display:false},
+      tooltip:{callbacks:{label: ctx => ` ${ctx.raw}% (${concVals[ctx.dataIndex]}건)`}}
+    },
+    scales: {
+      x: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:10}}},
+      y: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:10}, callback: v => v+'%'}}
+    }
+  }
+});
+
+// Insights
+const insightData = [
+  {rank:'Worst 1', color:'#f85149', icon:'🔴', title:'화면 불량', count:68, total:total,
+   desc:'폴딩 주름/구김, 커버화면 이상 집중 — 전체 문의의 35%'},
+  {rank:'Worst 2', color:'#f97316', icon:'🟠', title:'카메라 이물/찍힘', count:31, total:total,
+   desc:'개봉 직후 카메라 데코 찍힘/이물 발견 다수 — 출하 품질 확인 필요'},
+  {rank:'Worst 3', color:'#f97316', icon:'🟠', title:'외관 스크래치/찍힘', count:31, total:total,
+   desc:'개봉 직후 발견 주장건 집중 — 공정사진 조회 요청 다수'},
+];
+const insDiv = document.getElementById('insights');
+insightData.forEach(d => {
+  const pct = (d.count/d.total*100).toFixed(1);
+  insDiv.innerHTML += `
+  <div class="insight-card" style="--ic:${d.color}">
+    <div class="insight-rank">${d.icon} ${d.rank}</div>
+    <div class="insight-title">${d.title} — ${d.count}건 (${pct}%)</div>
+    <div class="insight-meta">${d.desc}</div>
+    <div class="insight-bar-wrap"><div class="insight-bar" style="width:${pct}%"></div></div>
+  </div>`;
+});
+
+// Inquiry Table
+const INQ_DATA = [
+  {cat:'APP·S/W',acc:'202607291441G23SF1',sn:'R5KL10BGVV',model:'-',center:'모바일 김해센터',ver:'ZG3',symptom:'배경 및 잠금화면 저절로 바뀜 / 미재현',time:'13:50'},
+  {cat:'APP·S/W',acc:'202608021415WEB651',sn:'RFKL70BAGS',model:'-',center:'모바일 광명센터',ver:'-',symptom:'충전 알림 시간보다 충전속도 많이 느림, 삼성맴버스 오류',time:'14:01'},
+  {cat:'APP·S/W',acc:'202608041400E07147',sn:'RFKL709QKX',model:'SM-F976N',center:'모바일 관악센터',ver:'ZGI',symptom:'블루투스 연결 안됨 (8/4 오후 1~2시 차량 연결 시도)',time:'14:39'},
+  {cat:'APP·S/W',acc:'202608041634E18103',sn:'R5KL70603D',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'벨소리/문자 알림 시 고주파음(삐~) 함께 들림',time:'16:53'},
+  {cat:'화면',acc:'202608040946E18103',sn:'R5KL7081WC',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'개봉 후 내부 화면 우측 끝단 쭈글쭈글 (화면 동작 정상)',time:'10:00'},
+  {cat:'화면',acc:'202608040917E30201',sn:'R5KL708CSC',model:'SM-F971N',center:'모바일 구리센터',ver:'ZFW',symptom:'개봉 후 외부 화면 우측 상단 찍힘 발견 주장',time:'10:00'},
+  {cat:'화면',acc:'202608041502M14101',sn:'R5KL70A40N',model:'SM-F971N',center:'모바일 목동센터',ver:'ZGI',symptom:'커버화면 접은 상태에서 빛 번짐 (접힌 부분 가장자리)',time:'15:15'},
+  {cat:'화면',acc:'202608040926F32101',sn:'R5KL7081QK',model:'SM-F971N',center:'모바일광주센터',ver:'ZFW',symptom:'개봉 후 내부화면 주름 불량 발견 고객 주장',time:'09:30'},
+  {cat:'화면',acc:'202608041133E37104',sn:'R5KL706AZF',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'개봉 후 외부화면 표시 흐릿한 증상 (화면 정상 구동)',time:'11:45'},
+  {cat:'화면',acc:'202608041456E22101',sn:'R5KL70839W',model:'SM-F971N',center:'모바일 분당센터',ver:'ZGI',symptom:'폴딩 상태 커버화면 우측 하단 미표시 증상',time:'15:00'},
+  {cat:'화면',acc:'202608041338M08101',sn:'R5KL7086T1',model:'SM-F976N',center:'모바일강서센터',ver:'ZGI',symptom:'커버화면 상단 빛 새는 현상 및 표시 이상',time:'13:50'},
+  {cat:'화면',acc:'202608040958E14101',sn:'R5KL70829G',model:'SM-F971N',center:'모바일 목동센터',ver:'ZFW',symptom:'개봉 후 내부 화면 주름(구김) 확인 요청',time:'10:10'},
+  {cat:'카메라',acc:'202608031415F19906',sn:'R5KL706AZC',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'8/3 개봉건 외관 찍힘, 고객 개봉 시 발견 주장 — 출하사진 확인',time:'09:15'},
+  {cat:'카메라',acc:'202608040901F37104',sn:'R5KL702G7P',model:'SM-F971N',center:'모바일광양센터',ver:'ZGI',symptom:'카메라 데코부분 찍힘 — 개봉 직후 확인 주장, 공정사진 확인 요청',time:'09:05'},
+  {cat:'카메라',acc:'202608041102E30201',sn:'R5KL7083WA',model:'SM-F971N',center:'모바일 구리센터',ver:'ZFW',symptom:'카메라 렌즈 내 이물 확인 요청',time:'11:10'},
+  {cat:'카메라',acc:'202608041230F11401',sn:'R5KL708EYJ',model:'SM-F976N',center:'모바일 부산센터',ver:'ZGI',symptom:'카메라 촬영 시 초점 흐림 (재현 조건 확인 중)',time:'12:35'},
+  {cat:'카메라',acc:'202608041415E09101',sn:'R5KL7089V3',model:'SM-F971N',center:'모바일 동탄센터',ver:'ZFW',symptom:'후면 카메라 이물 — 개봉 직후 발견',time:'14:20'},
+  {cat:'외관',acc:'202608041045E25101',sn:'R5KL7084HC',model:'SM-F971N',center:'모바일 수원센터',ver:'ZGI',symptom:'개봉 후 외관 스크래치 발견 고객 주장 — 출하사진 요청',time:'10:50'},
+  {cat:'외관',acc:'202608041305F07101',sn:'R5KL7085NK',model:'SM-F976N',center:'모바일 강남센터',ver:'ZGI',symptom:'개봉 직후 후면 찍힘 발견 주장 (공정 기인 주장)',time:'13:10'},
+  {cat:'외관',acc:'202608041420E18103',sn:'R5KL70881P',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'힌지 부근 이음새 이격 확인 요청',time:'14:25'},
+  {cat:'외관',acc:'202608041510F19906',sn:'R5KL708GWQ',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'외부 화면 프레임 스크래치 — 개봉 시 발견 주장',time:'15:15'},
+  {cat:'외관',acc:'202608041600E33101',sn:'R5KL7088XL',model:'SM-F976N',center:'모바일 인천센터',ver:'ZGI',symptom:'후면 카메라부 찍힘 — 개봉직후 확인',time:'16:05'},
+  {cat:'송수신',acc:'202608041135E02101',sn:'R5KL708BMV',model:'SM-F971N',center:'모바일 강북센터',ver:'ZFW',symptom:'IMEI 관련 문의 — 개통 처리 중 오류 발생',time:'11:40'},
+  {cat:'송수신',acc:'202608041320F25101',sn:'R5KL7087JP',model:'SM-F976N',center:'모바일 수원센터',ver:'ZGI',symptom:'전화 발신 불가 증상 — 임시 개통 처리 후 발생',time:'13:25'},
+  {cat:'송수화/사운드',acc:'202608041215E18103',sn:'R5KL7086QA',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'통화 중 수화음 간헐적 끊김 — 핸즈프리 정상',time:'12:20'},
+  {cat:'충전',acc:'202608041430E30201',sn:'R5KL7088KT',model:'SM-F971N',center:'모바일 구리센터',ver:'ZGI',symptom:'충전 시 고속충전 미지원 표시 (정품 어댑터 사용)',time:'14:35'},
+  {cat:'USIM',acc:'202608041520F11401',sn:'R5KL7089MF',model:'SM-F971N',center:'모바일 부산센터',ver:'ZFW',symptom:'USIM 미인식 — 재삽입 후 인식 됨, 반복 발생',time:'15:25'},
+  {cat:'WiFi',acc:'202608041545E09101',sn:'R5KL7089WT',model:'SM-F976N',center:'모바일 동탄센터',ver:'ZGI',symptom:'WiFi 간헐적 끊김 — 특정 AP 환경에서 재현',time:'15:50'},
+  {cat:'전원',acc:'202608041630E25101',sn:'R5KL708HLP',model:'SM-F971N',center:'모바일 수원센터',ver:'ZGI',symptom:'간헐적 전원 꺼짐 — 사용 중 돌발 재부팅',time:'16:35'},
+  {cat:'기타',acc:'202608041155E37104',sn:'R5KL7086AR',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'개봉 후 공정사진 확인 요청 (증상 상세 미확인)',time:'11:58'},
+  {cat:'기타',acc:'202608041340F07101',sn:'R5KL7087VN',model:'SM-F976N',center:'모바일 강남센터',ver:'ZGI',symptom:'RDM 로그 분석 결과 문의',time:'13:45'},
 ];
 
-const CAT_ORDER=['APP·S/W','화면','충전','카메라','송수화/사운드','급방전','송수신','전원','S펜','발열','외관','센서','터치','USIM','BT','버튼','기구(형합성)','재부팅','WiFi','손상/파손','기타'];
-const CAT_CLS={'APP·S/W':'app-sw','화면':'screen','충전':'charge','카메라':'camera','송수화/사운드':'sound','급방전':'battery','송수신':'signal','전원':'power','S펜':'spen','발열':'heat','외관':'exterior','센서':'sensor','터치':'touch','USIM':'usim','BT':'bt','버튼':'button','기구(형합성)':'mech','재부팅':'reboot','WiFi':'wifi','손상/파손':'damage','기타':'etc'};
-
-function badge(r){
-  if(r==='SW 이슈') return '<span class="badge badge-sw">SW 이슈</span>';
-  if(r==='HW 이슈') return '<span class="badge badge-hw">HW 이슈</span>';
-  if(r==='이슈아님') return '<span class="badge badge-noissue">이슈아님</span>';
-  return '<span class="badge badge-wip">분석중</span>';
-}
-
-const grouped={};
-PLM_DATA.forEach(r=>{if(!grouped[r.cat])grouped[r.cat]=[];grouped[r.cat].push(r);});
-let html='';
-CAT_ORDER.forEach(cat=>{
-  const rows=grouped[cat];
-  if(!rows||!rows.length) return;
-  const cls=CAT_CLS[cat]||'etc';
-  html+=`<tr class="cat-header cat-${cls}"><td colspan="5">${cat} <span class="cat-badge">${rows.length}건</span></td></tr>`;
-  rows.forEach(r=>{
-    html+=`<tr><td></td><td class="plm-id">${r.plm}</td><td>${r.date}</td><td>${r.issue}</td><td>${badge(r.resolve)}</td></tr>`;
-  });
+const CAT_COLORS = {
+  '화면':'cat-화면','카메라':'cat-카메라','외관':'cat-화면','APP·S/W':'cat-APP',
+  '송수신':'cat-송수신','송수화/사운드':'cat-송수화','충전':'cat-충전','기타':'cat-기타',
+  'USIM':'cat-기타','WiFi':'cat-기타','전원':'cat-충전'
+};
+const CAT_ORDER_ARR = ['APP·S/W','화면','카메라','외관','송수신','송수화/사운드','충전','USIM','WiFi','전원','기타'];
+let lastCat = '';
+const tbody = document.getElementById('tblBody');
+INQ_DATA.sort((a,b) => CAT_ORDER_ARR.indexOf(a.cat) - CAT_ORDER_ARR.indexOf(b.cat));
+INQ_DATA.forEach(r => {
+  if (r.cat !== lastCat) {
+    const hdr = document.createElement('tr');
+    hdr.className = 'cat-group-hdr';
+    hdr.innerHTML = `<td colspan="8">▸ ${r.cat}</td>`;
+    tbody.appendChild(hdr);
+    lastCat = r.cat;
+  }
+  const tr = document.createElement('tr');
+  const cc = CAT_COLORS[r.cat] || 'cat-기타';
+  tr.innerHTML = `
+    <td><span class="cat-badge ${cc}">${r.cat}</span></td>
+    <td style="font-size:10px;color:#6e7681">${r.acc}</td>
+    <td style="font-family:monospace;font-size:11px">${r.sn}</td>
+    <td>${r.model}</td>
+    <td style="font-size:11px">${r.center}</td>
+    <td>${r.ver}</td>
+    <td>${r.symptom}</td>
+    <td style="color:#8b949e">${r.time}</td>`;
+  tbody.appendChild(tr);
 });
-document.getElementById('plmTbody').innerHTML=html;
 </script>
 </body>
 </html>
