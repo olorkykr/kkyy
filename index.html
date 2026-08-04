@@ -13,9 +13,7 @@ body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI','Noto Sans KR',sans
 .header-left .sub{font-size:12px;color:#8b949e;margin-top:2px;}
 .header-right{text-align:right;font-size:12px;color:#8b949e;}
 .badge{display:inline-block;background:#1f6feb;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;}
-.badge.green{background:#238636;}
 .content{padding:16px 24px;}
-/* KPI */
 .kpi-row{display:flex;gap:12px;margin-bottom:16px;}
 .kpi{flex:1;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px 16px;position:relative;overflow:hidden;}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,#58a6ff);}
@@ -23,45 +21,40 @@ body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI','Noto Sans KR',sans
 .kpi-val{font-size:26px;font-weight:700;color:#e6edf3;line-height:1.2;margin-top:4px;}
 .kpi-unit{font-size:12px;color:#8b949e;margin-left:2px;}
 .kpi-sub{font-size:11px;color:#6e7681;margin-top:4px;}
-/* Charts row */
-.row2{display:flex;gap:12px;margin-bottom:16px;}
+.row2{display:flex;gap:12px;margin-bottom:16px;align-items:stretch;}
 .card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;}
 .card-title{font-size:12px;font-weight:600;color:#8b949e;margin-bottom:10px;letter-spacing:.3px;text-transform:uppercase;}
-.chart-wrap{position:relative;}
-.row2 .card:nth-child(1){flex:2;}
-.row2 .card:nth-child(2){flex:1;}
-.row2 .card:nth-child(3){flex:1;}
-/* Middle row */
-.row3{display:flex;gap:12px;margin-bottom:16px;}
-.row3 .card{flex:1;}
-/* Insights */
-.insight-card{background:#161b22;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--ic,#58a6ff);}
+.row2 .card-donut{flex:1;}
+.row2 .card-bar{flex:1.4;}
+.row2 .card-insights{flex:1.2;}
+.insight-card{background:#0d1117;border-radius:8px;padding:11px 12px;margin-bottom:8px;border-left:3px solid var(--ic,#58a6ff);}
 .insight-card:last-child{margin-bottom:0;}
-.insight-rank{font-size:10px;color:#8b949e;margin-bottom:4px;font-weight:600;}
-.insight-title{font-size:14px;font-weight:700;color:#e6edf3;margin-bottom:4px;}
-.insight-meta{font-size:11px;color:#8b949e;}
+.insight-rank{font-size:10px;color:#8b949e;margin-bottom:3px;font-weight:600;}
+.insight-title{font-size:13px;font-weight:700;color:#e6edf3;margin-bottom:3px;}
+.insight-meta{font-size:11px;color:#8b949e;line-height:1.4;}
 .insight-bar-wrap{margin-top:6px;height:4px;background:#21262d;border-radius:2px;}
 .insight-bar{height:4px;border-radius:2px;background:var(--ic,#58a6ff);}
-/* Table */
 .table-section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:16px;}
-.table-section .card-title{margin-bottom:10px;}
-.tbl-wrap{overflow-x:auto;max-height:420px;overflow-y:auto;}
+.tbl-wrap{overflow-x:auto;max-height:460px;overflow-y:auto;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
-th{background:#21262d;color:#8b949e;font-weight:600;padding:8px 10px;text-align:left;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:1;}
+th{background:#21262d;color:#8b949e;font-weight:600;padding:8px 10px;text-align:left;border-bottom:1px solid #30363d;position:sticky;top:0;z-index:1;white-space:nowrap;}
 td{padding:7px 10px;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top;}
 tr:hover td{background:#1c2333;}
-.cat-badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;background:#21262d;color:#8b949e;}
-.cat-화면{background:#1a3a5c;color:#79c0ff;}
-.cat-카메라{background:#1f3a1a;color:#56d364;}
-.cat-외관{background:#3a2a1a;color:#ffa657;}
-.cat-APP{background:#2a1a3a;color:#d2a8ff;}
-.cat-기타{background:#21262d;color:#8b949e;}
-.cat-송수신{background:#1a3a3a;color:#56cfcf;}
-.cat-송수화{background:#3a3a1a;color:#e3b341;}
-.cat-충전{background:#2a1a1a;color:#f78166;}
-/* Category group header */
+.cat-badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;white-space:nowrap;}
+.c화면{background:#1a3a5c;color:#79c0ff;}
+.c카메라{background:#1f3a1a;color:#56d364;}
+.c외관{background:#3a2a1a;color:#ffa657;}
+.cAPP{background:#2a1a3a;color:#d2a8ff;}
+.c기타{background:#21262d;color:#8b949e;}
+.c송수신{background:#1a3a3a;color:#56cfcf;}
+.c송수화{background:#3a3a1a;color:#e3b341;}
+.c충전{background:#2a1a1a;color:#f78166;}
+.c전원{background:#2a1a1a;color:#f78166;}
+.c센서{background:#1a2a3a;color:#94B4F5;}
+.c기구{background:#2a2a1a;color:#e3b341;}
+.cBT{background:#1a2a2a;color:#56cfcf;}
+.cWiFi{background:#1a2a1a;color:#56d364;}
 .cat-group-hdr td{background:#1c2333 !important;color:#58a6ff;font-weight:700;font-size:11px;letter-spacing:.5px;padding:6px 10px;}
-/* footer */
 .footer{text-align:center;padding:12px;color:#6e7681;font-size:11px;border-top:1px solid #21262d;}
 </style>
 </head>
@@ -82,8 +75,8 @@ tr:hover td{background:#1c2333;}
 <div class="kpi-row">
   <div class="kpi" style="--accent:#58a6ff">
     <div class="kpi-label">총 문의</div>
-    <div class="kpi-val">192<span class="kpi-unit">건</span></div>
-    <div class="kpi-sub">단말 문의 양식 기준</div>
+    <div class="kpi-val">79<span class="kpi-unit">건</span></div>
+    <div class="kpi-sub">단말 접수번호 기준</div>
   </div>
   <div class="kpi" style="--accent:#3fb950">
     <div class="kpi-label">총 메시지</div>
@@ -103,47 +96,31 @@ tr:hover td{background:#1c2333;}
   <div class="kpi" style="--accent:#e3b341">
     <div class="kpi-label">주요 기종</div>
     <div class="kpi-val" style="font-size:18px">Z Fold8</div>
-    <div class="kpi-sub">SM-F971N 124건 · SM-F976N 57건</div>
+    <div class="kpi-sub">SM-F971N 48건 · SM-F976N 21건</div>
   </div>
 </div>
 
 <!-- Charts row -->
 <div class="row2">
-  <div class="card">
-    <div class="card-title">📊 시간대별 문의 현황 (8월 4일)</div>
-    <div class="chart-wrap" style="height:200px"><canvas id="hourlyChart"></canvas></div>
-  </div>
-  <div class="card">
+  <div class="card card-donut">
     <div class="card-title">📱 모델별 분포</div>
-    <div class="chart-wrap" style="height:200px"><canvas id="modelChart"></canvas></div>
+    <div style="position:relative;height:220px"><canvas id="modelChart"></canvas></div>
   </div>
-  <div class="card">
-    <div class="card-title">🔧 이슈 유형 TOP 8</div>
-    <div class="chart-wrap" style="height:200px"><canvas id="issueChart"></canvas></div>
+  <div class="card card-bar">
+    <div class="card-title">🔧 이슈 유형 집중도 분석</div>
+    <div style="position:relative;height:220px"><canvas id="issueChart"></canvas></div>
   </div>
-</div>
-
-<!-- Middle row -->
-<div class="row3">
-  <div class="card">
-    <div class="card-title">🏢 센터별 문의 현황 (상위 15)</div>
-    <div class="chart-wrap" style="height:260px"><canvas id="centerChart"></canvas></div>
-  </div>
-  <div class="card">
-    <div class="card-title">📋 이슈 유형 집중도 분석</div>
-    <div class="chart-wrap" style="height:260px"><canvas id="concentChart"></canvas></div>
-  </div>
-  <div class="card">
+  <div class="card card-insights">
     <div class="card-title">💡 품질 인사이트 (Worst 3)</div>
-    <div id="insights" style="padding-top:4px"></div>
+    <div id="insights"></div>
   </div>
 </div>
 
-<!-- Inquiry Table -->
+<!-- Table -->
 <div class="table-section">
-  <div class="card-title">📝 접수 문의 현황 (이슈 유형별 · 86건)</div>
+  <div class="card-title">📝 접수 문의 현황 (이슈 유형별 · 실제 79건 / MHT 원본 기준)</div>
   <div class="tbl-wrap">
-    <table id="inqTable">
+    <table>
       <thead>
         <tr>
           <th>이슈유형</th>
@@ -162,128 +139,53 @@ tr:hover td{background:#1c2333;}
 </div>
 </div>
 
-<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · 2026-08-05 생성</div>
+<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · 2026-08-05 생성 · 실제 MHT 원본 데이터 기준</div>
 
 <script>
-const HOURS = [8,9,10,11,12,13,14,15,16,17,18];
-const HOUR_COUNTS = [13,57,41,14,117,67,109,147,91,84,31];
-
-const MODELS = ['SM-F971N\n(Fold8)','SM-F976N\n(Fold8 Ultra)','SM-F776N\n(Flip8)'];
-const MODEL_COUNTS = [124,57,19];
-
-const ISSUE_CATS = ['화면','카메라','외관','APP·S/W','기타','송수신','송수화/사운드','충전','USIM','WiFi','전원'];
-const ISSUE_VALS = [68,31,31,16,15,13,6,4,3,2,2];
-
-const CENTER_LABELS = ['분당센터','광명센터','동탄센터','북전주센터','대곡센터','양주센터','광양센터','강동센터','방배센터','수지센터','진주센터','부산센터','서대구센터','강서센터','당진센터'];
-const CENTER_VALS = [8,7,6,5,5,5,4,4,4,4,4,4,4,4,4];
-
-// --- Chart defaults ---
 Chart.defaults.color = '#8b949e';
 Chart.defaults.borderColor = '#30363d';
-
-// Hourly bar chart
-new Chart(document.getElementById('hourlyChart'), {
-  type: 'bar',
-  data: {
-    labels: HOURS.map(h => h+'시'),
-    datasets: [{
-      data: HOUR_COUNTS,
-      backgroundColor: HOUR_COUNTS.map(v => v === Math.max(...HOUR_COUNTS) ? '#f85149' : v > 80 ? '#f97316' : '#58a6ff'),
-      borderRadius: 4, borderSkipped: false,
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
-    scales: {
-      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:11}}},
-      y: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:11}}}
-    }
-  }
-});
 
 // Model donut
 new Chart(document.getElementById('modelChart'), {
   type: 'doughnut',
   data: {
-    labels: ['SM-F971N\n(Fold8)','SM-F976N\n(Fold8 Ultra)','SM-F776N\n(Flip8)'],
+    labels: ['SM-F971N (Fold8)','SM-F976N (Fold8 Ultra)','SM-F776N (Flip8)','기타'],
     datasets: [{
-      data: MODEL_COUNTS,
-      backgroundColor: ['#58a6ff','#3fb950','#e3b341'],
+      data: [48, 21, 7, 3],
+      backgroundColor: ['#58a6ff','#3fb950','#e3b341','#6e7681'],
       borderWidth: 0, hoverOffset: 6,
     }]
   },
   options: {
-    responsive: true, maintainAspectRatio: false, cutout:'65%',
+    responsive: true, maintainAspectRatio: false, cutout: '60%',
     plugins: {
-      legend:{position:'right', labels:{font:{size:11}, padding:8, color:'#c9d1d9'}},
-      tooltip:{callbacks:{label: ctx => ` ${ctx.label.split('\n')[0]}: ${ctx.raw}건 (${Math.round(ctx.raw/200*100)}%)`}}
+      legend: {position:'right', labels:{font:{size:11}, padding:10, color:'#c9d1d9', boxWidth:12}},
+      tooltip: {callbacks:{label: ctx => ` ${ctx.raw}건 (${Math.round(ctx.raw/79*100)}%)`}}
     }
   }
 });
 
-// Issue bar (top 8)
+// Issue concentration bar
+const CATS  = ['화면','외관','송수신','APP·S/W','카메라','충전','기타','송수화/사운드','전원','센서'];
+const VALS  = [25,    15,   8,      7,         5,       4,    5,    3,              2,    2   ];
+const TOTAL = 79;
+const PCTS  = VALS.map(v => parseFloat((v/TOTAL*100).toFixed(1)));
+
 new Chart(document.getElementById('issueChart'), {
   type: 'bar',
   data: {
-    labels: ISSUE_CATS.slice(0,8),
+    labels: CATS,
     datasets: [{
-      data: ISSUE_VALS.slice(0,8),
-      backgroundColor: ['#f85149','#f85149','#f85149','#58a6ff','#8b949e','#58a6ff','#58a6ff','#58a6ff'],
-      borderRadius: 4, borderSkipped: false,
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true, maintainAspectRatio: false,
-    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
-    scales: {
-      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:10}}},
-      y: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:10}}}
-    }
-  }
-});
-
-// Center chart
-new Chart(document.getElementById('centerChart'), {
-  type: 'bar',
-  data: {
-    labels: CENTER_LABELS,
-    datasets: [{data: CENTER_VALS, backgroundColor:'#94B4F5', borderRadius:3, borderSkipped:false}]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true, maintainAspectRatio: false,
-    plugins: {legend:{display:false}, tooltip:{callbacks:{label: ctx => ` ${ctx.raw}건`}}},
-    scales: {
-      x: {grid:{color:'#21262d'}, ticks:{color:'#8b949e',font:{size:10}}},
-      y: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:9}}}
-    }
-  }
-});
-
-// Concentration chart
-const total = ISSUE_VALS.reduce((a,b)=>a+b,0);
-const concCats = ISSUE_CATS.slice(0,6);
-const concVals = ISSUE_VALS.slice(0,6);
-const concPct = concVals.map(v => parseFloat((v/total*100).toFixed(1)));
-
-new Chart(document.getElementById('concentChart'), {
-  type: 'bar',
-  data: {
-    labels: concCats,
-    datasets: [{
-      label: '비율(%)',
-      data: concPct,
-      backgroundColor: concPct.map(p => p > 30 ? '#f85149' : p > 14 ? '#f97316' : '#58a6ff'),
+      data: PCTS,
+      backgroundColor: PCTS.map(p => p >= 30 ? '#f85149' : p >= 18 ? '#f97316' : '#58a6ff'),
       borderRadius: 4, borderSkipped: false,
     }]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: {
-      legend:{display:false},
-      tooltip:{callbacks:{label: ctx => ` ${ctx.raw}% (${concVals[ctx.dataIndex]}건)`}}
+      legend: {display:false},
+      tooltip: {callbacks:{label: ctx => ` ${ctx.raw}% (${VALS[ctx.dataIndex]}건)`}}
     },
     scales: {
       x: {grid:{display:false}, ticks:{color:'#c9d1d9',font:{size:10}}},
@@ -294,88 +196,138 @@ new Chart(document.getElementById('concentChart'), {
 
 // Insights
 const insightData = [
-  {rank:'Worst 1', color:'#f85149', icon:'🔴', title:'화면 불량', count:68, total:total,
-   desc:'폴딩 주름/구김, 커버화면 이상 집중 — 전체 문의의 35%'},
-  {rank:'Worst 2', color:'#f97316', icon:'🟠', title:'카메라 이물/찍힘', count:31, total:total,
-   desc:'개봉 직후 카메라 데코 찍힘/이물 발견 다수 — 출하 품질 확인 필요'},
-  {rank:'Worst 3', color:'#f97316', icon:'🟠', title:'외관 스크래치/찍힘', count:31, total:total,
-   desc:'개봉 직후 발견 주장건 집중 — 공정사진 조회 요청 다수'},
+  {rank:'Worst 1', color:'#f85149', icon:'🔴', title:'화면 불량', count:25, pct:'31.6',
+   desc:'흑화·흑점·픽셀 이상·크랙 등 — 개봉 직후 발견 케이스 다수'},
+  {rank:'Worst 2', color:'#f97316', icon:'🟠', title:'외관 찍힘/스크래치', count:15, pct:'19.0',
+   desc:'개봉 직후 발견 주장건 집중 — 출하·공정사진 조회 요청'},
+  {rank:'Worst 3', color:'#58a6ff', icon:'🔵', title:'송수신/USIM/개통', count:8, pct:'10.1',
+   desc:'USIM 트레이, KT향 유심 인식, NFC 불량 등'},
 ];
 const insDiv = document.getElementById('insights');
 insightData.forEach(d => {
-  const pct = (d.count/d.total*100).toFixed(1);
   insDiv.innerHTML += `
   <div class="insight-card" style="--ic:${d.color}">
     <div class="insight-rank">${d.icon} ${d.rank}</div>
-    <div class="insight-title">${d.title} — ${d.count}건 (${pct}%)</div>
+    <div class="insight-title">${d.title} — ${d.count}건 (${d.pct}%)</div>
     <div class="insight-meta">${d.desc}</div>
-    <div class="insight-bar-wrap"><div class="insight-bar" style="width:${pct}%"></div></div>
+    <div class="insight-bar-wrap"><div class="insight-bar" style="width:${d.pct}%"></div></div>
   </div>`;
 });
 
-// Inquiry Table
-const INQ_DATA = [
-  {cat:'APP·S/W',acc:'202607291441G23SF1',sn:'R5KL10BGVV',model:'-',center:'모바일 김해센터',ver:'ZG3',symptom:'배경 및 잠금화면 저절로 바뀜 / 미재현',time:'13:50'},
-  {cat:'APP·S/W',acc:'202608021415WEB651',sn:'RFKL70BAGS',model:'-',center:'모바일 광명센터',ver:'-',symptom:'충전 알림 시간보다 충전속도 많이 느림, 삼성맴버스 오류',time:'14:01'},
-  {cat:'APP·S/W',acc:'202608041400E07147',sn:'RFKL709QKX',model:'SM-F976N',center:'모바일 관악센터',ver:'ZGI',symptom:'블루투스 연결 안됨 (8/4 오후 1~2시 차량 연결 시도)',time:'14:39'},
-  {cat:'APP·S/W',acc:'202608041634E18103',sn:'R5KL70603D',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'벨소리/문자 알림 시 고주파음(삐~) 함께 들림',time:'16:53'},
-  {cat:'화면',acc:'202608040946E18103',sn:'R5KL7081WC',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'개봉 후 내부 화면 우측 끝단 쭈글쭈글 (화면 동작 정상)',time:'10:00'},
-  {cat:'화면',acc:'202608040917E30201',sn:'R5KL708CSC',model:'SM-F971N',center:'모바일 구리센터',ver:'ZFW',symptom:'개봉 후 외부 화면 우측 상단 찍힘 발견 주장',time:'10:00'},
-  {cat:'화면',acc:'202608041502M14101',sn:'R5KL70A40N',model:'SM-F971N',center:'모바일 목동센터',ver:'ZGI',symptom:'커버화면 접은 상태에서 빛 번짐 (접힌 부분 가장자리)',time:'15:15'},
-  {cat:'화면',acc:'202608040926F32101',sn:'R5KL7081QK',model:'SM-F971N',center:'모바일광주센터',ver:'ZFW',symptom:'개봉 후 내부화면 주름 불량 발견 고객 주장',time:'09:30'},
-  {cat:'화면',acc:'202608041133E37104',sn:'R5KL706AZF',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'개봉 후 외부화면 표시 흐릿한 증상 (화면 정상 구동)',time:'11:45'},
-  {cat:'화면',acc:'202608041456E22101',sn:'R5KL70839W',model:'SM-F971N',center:'모바일 분당센터',ver:'ZGI',symptom:'폴딩 상태 커버화면 우측 하단 미표시 증상',time:'15:00'},
-  {cat:'화면',acc:'202608041338M08101',sn:'R5KL7086T1',model:'SM-F976N',center:'모바일강서센터',ver:'ZGI',symptom:'커버화면 상단 빛 새는 현상 및 표시 이상',time:'13:50'},
-  {cat:'화면',acc:'202608040958E14101',sn:'R5KL70829G',model:'SM-F971N',center:'모바일 목동센터',ver:'ZFW',symptom:'개봉 후 내부 화면 주름(구김) 확인 요청',time:'10:10'},
-  {cat:'카메라',acc:'202608031415F19906',sn:'R5KL706AZC',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'8/3 개봉건 외관 찍힘, 고객 개봉 시 발견 주장 — 출하사진 확인',time:'09:15'},
-  {cat:'카메라',acc:'202608040901F37104',sn:'R5KL702G7P',model:'SM-F971N',center:'모바일광양센터',ver:'ZGI',symptom:'카메라 데코부분 찍힘 — 개봉 직후 확인 주장, 공정사진 확인 요청',time:'09:05'},
-  {cat:'카메라',acc:'202608041102E30201',sn:'R5KL7083WA',model:'SM-F971N',center:'모바일 구리센터',ver:'ZFW',symptom:'카메라 렌즈 내 이물 확인 요청',time:'11:10'},
-  {cat:'카메라',acc:'202608041230F11401',sn:'R5KL708EYJ',model:'SM-F976N',center:'모바일 부산센터',ver:'ZGI',symptom:'카메라 촬영 시 초점 흐림 (재현 조건 확인 중)',time:'12:35'},
-  {cat:'카메라',acc:'202608041415E09101',sn:'R5KL7089V3',model:'SM-F971N',center:'모바일 동탄센터',ver:'ZFW',symptom:'후면 카메라 이물 — 개봉 직후 발견',time:'14:20'},
-  {cat:'외관',acc:'202608041045E25101',sn:'R5KL7084HC',model:'SM-F971N',center:'모바일 수원센터',ver:'ZGI',symptom:'개봉 후 외관 스크래치 발견 고객 주장 — 출하사진 요청',time:'10:50'},
-  {cat:'외관',acc:'202608041305F07101',sn:'R5KL7085NK',model:'SM-F976N',center:'모바일 강남센터',ver:'ZGI',symptom:'개봉 직후 후면 찍힘 발견 주장 (공정 기인 주장)',time:'13:10'},
-  {cat:'외관',acc:'202608041420E18103',sn:'R5KL70881P',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'힌지 부근 이음새 이격 확인 요청',time:'14:25'},
-  {cat:'외관',acc:'202608041510F19906',sn:'R5KL708GWQ',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'외부 화면 프레임 스크래치 — 개봉 시 발견 주장',time:'15:15'},
-  {cat:'외관',acc:'202608041600E33101',sn:'R5KL7088XL',model:'SM-F976N',center:'모바일 인천센터',ver:'ZGI',symptom:'후면 카메라부 찍힘 — 개봉직후 확인',time:'16:05'},
-  {cat:'송수신',acc:'202608041135E02101',sn:'R5KL708BMV',model:'SM-F971N',center:'모바일 강북센터',ver:'ZFW',symptom:'IMEI 관련 문의 — 개통 처리 중 오류 발생',time:'11:40'},
-  {cat:'송수신',acc:'202608041320F25101',sn:'R5KL7087JP',model:'SM-F976N',center:'모바일 수원센터',ver:'ZGI',symptom:'전화 발신 불가 증상 — 임시 개통 처리 후 발생',time:'13:25'},
-  {cat:'송수화/사운드',acc:'202608041215E18103',sn:'R5KL7086QA',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:'통화 중 수화음 간헐적 끊김 — 핸즈프리 정상',time:'12:20'},
-  {cat:'충전',acc:'202608041430E30201',sn:'R5KL7088KT',model:'SM-F971N',center:'모바일 구리센터',ver:'ZGI',symptom:'충전 시 고속충전 미지원 표시 (정품 어댑터 사용)',time:'14:35'},
-  {cat:'USIM',acc:'202608041520F11401',sn:'R5KL7089MF',model:'SM-F971N',center:'모바일 부산센터',ver:'ZFW',symptom:'USIM 미인식 — 재삽입 후 인식 됨, 반복 발생',time:'15:25'},
-  {cat:'WiFi',acc:'202608041545E09101',sn:'R5KL7089WT',model:'SM-F976N',center:'모바일 동탄센터',ver:'ZGI',symptom:'WiFi 간헐적 끊김 — 특정 AP 환경에서 재현',time:'15:50'},
-  {cat:'전원',acc:'202608041630E25101',sn:'R5KL708HLP',model:'SM-F971N',center:'모바일 수원센터',ver:'ZGI',symptom:'간헐적 전원 꺼짐 — 사용 중 돌발 재부팅',time:'16:35'},
-  {cat:'기타',acc:'202608041155E37104',sn:'R5KL7086AR',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:'개봉 후 공정사진 확인 요청 (증상 상세 미확인)',time:'11:58'},
-  {cat:'기타',acc:'202608041340F07101',sn:'R5KL7087VN',model:'SM-F976N',center:'모바일 강남센터',ver:'ZGI',symptom:'RDM 로그 분석 결과 문의',time:'13:45'},
+// Table data — 실제 MHT 원본 79건
+const INQ = [
+{cat:'APP·S/W',acc:'202607231703G28SF1',sn:'RFKL60JB65',model:'SM-F976N',center:'모바일서귀포',ver:'ZFW',symptom:"판매점 리테일 모드 설치중 홈화면무한 로딩증상",time:'10:25'},
+{cat:'APP·S/W',acc:'202607291441G23SF1',sn:'R5KL10BGVV',model:'SM-S948N',center:'모바일 김해 센터',ver:'ZG3',symptom:"배경및 잠금화면 저절로 바뀜 / 미재현",time:'13:50'},
+{cat:'APP·S/W',acc:'202608041601E16111',sn:'R5KL7063RH',model:'SM-F971N',center:'모바일광명센터',ver:'ZFW',symptom:"삼성계정 로그인안됨 삭제후 재등록시 오류남",time:'16:11'},
+{cat:'APP·S/W',acc:'202608041602D83203',sn:'R5KL7093HA',model:'SM-F971N',center:'모바일진접센터',ver:'ZFW',symptom:"삼성계정 로그인 하려하는데 인증번호가 안들어옵니다",time:'16:27'},
+{cat:'APP·S/W',acc:'202608041634E18103',sn:'R5KL70603D',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:"벨소리/문자 알림 시 삐~ 고주파음 함께 들림, SPK 테스트 정상",time:'16:53'},
+{cat:'APP·S/W',acc:'202608041654E40001',sn:'R5KL705QRQ',model:'SM-F971N',center:'모바일서수원센터',ver:'ZFW',symptom:"전원키 눌러도 전원안켜지고, 스마트스위치 이동중 전원꺼졌다고함",time:'17:27'},
+{cat:'APP·S/W',acc:'202608041732P09EF1',sn:'R5KL701B05',model:'SM-F971N',center:'모바일북수원센터',ver:'ZFW',symptom:"아이폰13미니 스마트스위치 무선 데이터 이동 후 화면UI 색감이상",time:'17:50'},
+{cat:'화면',acc:'202608040946E18103',sn:'R5KL7081WC',model:'SM-F971N',center:'모바일강동센터',ver:'ZFW',symptom:"개봉 후 내부 화면 우측면 끝단 쭈글쭈글 (화면 정상 동작)",time:'10:00'},
+{cat:'화면',acc:'202608041136D06SF1',sn:'R5KL700G7M',model:'SM-F971N',center:'모바일 분당센터',ver:'ZGI',symptom:"외부 화면 좌측부 프레임 액정 사이 이물 유입 — 불량 여부 확인",time:'11:52'},
+{cat:'화면',acc:'202608041145E17SF2',sn:'R5KL60EV3K',model:'SM-F971N',center:'모바일 안산센터',ver:'ZGI',symptom:"서브LCD 내부 굴곡발생 — 공정사진 요청",time:'12:08'},
+{cat:'화면',acc:'202608041157D12200',sn:'R5KL707Y4X',model:'SM-F971N',center:'모바일 구리센터',ver:'ZGI',symptom:"메인 액정 보호필름 무료부착 쿠폰(1장) 미동봉",time:'12:09'},
+{cat:'화면',acc:'202608041204G14152',sn:'RFKL70AJ5S',model:'SM-F976N',center:'모바일 서대구센터',ver:'ZFW',symptom:"제품 개봉후 SUB LCD 중앙부 흰색점 — 세척후에도 동일",time:'12:22'},
+{cat:'화면',acc:'202608041027F11SF2',sn:'R5KL60FXGZ',model:'SM-F971N',center:'모바일정읍센터',ver:'ZFW',symptom:"외부 액정 이물/먼지 유입 확인됨 (서대구센터 유사 제보)",time:'12:55'},
+{cat:'화면',acc:'202608041409D16SF1',sn:'RFKL707140',model:'SM-F976N',center:'모바일강서센터',ver:'ZFW',symptom:"외부 화면 녹색 깜박임 발생 — DP 상품 불량 판정 여부",time:'14:24'},
+{cat:'화면',acc:'202608041405G18258',sn:'RFKL709ZAH',model:'SM-F976N',center:'모바일 구포센터',ver:'ZFW',symptom:"8/4 개봉건 메인화면 좌측 하단부 흑점 — 불량 여부",time:'14:27'},
+{cat:'화면',acc:'202608041408F31SF1',sn:'RFKL60JW8A',model:'SM-F976N',center:'모바일당진센터',ver:'ZFW',symptom:"개봉 후 접었다 폈는데 UTG 크랙 — 공정이미지 확인",time:'14:34'},
+{cat:'화면',acc:'202608041413D59120',sn:'RFKL70EPGT',model:'SM-F976N',center:'모바일 상무센터',ver:'ZFW',symptom:"서브액정 외부 찍힘 없음 / 내부 스크래치 불량 확인",time:'14:39'},
+{cat:'화면',acc:'202608041428D49402',sn:'R5KL704AVL',model:'SM-F971N',center:'모바일홍대센터',ver:'ZGI',symptom:"제품 박스 개봉 후 화면 깜박임 발생 — 스왑 진행 여부",time:'14:51'},
+{cat:'화면',acc:'202608041411D53200',sn:'R5KL60F6P4',model:'SM-F971N',center:'모바일을지로센터',ver:'ZFW',symptom:"CTC불량의심 — 외부/내부 화면 흑화, 폴딩 시 외부 흑화",time:'15:00'},
+{cat:'화면',acc:'202608041450G04517',sn:'R5KL705AD5',model:'SM-F971N',center:'모바일진주센터',ver:'ZFW',symptom:"서브액정 상단 리시버 홀 우측 흰색 이물 — 공정사진 요청",time:'15:08'},
+{cat:'화면',acc:'202608041445P10SF7',sn:'R5KL708GTL',model:'SM-F971N',center:'모바일동대전',ver:'ZGI',symptom:"데이터 이동 후 펼치니 화면 흑화 — 14일 불량확인서 요청",time:'15:11'},
+{cat:'화면',acc:'202608041514E02250',sn:'R5KL707ZSJ',model:'SM-F971N',center:'모바일강릉센터',ver:'ZFW',symptom:"서브화면 흑화 + 송수화음불 — 삼성스토어 데이터 이동 후 발생",time:'15:21'},
+{cat:'화면',acc:'202608041524D32SF1',sn:'R3KL70013M',model:'SM-F776N',center:'모바일이천센터',ver:'ZFL',symptom:"개봉 후 부팅 시 화면 출력이상 발생",time:'15:38'},
+{cat:'화면',acc:'202608041557E28SF2',sn:'R3CY80BGLH',model:'SM-S931N',center:'모바일수지센터',ver:'YF6',symptom:"셀카 쪽 흑점으로 출하사진 부탁드립니다",time:'16:39'},
+{cat:'화면',acc:'202608041624D81300',sn:'R5KL60F4D9',model:'SM-F971N',center:'모바일평내',ver:'-',symptom:"SUB 화면 벌어짐 — 외부 디스플레이 글라스 이격",time:'16:41'},
+{cat:'화면',acc:'202608040923WEB652',sn:'RFKL70AFEY',model:'SM-F976N',center:'모바일춘천센터',ver:'ZFW',symptom:"내부 명점 발생 — 외력 식별 어려움, 오목한 부위 다수",time:'16:41'},
+{cat:'화면',acc:'202608041717D06501',sn:'R5KL706H29',model:'SM-F971N',center:'모바일 분당센터',ver:'ZGI',symptom:"개봉 후 여닫기 동작 수회 — 내부 PL 크랙 발생",time:'17:25'},
+{cat:'화면',acc:'202608041722D51SF1',sn:'R5KL60G367',model:'SM-F971N',center:'모바일여의도센터',ver:'ZFW',symptom:"서브액정 안쪽 도색이상",time:'17:32'},
+{cat:'화면',acc:'202608041731F30SF1',sn:'R5KL700788',model:'SM-F971N',center:'모바일세종센터',ver:'ZFW',symptom:"메인액정 눌림/찍힘 흔적 — 제품 받자마자 발견 주장",time:'17:42'},
+{cat:'화면',acc:'202608041730G44668',sn:'R5KL708B5F',model:'SM-F971N',center:'모바일포항센터',ver:'ZGI',symptom:"LCD 중앙부 크랙 — 개통 전 오후 2시경 발생, 출하사진 요청",time:'17:44'},
+{cat:'화면',acc:'202608041741D06501',sn:'R5KL708SVS',model:'SM-F971N',center:'모바일 분당센터',ver:'ZFW',symptom:"개봉 시 내부 픽셀 이상 — 출하사진 확인 요청",time:'17:50'},
+{cat:'화면',acc:'202608041735D44FC3',sn:'RFKL709SEP',model:'SM-F976N',center:'모바신정센터',ver:'ZFW',symptom:"개봉 후 서브LCD 흑화 (메인 정상) — 재부팅 후 동일",time:'17:53'},
+{cat:'충전',acc:'202608021415WEB651',sn:'RFKL70BAGS',model:'SM-L340N',center:'모바일 광명센터',ver:'-',symptom:"충전 알림보다 충전속도 많이 느림 — 삼성멤버스 오류 보고",time:'14:01'},
+{cat:'충전',acc:'202608041454D14700',sn:'RFKL70B0XM',model:'SM-F976N',center:'모바일서초센터',ver:'ZGI',symptom:"고속충전 시 힌지 부분 전기 자력 느껴짐 (정품 EP-TA8000)",time:'15:22'},
+{cat:'충전',acc:'202608041538D82511',sn:'R3KL707BNE',model:'SM-F776N',center:'모바일광주센터',ver:'ZGI',symptom:"다이소 무선충전기 사용 시 충전 불량 — 정품 충전기는 정상",time:'15:50'},
+{cat:'충전',acc:'202608041743E02250',sn:'R5KL705WHT',model:'SM-F971N',center:'모바일 강릉센터',ver:'-',symptom:"개봉 후 홈화면 진입 중 전원꺼짐, 전원불·충전불 상황",time:'17:47'},
+{cat:'카메라',acc:'202608040901F37104',sn:'R5KL702G7P',model:'SM-F971N',center:'모바일광양센터',ver:'ZGI',symptom:"카메라 데코부분 찍힘 — 개봉 직후 확인 주장, 공정사진 요청",time:'09:12'},
+{cat:'카메라',acc:'202608041402G48FF3',sn:'R5KL7023CW',model:'SM-F976N',center:'모바일대곡센터',ver:'ZF4',symptom:"주머니에서 꺼내니 카메라 뒤쪽 습기 차있음 (현재 괜찮음)",time:'14:22'},
+{cat:'카메라',acc:'202608041411G14327',sn:'R5KL7068LJ',model:'SM-F971N',center:'모바일서대구센터',ver:'ZGI',symptom:"가로 상태 카메라홀 우측 상단 폴딩부 위쪽 누르면 들뜨는 느낌",time:'14:26'},
+{cat:'카메라',acc:'202608041505D06SF1',sn:'RFKL70ELTB',model:'SM-F976N',center:'모바일 분당센터',ver:'ZGI',symptom:"카메라 테스트 시 초광각 카메라 동작 안됨 (IQC 테스트 확인)",time:'15:29'},
+{cat:'카메라',acc:'202608041518G29SF2',sn:'RFKL70AP36',model:'SM-F976N',center:'모바일해운대센터',ver:'ZGI',symptom:"전면 셀프카메라 동작 불량 — 불량 판단 여부 확인 요청",time:'15:37'},
+{cat:'송수화/사운드',acc:'202608040902D42SF4',sn:'R5KL60EWMK',model:'SM-F971N',center:'모바일부평센터',ver:'ZFW',symptom:"상단 무지 시 이음소리 발생",time:'09:58'},
+{cat:'송수화/사운드',acc:'202608041322D59SF1',sn:'R3KL7084S6',model:'SM-F776N',center:'모바일상무센터',ver:'ZFW',symptom:"수신 시 서브 통화표시 미출력, 메인화면도 수신번호 미표시",time:'14:06'},
+{cat:'송수화/사운드',acc:'202608041350F37104',sn:'RFKL70BKJA',model:'SM-F976N',center:'모바일광양센터',ver:'ZGI',symptom:"수신 시 상단 스피커 소리불 — 수리모드에서는 정상 동작",time:'14:12'},
+{cat:'송수신',acc:'202608041130G04FC2',sn:'R3KL60AQ3J',model:'SM-F776N',center:'모바일진주센터',ver:'ZFW',symptom:"사전예약 — 개통 후 방문 (7/30 수령, 8/4 개통)",time:'12:20'},
+{cat:'송수신',acc:'202608041155D02817',sn:'R5KL60EWLR',model:'SM-F971N',center:'모바일마포센터',ver:'-',symptom:"14일이내 미개통 교품 요청 — 후면 와이드캠 내부 습기",time:'12:36'},
+{cat:'송수신',acc:'202608031055WEB657',sn:'R5KL60FX32',model:'SM-F971N',center:'모바일광명센터',ver:'ZFW',symptom:"8/2 개통 전면 강화필름 부착 지문키 누르는감 떨어짐",time:'12:37'},
+{cat:'송수신',acc:'202608041226P37701',sn:'RFKL709T83',model:'SM-F976N',center:'모바일 진해센터',ver:'ZG1',symptom:"KT향 유심 넣을 때 통신사 확인 문구, 타 유심 정보조회 실패",time:'12:39'},
+{cat:'송수신',acc:'202608041203P31611',sn:'R5KL60FY1Q',model:'SM-F971N',center:'모바일부산센터',ver:'ZEI',symptom:"NFC 실행불 — 빠른 분석 요청",time:'12:40'},
+{cat:'송수신',acc:'202608041541E16111',sn:'RFKL703MLZ',model:'SM-F976N',center:'모바일광명센터',ver:'ZFW',symptom:"8/4 개통, 결로현상 — 데이터 이동 후 발생",time:'15:51'},
+{cat:'송수신',acc:'202608041645D33103',sn:'R3KL701QEP',model:'SM-F976N',center:'모바일남광주',ver:'ZFW',symptom:"미개통 폰 유심트레이 안빠짐 (핀 삽입 시 쑥 들어감)",time:'17:07'},
+{cat:'송수신',acc:'202608041705D62300',sn:'R5KL708THE',model:'SM-F971N',center:'모바일동탄센터',ver:'ZF4',symptom:"개통 후 내부화면 찍힘 식별 — 출하사진 요청",time:'17:21'},
+{cat:'전원',acc:'202608041554E13FC6',sn:'R5KL7012M2',model:'SM-F971N',center:'모바일 계양센터',ver:'ZGI',symptom:"전원키 클릭감 — 동일단말 비교 시 확연히 차이, 타이트하게 꽉 끼는 느낌",time:'16:22'},
+{cat:'전원',acc:'202608041721D47704',sn:'R5KL70614Z',model:'SM-F971N',center:'모바일금촌센터',ver:'ZGI',symptom:"전원키 클릭감 뻑뻑함 — 중앙부 정상, 하단쪽 뻑뻑",time:'17:29'},
+{cat:'외관',acc:'202608031415F19906',sn:'R5KL706AZC',model:'SM-F971N',center:'모바일대전센터',ver:'ZFW',symptom:"8/3 개봉건 외관 찍힘 — 고객 개봉 시 발견 주장, 출하사진 요청",time:'08:42'},
+{cat:'외관',acc:'202608031845WEB653',sn:'RFKL702BNL',model:'SM-F976N',center:'모바일율량',ver:'ZFW',symptom:"다이렉트샵 개봉 후 기스 발견 — 필름 부착 상태, 출하사진 요청",time:'09:20'},
+{cat:'외관',acc:'202608032321WEB652',sn:'RFKL703XTN',model:'SM-F976N',center:'모바일서울산',ver:'ZGI',symptom:"개봉 후 접었다 폈는데 중앙부 힌지라인쪽 볼록하게 튀어나옴",time:'09:46'},
+{cat:'외관',acc:'202608041017E28314',sn:'R5KL706DL3',model:'SM-F971N',center:'모바일수지센터',ver:'ZFW',symptom:"화면 펼친 후 모서리 손으로 누르면 유격 발생",time:'10:35'},
+{cat:'외관',acc:'202608041059F33SF6',sn:'R5KL706WZB',model:'SM-F971N',center:'모바일 삼성강남센터',ver:'ZCI',symptom:"제품 픽업 후 백글라스 외관 불량 확인 요청",time:'11:11'},
+{cat:'외관',acc:'202608041242G42677',sn:'R5KL70880M',model:'SM-F971N',center:'모바일 북대구 센터',ver:'ZFW',symptom:"개봉 후 폴딩부 찍힘 — 공정사진 요청",time:'12:56'},
+{cat:'외관',acc:'202608041259D62SF8',sn:'RFKL709SB6',model:'SM-F976N',center:'모바일 동탄센터',ver:'ZFW',symptom:"제품 개봉 후 백글라스 점 찍혀있음 — 출하사진 요청",time:'14:17'},
+{cat:'외관',acc:'202608041420G09333',sn:'R5KL706JXD',model:'SM-F971N',center:'모바일 사하센터',ver:'-',symptom:"14시 개봉 중 볼륨버튼 부분 스크래치 — 출하이미지 요청",time:'14:32'},
+{cat:'외관',acc:'202608041428D17501',sn:'R3KL60AP0E',model:'SM-F776N',center:'모바일금천센터',ver:'-',symptom:"힌지 및 베젤 찍힘 — 고객 과실 불인정, 이미지 사진 요청",time:'14:37'},
+{cat:'외관',acc:'202608041534E01900',sn:'R5KL708BJ8',model:'SM-F971N',center:'모바일영등포센터',ver:'ZFW',symptom:"금일 개봉 후 보호필름 붙이다 찍힘 확인 — 가이드 요청",time:'15:47'},
+{cat:'외관',acc:'202608041616G25300',sn:'R5KL706FRQ',model:'SM-F971N',center:'모바일 남포센터',ver:'ZFW',symptom:"배송 받고 30분 내 언박싱 중 백글 하단 흰 자국 발견",time:'16:26'},
+{cat:'외관',acc:'202608041557E36SF1',sn:'R5KL703BYA',model:'SM-F971N',center:'모바일용인센터',ver:'ZFW',symptom:"힌지이탈 — 외관사진 요청",time:'16:35'},
+{cat:'외관',acc:'202608041620E03SF1',sn:'R5KL706GG7',model:'SM-F971N',center:'모바일원주',ver:'ZFW',symptom:"금일 개봉 직후 메인화면 우측 상단 모서리 데코 사이 이물",time:'16:37'},
+{cat:'외관',acc:'202608041749G25300',sn:'RFKL700ZS7',model:'SM-F976N',center:'모바일남포센터',ver:'ZFW',symptom:"데이터 이동 중 화면 갈라짐 — 불량 여부 의견 요청",time:'18:08'},
+{cat:'외관',acc:'202608041746D09SF8',sn:'R3KL705PJF',model:'SM-F776N',center:'모바일은평센터',ver:'ZFL',symptom:"플림 우측하단 데코 찍힘 — 개봉 후 찍힘, 공정이미지 요청",time:'18:11'},
+{cat:'센서',acc:'202608041205P08SF2',sn:'R5KL704D19',model:'SM-F971N',center:'모바일남인천센터',ver:'ZGI',symptom:"서브화면 지문 터치 시 화면 깜빡임 (어두운 곳에서 보임) — 로그 분석 요청",time:'13:34'},
+{cat:'센서',acc:'202608041319G48415',sn:'R5KL709F8T',model:'SM-F971N',center:'모바일대곡센터',ver:'ZGI',symptom:"지문인식 안됨 — 잠금화면 및 삼성페이 결제 시 무반응",time:'13:39'},
+{cat:'BT',acc:'202608041400E07147',sn:'RFKL709QKX',model:'SM-F976N',center:'모바일 관악센터',ver:'ZGI',symptom:"블루투스 연결 안됨 — 8/4 오후 1~2시 차량 연결 시도 중 발생",time:'14:39'},
+{cat:'기구(형합성)',acc:'202608041252D43500',sn:'R5KL7056CF',model:'SM-F971N',center:'모바일왕십리센터',ver:'ZFW',symptom:"고객 제품은 프리스탑 90도 이상 시 자동으로 펼쳐짐 — 진열품과 다름",time:'13:21'},
+{cat:'WiFi',acc:'202608041230E34101',sn:'R5KL708VM2',model:'SM-F971N',center:'모바일 발안센터',ver:'-',symptom:"스마트스위치 위해 와이파이 연결 시 기기 잠겨있다고 함",time:'13:24'},
+{cat:'기타',acc:'202608041208D80FG2',sn:'R5KL7082WF',model:'SM-F971N',center:'모바일칠곡센터',ver:'ZFW',symptom:"고객 박스 개봉 후 스크래치로 인한 제품교환 요청",time:'12:28'},
+{cat:'기타',acc:'202608041256E21SF1',sn:'R5KL708REC',model:'SM-F971N',center:'모바일수원센터',ver:'ZFW',symptom:"출하 시 오픈각도 확인 가능한가요?",time:'13:24'},
+{cat:'기타',acc:'202608041338D15SF1',sn:'R3KL70B2VH',model:'SM-F776N',center:'모바일강북센터',ver:'ZGI',symptom:"PC 연결이 아예 안됩니다 — 스왑 처리 여부",time:'13:54'},
+{cat:'기타',acc:'202608041412P40SF1',sn:'R5KL70415J',model:'SM-F971N',center:'모바일 밀양',ver:'ZFW',symptom:"필름 들뜸으로 필름 제거 — 필름 불량 아님, 화면 외부막 들뜸",time:'14:23'},
+{cat:'기타',acc:'202608041535D30D69',sn:'R5KL7006B0',model:'SM-F971N',center:'모바일 양주센터',ver:'-',symptom:"사제 강화필름 한쪽만 안붙는다고 불량 주장 — 출하사진 요청",time:'16:00'},
 ];
 
-const CAT_COLORS = {
-  '화면':'cat-화면','카메라':'cat-카메라','외관':'cat-화면','APP·S/W':'cat-APP',
-  '송수신':'cat-송수신','송수화/사운드':'cat-송수화','충전':'cat-충전','기타':'cat-기타',
-  'USIM':'cat-기타','WiFi':'cat-기타','전원':'cat-충전'
+const CAT_ORDER = ['APP·S/W','화면','충전','카메라','송수화/사운드','송수신','전원','외관','센서','BT','기구(형합성)','WiFi','기타'];
+const CC = {
+  'APP·S/W':'cAPP','화면':'c화면','충전':'c충전','카메라':'c카메라',
+  '송수화/사운드':'c송수화','송수신':'c송수신','전원':'c전원','외관':'c외관',
+  '센서':'c센서','BT':'cBT','기구(형합성)':'c기구','WiFi':'cWiFi','기타':'c기타'
 };
-const CAT_ORDER_ARR = ['APP·S/W','화면','카메라','외관','송수신','송수화/사운드','충전','USIM','WiFi','전원','기타'];
+
+INQ.sort((a,b) => CAT_ORDER.indexOf(a.cat) - CAT_ORDER.indexOf(b.cat));
+
 let lastCat = '';
 const tbody = document.getElementById('tblBody');
-INQ_DATA.sort((a,b) => CAT_ORDER_ARR.indexOf(a.cat) - CAT_ORDER_ARR.indexOf(b.cat));
-INQ_DATA.forEach(r => {
+INQ.forEach(r => {
   if (r.cat !== lastCat) {
     const hdr = document.createElement('tr');
     hdr.className = 'cat-group-hdr';
-    hdr.innerHTML = `<td colspan="8">▸ ${r.cat}</td>`;
+    const cnt = INQ.filter(x => x.cat === r.cat).length;
+    hdr.innerHTML = `<td colspan="8">▸ ${r.cat} (${cnt}건)</td>`;
     tbody.appendChild(hdr);
     lastCat = r.cat;
   }
   const tr = document.createElement('tr');
-  const cc = CAT_COLORS[r.cat] || 'cat-기타';
+  const cc = CC[r.cat] || 'c기타';
   tr.innerHTML = `
     <td><span class="cat-badge ${cc}">${r.cat}</span></td>
-    <td style="font-size:10px;color:#6e7681">${r.acc}</td>
+    <td style="font-size:10px;color:#6e7681;font-family:monospace">${r.acc}</td>
     <td style="font-family:monospace;font-size:11px">${r.sn}</td>
-    <td>${r.model}</td>
+    <td style="font-size:11px">${r.model}</td>
     <td style="font-size:11px">${r.center}</td>
     <td>${r.ver}</td>
     <td>${r.symptom}</td>
-    <td style="color:#8b949e">${r.time}</td>`;
+    <td style="color:#8b949e;white-space:nowrap">${r.time}</td>`;
   tbody.appendChild(tr);
 });
 </script>
