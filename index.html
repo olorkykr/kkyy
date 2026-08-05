@@ -21,8 +21,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .section-title{font-size:12px;font-weight:600;color:#57606a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
 .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .ins-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;border-left:5px solid var(--ic,#0969da);overflow:hidden;display:flex;flex-direction:column}
-.ins-head{padding:13px 15px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
-.ins-head-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ins-head{padding:12px 15px 9px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.ins-head-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
 .ins-title{font-size:13px;font-weight:700;color:#1f2328}
 .ins-badges{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
 .b-count{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--ibg,#ddf4ff);color:var(--ifc,#0550ae)}
@@ -30,22 +30,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .b-red{background:#ffebe9;color:#cf222e}
 .b-orange{background:#fff3cd;color:#7a4100}
 .b-green{background:#dafbe1;color:#116329}
-.ins-summary{font-size:12px;color:#57606a;line-height:1.55}
-.ins-body{padding:0;max-height:300px;overflow-y:auto;flex:1}
-.ins-body::-webkit-scrollbar{width:5px}
+.ins-summary{font-size:11px;color:#57606a;line-height:1.5}
+.ins-body{padding:0;max-height:150px;overflow-y:auto;flex:1}
+.ins-body::-webkit-scrollbar{width:4px}
 .ins-body::-webkit-scrollbar-track{background:#f6f8fa}
-.ins-body::-webkit-scrollbar-thumb{background:#d0d7de;border-radius:3px}
+.ins-body::-webkit-scrollbar-thumb{background:#d0d7de;border-radius:2px}
 .ins-body::-webkit-scrollbar-thumb:hover{background:#8c959f}
-.case-header{display:grid;grid-template-columns:42px 1fr 110px;gap:6px;padding:7px 15px 5px;background:#f6f8fa;border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:1}
+.case-header{display:grid;grid-template-columns:38px 1fr 108px;gap:5px;padding:5px 12px 4px;background:#f6f8fa;border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:1}
 .case-header span{font-size:10px;font-weight:600;color:#8c959f;text-transform:uppercase;letter-spacing:.4px}
-.case-row{display:grid;grid-template-columns:42px 1fr 110px;gap:6px;padding:7px 15px;border-bottom:1px solid #f0f0f0;align-items:start}
+.case-row{display:grid;grid-template-columns:38px 1fr 108px;gap:5px;padding:6px 12px;border-bottom:1px solid #f0f0f0;align-items:start}
 .case-row:last-child{border-bottom:none}
 .case-row:hover{background:#f6f8fa}
 .case-date{font-size:11px;font-weight:700;color:#57606a;white-space:nowrap}
 .case-center{font-size:11px;color:#1f2328}
 .case-sn{font-size:11px;font-family:ui-monospace,SFMono-Regular,monospace;color:#0969da;word-break:break-all}
-.case-sym{font-size:11px;color:#57606a;line-height:1.4;grid-column:1/-1;padding-top:2px}
-.more-note{font-size:11px;color:#8c959f;padding:8px 15px;background:#f6f8fa;text-align:center;font-style:italic;border-top:1px solid #e8eaed}
+.case-sym{font-size:11px;color:#57606a;line-height:1.35;grid-column:1/-1;padding-top:1px}
+.more-note{font-size:11px;color:#8c959f;padding:6px 12px;background:#f6f8fa;text-align:center;font-style:italic;border-top:1px solid #e8eaed}
 .footer{text-align:center;font-size:11px;color:#8c959f;padding:12px 0 4px}
 </style>
 </head>
@@ -55,172 +55,156 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <div class="header">
   <div>
     <div class="header h1">FFF8 서비스 엔지니어 EWP 품질 모니터링 대시보드</div>
-    <div class="sub">Galaxy Z Fold8 / Flip8 &nbsp;|&nbsp; 2026.08.03 ~ 08.05 &nbsp;|&nbsp; KakaoTalk HotLine 기반</div>
+    <div class="sub">Galaxy Z Fold8 / Flip8 &nbsp;|&nbsp; 2026.08.05 기준 &nbsp;|&nbsp; KakaoTalk HotLine 기반</div>
   </div>
-  <span class="badge">2026-08-05 업데이트</span>
+  <span class="badge">2026-08-06 07:51 업데이트</span>
 </div>
 
 <div class="kpi-row">
-  <div class="kpi red"><div class="val">149</div><div class="lbl">총 문의 건수</div></div>
-  <div class="kpi"><div class="val">105</div><div class="lbl">참여 서비스센터</div></div>
-  <div class="kpi"><div class="val">110</div><div class="lbl">참여 인원</div></div>
-  <div class="kpi"><div class="val" style="color:#d08002">8/3~8/5</div><div class="lbl">데이터 기간</div></div>
-  <div class="kpi grn"><div class="val">1,523</div><div class="lbl">총 HotLine 메시지</div></div>
+  <div class="kpi red"><div class="val">78</div><div class="lbl">총 문의 건수</div></div>
+  <div class="kpi"><div class="val">60</div><div class="lbl">참여 서비스센터</div></div>
+  <div class="kpi"><div class="val">62</div><div class="lbl">참여 인원</div></div>
+  <div class="kpi"><div class="val" style="color:#d08002">8/5</div><div class="lbl">데이터 기간</div></div>
+  <div class="kpi grn"><div class="val">871</div><div class="lbl">총 HotLine 메시지</div></div>
 </div>
 
 <div class="section-title">품질 인사이트 — 8/5 기준 최신 · 긴급순위 정렬 (센터·S/N 포함)</div>
 <div class="insight-grid">
 
-<!-- #1 힌지/크랙 🔴 최다·지속 -->
+<!-- #1 힌지/크랙 🔴 -->
 <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">⚠️ 힌지·이음소리·UTG 크랙</span>
-      <div class="ins-badges"><span class="b-count">18건</span><span class="b-level b-red">🔴 최다·지속</span></div>
+      <div class="ins-badges"><span class="b-count">8건</span><span class="b-level b-red">🔴 최다·지속</span></div>
     </div>
-    <div class="ins-summary">개봉 직후 힌지 이음소리·UTG 크랙·유격이 8/3~8/5 연속 접수. 전국 분산, 특정 센터 집중 아님. 일부는 대리점 개통 후 수령 상태에서도 발생.</div>
+    <div class="ins-summary">개봉 직후 힌지 이음소리·UTG 크랙·유격 8/5 연속 접수. 전국 분산. 일부 대리점 개통 후 수령 상태에서도 발생.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일동광주센터</span><span class="case-sn">R5KL7006SB</span><div class="case-sym">언박싱 직후 중앙 하단 X형 크랙 강하게 확산</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 태릉</span><span class="case-sn">R5KL705W3W</span><div class="case-sym">구매 후 개봉 시 힌지부 절삭 형식 크랙</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일오산센터</span><span class="case-sn">R5KL707W4W</span><div class="case-sym">사용 중 갑자기 UTG 크랙 발생</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일디지털시티</span><span class="case-sn">R5KL70933A</span><div class="case-sym">8/3 수령, 사용 중 폴딩부 X자 외부 크랙</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일김포센터</span><span class="case-sn">RFKL707P0F</span><div class="case-sym">힌지부 우측 상단 유격 발생</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일포항센터</span><span class="case-sn">R5KL708B5F</span><div class="case-sym">수령 다음날 개통 전 LCD 중앙부 크랙</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일 분당센터</span><span class="case-sn">R5KL706H29</span><div class="case-sym">개통 후 여닫기 몇 번에 내부 PL 크랙</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일당진센터</span><span class="case-sn">RFKL60JW8A</span><div class="case-sym">개봉 후 접었다 펴고 UTG 크랙</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일서울산</span><span class="case-sn">RFKL703XTN</span><div class="case-sym">개봉 후 힌지라인 중앙부 볼록 튀어오름</div></div>
-    <div class="case-row"><span class="case-date">8/3</span><span class="case-center">모바일 하남센터</span><span class="case-sn">RFKL702BQJ</span><div class="case-sym">수령 후 메인액정 하단 이음소리 (최초 접수)</div></div>
-    <div class="more-note">외 추가 8건 (양주·상록·남광주·용인·서초·금천·부평·수지)</div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">15:56</span><span class="case-center">모바일 양주센터</span><span class="case-sn">RFKL60D3YV</span><div class="case-sym">언박싱 직후 힌지 찍힘, 출하사진 요청</div></div>
+    <div class="case-row"><span class="case-date">13:44</span><span class="case-center">모바일상록센터</span><span class="case-sn">R3KL707JBZ</span><div class="case-sym">힌지 구동부 기름기 묻어 나옴, 움직이면 베어나오는 듯</div></div>
+    <div class="case-row"><span class="case-date">11:43</span><span class="case-center">모바일오산센터</span><span class="case-sn">R5KL707W4W</span><div class="case-sym">사용 중 갑자기 UTG 크랙 발생</div></div>
+    <div class="case-row"><span class="case-date">11:36</span><span class="case-center">모바일남광주센터</span><span class="case-sn">R5KL705RPS</span><div class="case-sym">8/4 개봉건, 힌지 상단 흠집. 대리점 개통 후 수령</div></div>
+    <div class="case-row"><span class="case-date">10:00</span><span class="case-center">모바일동광주센터</span><span class="case-sn">R5KL7006SB</span><div class="case-sym">언박싱 직후 중앙 하단 X형 크랙 강하게 확산</div></div>
+    <div class="case-row"><span class="case-date">09:36</span><span class="case-center">모바일김포센터</span><span class="case-sn">RFKL707P0F</span><div class="case-sym">힌지부 우측 상단 유격 발생</div></div>
+    <div class="case-row"><span class="case-date">09:24</span><span class="case-center">모바일 태릉</span><span class="case-sn">R5KL705W3W</span><div class="case-sym">개봉 시 힌지부 절삭 형식 크랙</div></div>
+    <div class="case-row"><span class="case-date">09:09</span><span class="case-center">모바일디지털시티</span><span class="case-sn">R5KL70933A</span><div class="case-sym">8/3 수령, 폴딩부 X자 외부 크랙</div></div>
   </div>
 </div>
 
-<!-- #2 전원불/재부팅 🔴 8/5 급증 -->
+<!-- #2 전원불/재부팅 🔴 -->
 <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔋 전원불 · 무한재부팅</span>
-      <div class="ins-badges"><span class="b-count">7건</span><span class="b-level b-red">🔴 8/5 급증</span></div>
+      <div class="ins-badges"><span class="b-count">5건</span><span class="b-level b-red">🔴 1일차 집중</span></div>
     </div>
-    <div class="ins-summary">8/4 2건 → 8/5 5건으로 급증. 수령 당일 또는 다음날 발생. 과열 경고 동반, 충전 후 미켜짐, 무한재부팅 패턴. 초기 불량 가능성.</div>
+    <div class="ins-summary">수령 당일~다음날 발생. 과열 경고 동반, 충전 후 미켜짐, 무한재부팅. 8/5 오전 집중 접수. 초기 불량 가능성.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일용산센터</span><span class="case-sn">R5KL702EVM</span><div class="case-sym">8/4 개봉, 8/5 오전 재부팅 → 전원불. 강제 재부팅 후 멈춤, 발열 지속</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일태릉센터</span><span class="case-sn">R3KL608PV1</span><div class="case-sym">8/4 구매, 8/5 오전부터 무한재부팅</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL7035T4</span><div class="case-sym">개봉 후 부팅 시 기기 온도 상승 경고 → 전원 꺼짐</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 김해센터</span><span class="case-sn">R5KL706GF2</span><div class="case-sym">수령 당일 저녁 충전 꽂은 후 아침에 전원 미켜짐</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일경산센터</span><span class="case-sn">R5KL60G3X3</span><div class="case-sym">8/4 개통, 알람 해제 불가, 재부팅 후 1시간만에 재발</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일 강릉센터</span><span class="case-sn">R5KL705WHT</span><div class="case-sym">대리점 개통 위해 개봉 직후 홈화면 진입 중 전원불·충전불</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일서수원센터</span><span class="case-sn">R5KL705QRQ</span><div class="case-sym">스마트스위치 이동 중 전원 꺼짐, 전원키 무반응. 증상 재현 불</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">11:29</span><span class="case-center">모바일용산센터</span><span class="case-sn">R5KL702EVM</span><div class="case-sym">8/4 개봉, 8/5 오전 재부팅 → 전원불. 발열 지속</div></div>
+    <div class="case-row"><span class="case-date">11:02</span><span class="case-center">모바일경산센터</span><span class="case-sn">R5KL60G3X3</span><div class="case-sym">8/4 개통, 알람 해제 불가, 재부팅 후 1시간만에 재발</div></div>
+    <div class="case-row"><span class="case-date">10:29</span><span class="case-center">모바일태릉센터</span><span class="case-sn">R3KL608PV1</span><div class="case-sym">8/4 구매, 8/5 오전부터 무한재부팅</div></div>
+    <div class="case-row"><span class="case-date">09:35</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL7035T4</span><div class="case-sym">개봉 후 부팅 시 기기 온도 상승 경고 → 전원 꺼짐</div></div>
+    <div class="case-row"><span class="case-date">09:29</span><span class="case-center">모바일 김해센터</span><span class="case-sn">R5KL706GF2</span><div class="case-sym">수령 당일 저녁 충전 꽂은 후 아침에 전원 미켜짐</div></div>
   </div>
 </div>
 
-<!-- #3 Hall IC/흑화 🔴 폴더블 특화 -->
+<!-- #3 Hall IC/흑화 🔴 -->
 <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">⚠️ Hall IC · CTC 화면흑화</span>
-      <div class="ins-badges"><span class="b-count">7건</span><span class="b-level b-red">🔴 폴더블 특화</span></div>
+      <div class="ins-badges"><span class="b-count">5건</span><span class="b-level b-red">🔴 폴더블 특화</span></div>
     </div>
-    <div class="ins-summary">외부+내부 동시 흑화, CTC 불량 의심, 데이터 이동 중 발생 패턴 공통. 8/4 4건 → 8/5 3건으로 지속 확산 중. 재부팅 후 일시 복구되나 재발함.</div>
+    <div class="ins-summary">외부+내부 동시 흑화, CTC 노이즈, 폴딩 시 화면 미출력. 재부팅 후 일시 복구되나 재발. 데이터 이동 중 발생 패턴 공통.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL705V39</span><div class="case-sym">메인화면 CTC불량 의심 노이즈 간헐 출력, IQC 폴딩 정밀검사 이상 없음</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일휘경센터</span><span class="case-sn">R5KL7068XZ</span><div class="case-sym">8/3 오후 커버화면 노랗게 변색 → 메인 흑화. 재부팅+업데이트 후 재발</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">서브화면 흑화 + 벨소리 '삐이이' 이상음 동반</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바신정센터</span><span class="case-sn">RFKL709SEP</span><div class="case-sym">개봉 후 서브LCD 흑화, 메인 정상. 미개통 상태. 재부팅 동일</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일강릉센터</span><span class="case-sn">R5KL707ZSJ</span><div class="case-sym">데이터 이동 + 유심 교체 중 서브 흑화 + 송수화 불량</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일동대전</span><span class="case-sn">R5KL708GTL</span><div class="case-sym">데이터 이동 후 펼치니 화면 흑화. 14일 불량확인서 요청</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일을지로센터</span><span class="case-sn">R5KL60F6P4</span><div class="case-sym">외부+내부 흑화 동시, 폴딩 시 외부도 흑화·터치 불량. 증상 재현</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">17:55</span><span class="case-center">모바일 남포센터</span><span class="case-sn">R5KL7054XB</span><div class="case-sym">유튜브 시청 중 슬립 후 재펼침 시 소리만 나오고 화면 미출력 🆕</div></div>
+    <div class="case-row"><span class="case-date">17:41</span><span class="case-center">모바일을지로센터</span><span class="case-sn">RFKL70ES3B</span><div class="case-sym">개봉 직후 메인화면 흑화, 서브 정상. 재부팅 초반 5초 화면 미출력</div></div>
+    <div class="case-row"><span class="case-date">15:44</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL705V39</span><div class="case-sym">CTC불량 의심 노이즈 간헐 출력, IQC 정밀검사 이상 없음</div></div>
+    <div class="case-row"><span class="case-date">13:35</span><span class="case-center">모바일휘경센터</span><span class="case-sn">R5KL7068XZ</span><div class="case-sym">8/3 커버화면 노랗게 변색 → 메인 흑화. 업데이트 후 재발</div></div>
+    <div class="case-row"><span class="case-date">11:05</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">서브화면 흑화 + 벨소리 '삐이이' 이상음 동반</div></div>
   </div>
 </div>
 
-<!-- #4 화면 흑점/명점 🟠 출하불량 -->
+<!-- #4 화면 흑점/명점 🟠 -->
 <div class="ins-card" style="--ic:#d08002;--ibg:#fff3cd;--ifc:#7a4100">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔬 화면 흑점 · 명점 (출하불량)</span>
-      <div class="ins-badges"><span class="b-count">8건</span><span class="b-level b-orange">🟠 출하불량 의심</span></div>
+      <div class="ins-badges"><span class="b-count">6건</span><span class="b-level b-orange">🟠 출하불량 의심</span></div>
     </div>
-    <div class="ins-summary">개봉 즉시 또는 2일차 내 발견. 외력 없이 발생. 공정이미지·출하사진 확인 요청 급증. 메인·서브·셀카 카메라 주변 등 위치 다양.</div>
+    <div class="ins-summary">개봉 즉시 또는 2일차 내 발견. 외력 없이 발생. 공정이미지·출하사진 확인 요청 집중.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 사하센터</span><span class="case-sn">R5KL708JH6</span><div class="case-sym">구입 2일차 메인화면 6시 방향 P-CAP쪽 흑점. 출하이미지 요청</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL708L8D</span><div class="case-sym">8/4 수령 후 흑점 발견. 0.25 수준 흑색점. 외부 이상 없음</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 동탄센터</span><span class="case-sn">R3KL60BGQK</span><div class="case-sym">개봉 후 화면 우측 중앙 멍자국. 출하사진 요청</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일평택센터</span><span class="case-sn">RFKL60J6A9</span><div class="case-sym">8/4 개봉 폴딩부 흑점, 눌림 보이나 출하사진으로 확인 요청</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 북대구센터</span><span class="case-sn">RFKL70E2Q6</span><div class="case-sym">박스 개봉 중 서브화면 하얀점 발견. 외부 눌림·기스 없음</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일춘천센터</span><span class="case-sn">RFKL70AFEY</span><div class="case-sym">내부 명점, 외력 없음. 화면 주변 오목한 부위 다수</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일수지센터</span><span class="case-sn">R3CY80BGLH</span><div class="case-sym">셀카 쪽 흑점. 출하사진 요청</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일 구포센터</span><span class="case-sn">RFKL709ZAH</span><div class="case-sym">8/4 개봉건 메인화면 좌측 하단 흑점. 불량 여부 판정 요청</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">15:02</span><span class="case-center">모바일 사하센터</span><span class="case-sn">R5KL708JH6</span><div class="case-sym">구입 2일차 메인화면 6시 방향 P-CAP쪽 흑점</div></div>
+    <div class="case-row"><span class="case-date">13:25</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL708L8D</span><div class="case-sym">8/4 수령 후 흑점. 0.25 수준 흑색점, 외부 이상 없음</div></div>
+    <div class="case-row"><span class="case-date">11:47</span><span class="case-center">모바일 동탄센터</span><span class="case-sn">R3KL60BGQK</span><div class="case-sym">개봉 후 화면 우측 중앙 멍자국</div></div>
+    <div class="case-row"><span class="case-date">11:32</span><span class="case-center">모바일평택센터</span><span class="case-sn">RFKL60J6A9</span><div class="case-sym">8/4 개봉 폴딩부 흑점, 눌림 보이나 출하사진 확인 요청</div></div>
+    <div class="case-row"><span class="case-date">09:23</span><span class="case-center">모바일 북대구센터</span><span class="case-sn">RFKL70E2Q6</span><div class="case-sym">박스 개봉 중 서브화면 하얀점. 외부 눌림·기스 없음</div></div>
+    <div class="case-row"><span class="case-date">09:11</span><span class="case-center">모바일 관악센터</span><span class="case-sn">R5KL706SG5</span><div class="case-sym">개봉 직후 내부화면 하단 흑점 발견</div></div>
   </div>
 </div>
 
-<!-- #5 전원키/지문 🟡 LOT 의심 -->
+<!-- #5 전원키/지문 🟡 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔑 전원키 · 지문인식 불량</span>
-      <div class="ins-badges"><span class="b-count">6건</span><span class="b-level b-green">🟡 LOT 이슈 의심</span></div>
+      <div class="ins-badges"><span class="b-count">2건</span><span class="b-level b-green">🟡 LOT 이슈 의심</span></div>
     </div>
-    <div class="ins-summary">전원키 클릭감 저하·무반응, 지문인식 완전 무반응 등 복수 독립 센터에서 동일 증상. 강화필름 부착 후 감도 저하 공통 패턴. 특정 LOT 집중 검토 필요.</div>
+    <div class="ins-summary">전원키 동작 불가, 지문인식 무반응. 복수 독립 센터에서 동일 증상. 강화필름 부착 후 감도 저하 패턴 공통.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일남인천센터</span><span class="case-sn">RFKL70ES3B</span><div class="case-sym">지문인식 완전 무반응. 로그 분석 요청</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일율량센터</span><span class="case-sn">R5KL709GQ4</span><div class="case-sym">어두운 곳 서브화면 지문 켜기 시 상단 화면 경광등처럼 깜빡임</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일오산센터</span><span class="case-sn">R3KL609X5M</span><div class="case-sym">개통 후 전원키 동작 불가. 블루투스도 비활성화. 스왑 재고 없음</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일대곡센터</span><span class="case-sn">R5KL709F8T</span><div class="case-sym">지문 잠금·삼성페이 지문결제 모두 무반응. 증상 지속</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일남인천센터</span><span class="case-sn">R5KL704D19</span><div class="case-sym">서브화면 지문 터치 시 화면 깜빡임, 어두운 곳에서 확인됨</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일 계양센터</span><span class="case-sn">R5KL7012M2</span><div class="case-sym">전원키 클릭감 동일단말 비교 시 확연히 차이. 타이트하게 꽉 끼는 느낌</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">13:16</span><span class="case-center">모바일율량센터</span><span class="case-sn">R5KL709GQ4</span><div class="case-sym">서브화면 지문 켜기 시 상단 화면 경광등처럼 깜빡임</div></div>
+    <div class="case-row"><span class="case-date">13:04</span><span class="case-center">모바일오산센터</span><span class="case-sn">R3KL609X5M</span><div class="case-sym">개통 후 전원키 동작 불가. 블루투스도 비활성화</div></div>
   </div>
 </div>
 
-<!-- #6 카메라 결로 🟡 초기 신호 -->
+<!-- #6 카메라 결로 🟡 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
-      <span class="ins-title">📷 카메라 결로 (여름 환경 특성)</span>
-      <div class="ins-badges"><span class="b-count">3건</span><span class="b-level b-green">🟡 초기 신호</span></div>
+      <span class="ins-title">📷 카메라 결로 (여름 환경)</span>
+      <div class="ins-badges"><span class="b-count">2건</span><span class="b-level b-green">🟡 초기 신호</span></div>
     </div>
-    <div class="ins-summary">차량 에어컨 앞 거치 후 카메라 윈도우 결로 발생. 8/4 대곡(습기) → 8/5 은평·남양(결로)으로 동일 유발 환경 반복. 고온다습 여름 특성, 방수 신뢰성 이슈로 확대 가능성.</div>
+    <div class="ins-summary">차량 에어컨 앞 거치 후 카메라 윈도우 결로 발생. 고온다습 여름 환경 특성. 방수 신뢰성 이슈로 확대 가능성 모니터링.</div>
   </div>
   <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 남양센터</span><span class="case-sn">RFKL60JV9H</span><div class="case-sym">차량 에어컨 앞 거치 후 메인 광각카메라 윈도우 결로. 방수결과 확인 요청</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 은평센터</span><span class="case-sn">R5KL700LYT</span><div class="case-sym">차량 에어컨 앞 거치 후 카메라 윈도우 결로. 고온다습 환경 지적</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일대곡센터</span><span class="case-sn">R5KL7023CW</span><div class="case-sym">주머니에서 꺼냈더니 카메라 뒤쪽 습기. 현재는 괜찮으나 특이사항 문의</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">16:43</span><span class="case-center">모바일 남양센터</span><span class="case-sn">RFKL60JV9H</span><div class="case-sym">차량 에어컨 앞 거치 후 메인 광각카메라 윈도우 결로. 방수결과 확인 요청</div></div>
+    <div class="case-row"><span class="case-date">09:21</span><span class="case-center">모바일 은평센터</span><span class="case-sn">R5KL700LYT</span><div class="case-sym">차량 에어컨 앞 거치 후 카메라 윈도우 결로. 고온다습 환경</div></div>
   </div>
 </div>
 
-<!-- #7 고주파 삐 소리 🟣 교차범주 신규 패턴 — 풀와이드 -->
+<!-- #7 고주파 삐 소리 🟣 풀와이드 -->
 <div class="ins-card" style="--ic:#6e40c9;--ibg:#fbefff;--ifc:#6e40c9;grid-column:1/-1">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔊 사운드 재생 중 고주파 "삐" 이상음 — 폴딩 특화 교차범주 패턴</span>
       <div class="ins-badges">
-        <span class="b-count" style="background:#fbefff;color:#6e40c9">4건</span>
+        <span class="b-count" style="background:#fbefff;color:#6e40c9">3건</span>
         <span class="b-level" style="background:#fbefff;color:#6e40c9">🟣 신규 패턴 · 누락 주의</span>
       </div>
     </div>
-    <div class="ins-summary">알람·전화벨·알림음 등 사운드 동작 중 또는 폴딩/언폴딩 시 고주파 "삐~" 소리 동반. 테스트모드 SPK 정상이나 실사용 중만 재현. ⚠️ 카테고리가 송수화/사운드·APP·S/W·화면으로 분산 집계되어 단순 카테고리 집계 시 누락됨 — 교차 키워드("삐","고주파") 기반 별도 모니터링 필요.</div>
+    <div class="ins-summary">알람·전화벨·알림음 등 사운드 동작 중 또는 폴딩/언폴딩 시 고주파 "삐~" 소리 동반. 테스트모드 SPK 정상이나 실사용 중만 재현. ⚠️ 카테고리가 송수화/사운드·APP·S/W·화면으로 분산되어 단순 집계 시 누락됨.</div>
   </div>
   <div class="ins-body" style="max-height:none">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 스피커 테스트 중 삐소리 1회 재현 (K존 539711)</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL705WR3</span><div class="case-sym">8/4 저녁 유튜브 영상 재생 중 고주파음 발생</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">벨소리 동작 이상 + "삐이이" 고주파음 동반 (서브화면 흑화와 함께 접수)</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일강동센터</span><span class="case-sn">R5KL70603D</span><div class="case-sym">벨소리·문자알림음 소리날 때 삐~ 고주파음 함께 들림. 테스트모드 SPK 정상. RDM 분석 요청</div></div>
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">18:14</span><span class="case-center">모바일목포센터</span><span class="case-sn">R5KL700GDE</span><div class="case-sym">소리 출력 시 삐~~ 소리 같이 출력됨</div></div>
+    <div class="case-row"><span class="case-date">14:06</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL705WR3</span><div class="case-sym">8/4 저녁 유튜브 영상 재생 중 고주파음 소리 발생</div></div>
+    <div class="case-row"><span class="case-date">10:57</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 SPK 테스트 중 삐소리 1회 재현 (K존 539711)</div></div>
   </div>
 </div>
 
 </div><!-- /insight-grid -->
-
-<div class="footer">FFF8 EWP 품질 모니터링 | 데이터 출처: KakaoTalk ★★FFF8 서비스 엔지니어 HotLine★★ | 총 1,523건 메시지 파싱 → 149건 문의 추출</div>
+<div class="footer">FFF8 EWP 품질 모니터링 | 데이터 출처: KakaoTalk ★★FFF8 서비스 엔지니어 HotLine★★ | 2026-08-06 07:51 기준 스냅샷 · 871건 메시지 파싱 → 78건 문의 추출</div>
 </div>
 </body>
 </html>
