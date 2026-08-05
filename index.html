@@ -20,8 +20,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .kpi.grn .val{color:#1a7f37}
 .section-title{font-size:12px;font-weight:600;color:#57606a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
 .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ins-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;border-left:5px solid var(--ic,#0969da);overflow:hidden}
-.ins-head{padding:13px 15px 10px;border-bottom:1px solid #f0f0f0}
+.ins-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;border-left:5px solid var(--ic,#0969da);overflow:hidden;display:flex;flex-direction:column}
+.ins-head{padding:13px 15px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
 .ins-head-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .ins-title{font-size:13px;font-weight:700;color:#1f2328}
 .ins-badges{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
@@ -31,8 +31,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .b-orange{background:#fff3cd;color:#7a4100}
 .b-green{background:#dafbe1;color:#116329}
 .ins-summary{font-size:12px;color:#57606a;line-height:1.55}
-.ins-body{padding:0}
-.case-header{display:grid;grid-template-columns:42px 1fr 110px;gap:6px;padding:7px 15px 5px;background:#f6f8fa;border-bottom:1px solid #e8eaed}
+.ins-body{padding:0;max-height:300px;overflow-y:auto;flex:1}
+.ins-body::-webkit-scrollbar{width:5px}
+.ins-body::-webkit-scrollbar-track{background:#f6f8fa}
+.ins-body::-webkit-scrollbar-thumb{background:#d0d7de;border-radius:3px}
+.ins-body::-webkit-scrollbar-thumb:hover{background:#8c959f}
+.case-header{display:grid;grid-template-columns:42px 1fr 110px;gap:6px;padding:7px 15px 5px;background:#f6f8fa;border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:1}
 .case-header span{font-size:10px;font-weight:600;color:#8c959f;text-transform:uppercase;letter-spacing:.4px}
 .case-row{display:grid;grid-template-columns:42px 1fr 110px;gap:6px;padding:7px 15px;border-bottom:1px solid #f0f0f0;align-items:start}
 .case-row:last-child{border-bottom:none}
@@ -41,7 +45,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .case-center{font-size:11px;color:#1f2328}
 .case-sn{font-size:11px;font-family:ui-monospace,SFMono-Regular,monospace;color:#0969da;word-break:break-all}
 .case-sym{font-size:11px;color:#57606a;line-height:1.4;grid-column:1/-1;padding-top:2px}
-.more-note{font-size:11px;color:#8c959f;padding:8px 15px;background:#f6f8fa;text-align:center;font-style:italic}
+.more-note{font-size:11px;color:#8c959f;padding:8px 15px;background:#f6f8fa;text-align:center;font-style:italic;border-top:1px solid #e8eaed}
 .footer{text-align:center;font-size:11px;color:#8c959f;padding:12px 0 4px}
 </style>
 </head>
@@ -64,20 +68,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="kpi grn"><div class="val">1,523</div><div class="lbl">총 HotLine 메시지</div></div>
 </div>
 
-<div class="section-title">품질 인사이트 — 8/5 기준 최신 (센터·S/N 포함)</div>
+<div class="section-title">품질 인사이트 — 8/5 기준 최신 · 긴급순위 정렬 (센터·S/N 포함)</div>
 <div class="insight-grid">
 
-<!-- ① 힌지/크랙 -->
+<!-- #1 힌지/크랙 🔴 최다·지속 -->
 <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">⚠️ 힌지·이음소리·UTG 크랙</span>
-      <div class="ins-badges">
-        <span class="b-count">18건</span>
-        <span class="b-level b-red">🔴 최다·지속</span>
-      </div>
+      <div class="ins-badges"><span class="b-count">18건</span><span class="b-level b-red">🔴 최다·지속</span></div>
     </div>
-    <div class="ins-summary">개봉 직후 힌지 이음소리·UTG 크랙·유격이 8/3~8/5 연속 접수. 전국 분산으로 특정 센터 집중 아님. 일부는 개봉 전 상태(대리점 개통 후 수령)에서도 발생.</div>
+    <div class="ins-summary">개봉 직후 힌지 이음소리·UTG 크랙·유격이 8/3~8/5 연속 접수. 전국 분산, 특정 센터 집중 아님. 일부는 대리점 개통 후 수령 상태에서도 발생.</div>
   </div>
   <div class="ins-body">
     <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
@@ -95,39 +96,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- ② Hall IC / 화면 흑화 -->
+<!-- #2 전원불/재부팅 🔴 8/5 급증 -->
 <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
   <div class="ins-head">
     <div class="ins-head-top">
-      <span class="ins-title">⚠️ Hall IC · CTC 화면흑화</span>
-      <div class="ins-badges">
-        <span class="b-count">7건</span>
-        <span class="b-level b-red">🔴 폴더블 특화</span>
-      </div>
-    </div>
-    <div class="ins-summary">외부+내부 동시 흑화, CTC 불량 의심, 데이터 이동 중 발생 패턴 공통. 8/4 4건 → 8/5 3건으로 지속 확산 중. 재부팅 후 일시 복구되나 재발함.</div>
-  </div>
-  <div class="ins-body">
-    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL705V39</span><div class="case-sym">메인화면 CTC불량 의심 노이즈 간헐 출력, IQC 폴딩 정밀검사 이상 없음</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일휘경센터</span><span class="case-sn">R5KL7068XZ</span><div class="case-sym">8/3 오후 커버화면 노랗게 변색 → 메인 흑화. 재부팅+업데이트 후 재발</div></div>
-    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">서브화면 흑화 + 벨소리 '삐이이' 이상음 동반</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바신정센터</span><span class="case-sn">RFKL709SEP</span><div class="case-sym">개봉 후 서브LCD 흑화, 메인 정상. 미개통 상태. 재부팅 동일</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일강릉센터</span><span class="case-sn">R5KL707ZSJ</span><div class="case-sym">데이터 이동 + 유심 교체 중 서브 흑화 + 송수화 불량</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일동대전</span><span class="case-sn">R5KL708GTL</span><div class="case-sym">데이터 이동 후 펼치니 화면 흑화. 14일 불량확인서 요청</div></div>
-    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일을지로센터</span><span class="case-sn">R5KL60F6P4</span><div class="case-sym">외부+내부 흑화 동시, 폴딩 시 외부도 흑화·터치 불량. 증상 재현</div></div>
-  </div>
-</div>
-
-<!-- ③ 전원불 / 무한재부팅 -->
-<div class="ins-card" style="--ic:#d08002;--ibg:#fff3cd;--ifc:#7a4100">
-  <div class="ins-head">
-    <div class="ins-head-top">
       <span class="ins-title">🔋 전원불 · 무한재부팅</span>
-      <div class="ins-badges">
-        <span class="b-count">7건</span>
-        <span class="b-level b-orange">🟠 8/5 급증</span>
-      </div>
+      <div class="ins-badges"><span class="b-count">7건</span><span class="b-level b-red">🔴 8/5 급증</span></div>
     </div>
     <div class="ins-summary">8/4 2건 → 8/5 5건으로 급증. 수령 당일 또는 다음날 발생. 과열 경고 동반, 충전 후 미켜짐, 무한재부팅 패턴. 초기 불량 가능성.</div>
   </div>
@@ -143,15 +117,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- ④ 화면 흑점/명점 -->
+<!-- #3 Hall IC/흑화 🔴 폴더블 특화 -->
+<div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">⚠️ Hall IC · CTC 화면흑화</span>
+      <div class="ins-badges"><span class="b-count">7건</span><span class="b-level b-red">🔴 폴더블 특화</span></div>
+    </div>
+    <div class="ins-summary">외부+내부 동시 흑화, CTC 불량 의심, 데이터 이동 중 발생 패턴 공통. 8/4 4건 → 8/5 3건으로 지속 확산 중. 재부팅 후 일시 복구되나 재발함.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일이천센터</span><span class="case-sn">R5KL705V39</span><div class="case-sym">메인화면 CTC불량 의심 노이즈 간헐 출력, IQC 폴딩 정밀검사 이상 없음</div></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일휘경센터</span><span class="case-sn">R5KL7068XZ</span><div class="case-sym">8/3 오후 커버화면 노랗게 변색 → 메인 흑화. 재부팅+업데이트 후 재발</div></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">서브화면 흑화 + 벨소리 '삐이이' 이상음 동반</div></div>
+    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바신정센터</span><span class="case-sn">RFKL709SEP</span><div class="case-sym">개봉 후 서브LCD 흑화, 메인 정상. 미개통 상태. 재부팅 동일</div></div>
+    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일강릉센터</span><span class="case-sn">R5KL707ZSJ</span><div class="case-sym">데이터 이동 + 유심 교체 중 서브 흑화 + 송수화 불량</div></div>
+    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일동대전</span><span class="case-sn">R5KL708GTL</span><div class="case-sym">데이터 이동 후 펼치니 화면 흑화. 14일 불량확인서 요청</div></div>
+    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일을지로센터</span><span class="case-sn">R5KL60F6P4</span><div class="case-sym">외부+내부 흑화 동시, 폴딩 시 외부도 흑화·터치 불량. 증상 재현</div></div>
+  </div>
+</div>
+
+<!-- #4 화면 흑점/명점 🟠 출하불량 -->
 <div class="ins-card" style="--ic:#d08002;--ibg:#fff3cd;--ifc:#7a4100">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔬 화면 흑점 · 명점 (출하불량)</span>
-      <div class="ins-badges">
-        <span class="b-count">8건</span>
-        <span class="b-level b-orange">🟠 출하불량 의심</span>
-      </div>
+      <div class="ins-badges"><span class="b-count">8건</span><span class="b-level b-orange">🟠 출하불량 의심</span></div>
     </div>
     <div class="ins-summary">개봉 즉시 또는 2일차 내 발견. 외력 없이 발생. 공정이미지·출하사진 확인 요청 급증. 메인·서브·셀카 카메라 주변 등 위치 다양.</div>
   </div>
@@ -168,15 +160,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- ⑤ 전원키/지문인식 -->
+<!-- #5 전원키/지문 🟡 LOT 의심 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔑 전원키 · 지문인식 불량</span>
-      <div class="ins-badges">
-        <span class="b-count">6건</span>
-        <span class="b-level b-green">🟡 LOT 이슈 의심</span>
-      </div>
+      <div class="ins-badges"><span class="b-count">6건</span><span class="b-level b-green">🟡 LOT 이슈 의심</span></div>
     </div>
     <div class="ins-summary">전원키 클릭감 저하·무반응, 지문인식 완전 무반응 등 복수 독립 센터에서 동일 증상. 강화필름 부착 후 감도 저하 공통 패턴. 특정 LOT 집중 검토 필요.</div>
   </div>
@@ -191,15 +180,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- ⑥ 카메라 결로 -->
+<!-- #6 카메라 결로 🟡 초기 신호 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">📷 카메라 결로 (여름 환경 특성)</span>
-      <div class="ins-badges">
-        <span class="b-count">3건</span>
-        <span class="b-level b-green">🟡 초기 신호</span>
-      </div>
+      <div class="ins-badges"><span class="b-count">3건</span><span class="b-level b-green">🟡 초기 신호</span></div>
     </div>
     <div class="ins-summary">차량 에어컨 앞 거치 후 카메라 윈도우 결로 발생. 8/4 대곡(습기) → 8/5 은평·남양(결로)으로 동일 유발 환경 반복. 고온다습 여름 특성, 방수 신뢰성 이슈로 확대 가능성.</div>
   </div>
@@ -211,24 +197,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- ⑦ 고주파 삐 소리 - 사운드 재생 중 폴딩 이상음 -->
+<!-- #7 고주파 삐 소리 🟣 교차범주 신규 패턴 — 풀와이드 -->
 <div class="ins-card" style="--ic:#6e40c9;--ibg:#fbefff;--ifc:#6e40c9;grid-column:1/-1">
   <div class="ins-head">
     <div class="ins-head-top">
-      <span class="ins-title">🔊 사운드 재생 중 고주파 "삐" 이상음 (폴딩 특화)</span>
+      <span class="ins-title">🔊 사운드 재생 중 고주파 "삐" 이상음 — 폴딩 특화 교차범주 패턴</span>
       <div class="ins-badges">
         <span class="b-count" style="background:#fbefff;color:#6e40c9">4건</span>
-        <span class="b-level" style="background:#fbefff;color:#6e40c9">🟣 신규 패턴 감지</span>
+        <span class="b-level" style="background:#fbefff;color:#6e40c9">🟣 신규 패턴 · 누락 주의</span>
       </div>
     </div>
-    <div class="ins-summary">알람·전화벨·알림음 등 사운드 동작 중 또는 폴딩/언폴딩 동작 시 고주파 "삐~" 소리 동반. 테스트모드 SPK는 정상이나 실사용 중만 재현. 카테고리가 송수화/사운드·APP·S/W·화면으로 분산되어 집계 시 누락 위험 높음. 동일 HW 기인 가능성 검토 필요.</div>
+    <div class="ins-summary">알람·전화벨·알림음 등 사운드 동작 중 또는 폴딩/언폴딩 시 고주파 "삐~" 소리 동반. 테스트모드 SPK 정상이나 실사용 중만 재현. ⚠️ 카테고리가 송수화/사운드·APP·S/W·화면으로 분산 집계되어 단순 카테고리 집계 시 누락됨 — 교차 키워드("삐","고주파") 기반 별도 모니터링 필요.</div>
   </div>
-  <div class="ins-body">
-    <div class="case-header" style="grid-template-columns:42px 1fr 110px"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
-    <div class="case-row" style="grid-template-columns:42px 1fr 110px"><span class="case-date">8/5</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 스피커 테스트 중 삐소리 1회 재현 확인 (K존 539711)</div></div>
-    <div class="case-row" style="grid-template-columns:42px 1fr 110px"><span class="case-date">8/5</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL705WR3</span><div class="case-sym">8/4 저녁 유튜브 영상 재생 중 고주파음 발생</div></div>
-    <div class="case-row" style="grid-template-columns:42px 1fr 110px"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">벨소리 동작 이상 + "삐이이" 고주파음 동반 (서브화면 흑화와 함께 접수)</div></div>
-    <div class="case-row" style="grid-template-columns:42px 1fr 110px"><span class="case-date">8/4</span><span class="case-center">모바일강동센터</span><span class="case-sn">R5KL70603D</span><div class="case-sym">벨소리·문자알림음 소리날 때 삐~ 고주파음 함께 들림. 테스트모드 SPK 정상. RDM 분석 요청</div></div>
+  <div class="ins-body" style="max-height:none">
+    <div class="case-header"><span>날짜</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 스피커 테스트 중 삐소리 1회 재현 (K존 539711)</div></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL705WR3</span><div class="case-sym">8/4 저녁 유튜브 영상 재생 중 고주파음 발생</div></div>
+    <div class="case-row"><span class="case-date">8/5</span><span class="case-center">모바일 상무센터</span><span class="case-sn">R5KL7027A5</span><div class="case-sym">벨소리 동작 이상 + "삐이이" 고주파음 동반 (서브화면 흑화와 함께 접수)</div></div>
+    <div class="case-row"><span class="case-date">8/4</span><span class="case-center">모바일강동센터</span><span class="case-sn">R5KL70603D</span><div class="case-sym">벨소리·문자알림음 소리날 때 삐~ 고주파음 함께 들림. 테스트모드 SPK 정상. RDM 분석 요청</div></div>
   </div>
 </div>
 
