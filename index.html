@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FFF8 EWP 서비스현황</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>*{margin:0;padding:0;box-sizing:border-box}
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 body{background:#f6f8fa;color:#24292f;font-family:'Segoe UI','Noto Sans KR',sans-serif;min-height:100vh}
 .header{background:#fff;border-bottom:1px solid #d0d7de;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .header-left h1{font-size:19px;font-weight:700;color:#0969da}
@@ -59,74 +59,121 @@ tr:hover td{background:#f6f8fa}
 </style>
 </head>
 <body>
-<div class="header"><div class="header-left"><h1>FFF8 EWP 서비스현황 <span class="badge">Galaxy Z Fold8 · Flip8</span></h1><div class="sub">Samsung MX Service Engineer HotLine · 엔지니어 문의 분석 대시보드</div></div><div class="header-right"><div>기간: <strong style="color:#24292f">2026-08-03 ~ 08-05</strong></div><div style="margin-top:2px">최종 업데이트: 2026-08-05 12:27</div></div>
-</div><div class="content"><div class="kpi-row"><div class="kpi" style="--accent:#0969da"><div class="kpi-label">총 문의</div><div class="kpi-val">122<span class="kpi-unit">건</span></div><div class="kpi-sub">8/3(1) · 8/4(78) · 8/5(43)</div></div><div class="kpi" style="--accent:#1a7f37"><div class="kpi-label">총 메시지</div><div class="kpi-val">1,133<span class="kpi-unit">건</span></div><div class="kpi-sub">전체 채팅 메시지</div></div><div class="kpi" style="--accent:#cf222e"><div class="kpi-label">참여 센터</div><div class="kpi-val">91<span class="kpi-unit">개</span></div><div class="kpi-sub">전국 서비스센터</div></div><div class="kpi" style="--accent:#8250df"><div class="kpi-label">참여 인원</div><div class="kpi-val">142<span class="kpi-unit">명</span></div><div class="kpi-sub">엔지니어/품질팀</div></div><div class="kpi" style="--accent:#d08002"><div class="kpi-label">주요 기종</div><div class="kpi-val" style="font-size:18px">Z Fold8</div><div class="kpi-sub">SM-F971N 75건 · SM-F976N 29건</div></div>
-</div><div style="margin-bottom:6px;display:flex;align-items:center;gap:6px"><span style="background:#cf222e;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px">📅 오늘(8/5) 신규 이슈 — 최신 날짜 우선 정렬</span></div>
-<div class="insight-banner"><div class="ins-card" style="--ic:#d08002;border-width:2px;border-color:#d08002"><div class="ins-signal" style="--sig-bg:#fff8c5;--sig-color:#7d4e00">🟡 8/5 신규·급증</div><div class="ins-title">전원불 · 무한재부팅 — 사용 1일차 집중 발생</div><div class="ins-count">📍 3건 / 8/5 오전 09:35~11:29 접수</div><div class="ins-body">
-      이천(R5KL7035T4): "개봉 부팅 시 기기 온도 상승 경고 후 전원꺼짐"<br>
-      태릉(R3KL608PV1): "8/4 구매 후 8/5 오전부터 무한재부팅"<br>
-      용산(R5KL702EVM): "8/4 개봉 후 8/5 오전 재부팅 → 전원불, 강제재부팅 중 멈춤"
-    </div><div class="ins-why">⚠ 감지 이유: 모두 8/4 개봉 후 8/5 오전(사용 1일차) 동일 패턴 → SW(업데이트/앱 충돌) 또는 HW(배터리/PMIC) 원인 규명 필요. 즉각 RDM 로그 분석 권고.</div></div><div class="ins-card" style="--ic:#8250df;border-width:2px;border-color:#8250df"><div class="ins-signal" style="--sig-bg:#fbefff;--sig-color:#6e40c9">🟣 8/5 신규 불량 확인</div><div class="ins-title">Hall IC 동작 불량 — 8/5 대전센터 직접 진단</div><div class="ins-count">📍 패턴 5건 (8/4~8/5 · 홀IC 명칭 직접 언급)</div><div class="ins-body">
-      대전(R5KL705PGY): <strong>"홀IC 동작불 — 펼쳤을때 메인화면 전환안됨, 재부팅 후 일시 정상"</strong><br>
-      을지로(R5KL60F6P4): CTC 불량 의심 — 폴딩 시 화면 흑화<br>
-      강릉(R5KL707ZSJ): 서브화면 흑화 — 데이터 이동 후 발생<br>
-      동대전(R5KL708GTL): 화면 흑화 — 스마트스위치 후 발생
-    </div><div class="ins-why">⚠ 감지 이유: 8/5 엔지니어가 "홀IC 동작불"로 직접 진단 → 폴더블 특화 신규 불량 확정. 기존 S 시리즈 없는 패턴. 부품 수율 및 조립 검사 강화 필요.</div></div><div class="ins-card" style="--ic:#cf222e"><div class="ins-signal" style="--sig-bg:#ffebe9;--sig-color:#a40e26">🔴 8/4~8/5 LOT 이슈 누적</div><div class="ins-title">전원키 클릭감 불량 — 3개 센터 독립 보고</div><div class="ins-count">📍 3건 / 계양(8/4) · 금촌(8/4) · 홍대(8/5)</div><div class="ins-body">
-      계양(R5KL7012M2): "동일 단말 비교 시 클릭감 차이, 꽉 끼는 느낌"<br>
-      금촌(R5KL70614Z): "전원키 하단쪽 클릭 시 뻑뻑함"<br>
-      홍대(RFKL70CMBW): "버튼 상단부 클릭감 전혀 없음 — 2대 중 1대만 발생"
-    </div><div class="ins-why">⚠ 감지 이유: 3개 독립 센터에서 동일 HW 증상 → 조립 라인 공차 불균일 가능성. 8/5 추가 확인으로 신호 강도 상승 중.</div></div>
-</div><div class="row2"><div class="card"><div class="card-title">📱 모델별 분포</div><div style="position:relative;height:220px"><canvas id="modelChart"></canvas></div></div><div class="card"><div class="card-title">🔧 이슈 유형 집중도 (8/3~8/5 누적)</div><div style="position:relative;height:220px"><canvas id="issueChart"></canvas></div></div><div class="card"><div class="card-title">📅 일자별 문의 추이</div><div style="position:relative;height:220px"><canvas id="dailyChart"></canvas></div></div>
-</div><div class="table-section"><div class="card-title">📝 접수 문의 현황 — 증상 그룹별 요약 (122건 → 40개 그룹 · 8/3~8/5 · 유사건 통합)</div><div class="tbl-wrap"><table><thead><tr><th>이슈유형</th><th>접수번호</th><th>제조번호(SN)</th><th>모델</th><th>센터</th><th>버전</th><th>문의 내용</th><th>일시</th></tr></thead><tbody id="tblBody"></tbody></table></div>
+<div class="header">
+  <div class="header-left"><h1>FFF8 EWP 서비스현황 <span class="badge">Galaxy Z Fold8 · Flip8</span></h1><div class="sub">Samsung MX Service Engineer HotLine · 엔지니어 문의 분석 대시보드</div></div>
+  <div class="header-right"><div>기간: <strong style="color:#24292f">2026-08-03 ~ 08-05</strong></div><div style="margin-top:2px">최종 업데이트: 2026-08-05 12:27</div></div>
 </div>
+<div class="content">
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi" style="--accent:#0969da"><div class="kpi-label">총 문의</div><div class="kpi-val">122<span class="kpi-unit">건</span></div><div class="kpi-sub">8/3(1) · 8/4(78) · 8/5(43)</div></div>
+  <div class="kpi" style="--accent:#1a7f37"><div class="kpi-label">총 메시지</div><div class="kpi-val">1,133<span class="kpi-unit">건</span></div><div class="kpi-sub">전체 채팅 메시지</div></div>
+  <div class="kpi" style="--accent:#cf222e"><div class="kpi-label">참여 센터</div><div class="kpi-val">91<span class="kpi-unit">개</span></div><div class="kpi-sub">전국 서비스센터</div></div>
+  <div class="kpi" style="--accent:#8250df"><div class="kpi-label">참여 인원</div><div class="kpi-val">142<span class="kpi-unit">명</span></div><div class="kpi-sub">엔지니어/품질팀</div></div>
+  <div class="kpi" style="--accent:#d08002"><div class="kpi-label">주요 기종</div><div class="kpi-val" style="font-size:18px">Z Fold8</div><div class="kpi-sub">SM-F971N 75건 · SM-F976N 29건</div></div>
 </div>
-<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · MHT 원본 122건 · 8/3~8/5 · 찍힘·스크래치·이물 → 외관 재분류</div><script>Chart.defaults.color='#57606a';
-Chart.defaults.borderColor='#d0d7de';
-new Chart(document.getElementById('modelChart'),{
-type:'doughnut',
-data:{
-labels:['SM-F971N (Fold8)','SM-F976N (Fold8 Ultra)','SM-F776N (Flip8)','기타'],
-datasets:[{data:[75,29,14,4],backgroundColor:['#0969da','#1a7f37','#d08002','#8c959f'],borderWidth:2,borderColor:'#fff',hoverOffset:6}]
-},
-options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
-plugins:{legend:{position:'right',labels:{font:{size:11},padding:10,color:'#24292f',boxWidth:12}},
-tooltip:{callbacks:{label:ctx=>' '+ctx.raw+'건 ('+Math.round(ctx.raw/122*100)+'%)'}}}}
-});
-const CATS=['외관','화면','APP·S/W','송수신','카메라','기타','전원','송수화/사운드','충전','센서','BT','기구(형합성)','WiFi'];
-const VALS=[45,  25,   10,      9,       7,       7,    6,    5,              4,    1,    1,    1,             1   ];
-new Chart(document.getElementById('issueChart'),{
-type:'bar',
-data:{
-labels:CATS,
-datasets:[{
-data:VALS.map(v=>parseFloat((v/122*100).toFixed(1))),
-backgroundColor:VALS.map(v=>v>=35?'#cf222e':v>=18?'#d08002':'#0969da'),
-borderRadius:4,borderSkipped:false
-}]
-},
-options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=CATS.indexOf(ctx.label);return ' '+ctx.raw+'% ('+VALS[i]+'건)';}}}},
-scales:{x:{grid:{display:false},ticks:{color:'#24292f',font:{size:9}}},
-y:{grid:{color:'#f0f0f0'},ticks:{color:'#57606a',font:{size:10},callback:v=>v+'%'}}}}
-});
-new Chart(document.getElementById('dailyChart'),{
-type:'bar',
-data:{
-labels:['8/3','8/4','8/5 (오전)'],
-datasets:[
-{label:'외관',data:[1,25,19],backgroundColor:'#d4a72c',borderRadius:3},
-{label:'화면',data:[0,17,8],backgroundColor:'#0969da',borderRadius:3},
-{label:'기타 이슈',data:[0,36,16],backgroundColor:'#8c959f',borderRadius:3},
-]
-},
-options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'top',labels:{font:{size:10},padding:8,boxWidth:10}}},
-scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#24292f',font:{size:11}}},
-y:{stacked:true,grid:{color:'#f0f0f0'},ticks:{color:'#57606a',font:{size:10}}}}}
-});
+
+<!-- 인사이트 -->
+<div style="margin-bottom:6px"><span style="background:#cf222e;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px">📅 오늘(8/5) 신규 이슈 — 최신 날짜 우선 정렬</span></div>
+<div class="insight-banner">
+  <div class="ins-card" style="--ic:#d08002;border-width:2px;border-color:#d08002">
+    <div class="ins-signal" style="--sig-bg:#fff8c5;--sig-color:#7d4e00">🟡 8/5 신규·급증</div>
+    <div class="ins-title">전원불 · 무한재부팅 — 사용 1일차 집중 발생</div>
+    <div class="ins-count">📍 3건 / 8/5 오전 09:35~11:29 접수</div>
+    <div class="ins-body">이천(R5KL7035T4): "개봉 부팅 시 기기 온도 상승 경고 후 전원꺼짐"<br>태릉(R3KL608PV1): "8/4 구매 후 8/5 오전부터 무한재부팅"<br>용산(R5KL702EVM): "8/4 개봉 후 8/5 오전 재부팅 → 전원불, 강제재부팅 중 멈춤"</div>
+    <div class="ins-why">⚠ 모두 8/4 개봉 후 8/5 오전(사용 1일차) 동일 패턴 → SW(업데이트/앱 충돌) 또는 HW(배터리/PMIC) 원인 규명 필요. 즉각 RDM 로그 분석 권고.</div>
+  </div>
+  <div class="ins-card" style="--ic:#8250df;border-width:2px;border-color:#8250df">
+    <div class="ins-signal" style="--sig-bg:#fbefff;--sig-color:#6e40c9">🟣 8/5 신규 불량 확인</div>
+    <div class="ins-title">Hall IC 동작 불량 — 8/5 대전센터 직접 진단</div>
+    <div class="ins-count">📍 패턴 5건 (8/4~8/5 · 홀IC 명칭 직접 언급)</div>
+    <div class="ins-body">대전(R5KL705PGY): <strong>"홀IC 동작불 — 펼쳤을때 메인화면 전환안됨, 재부팅 후 일시 정상"</strong><br>을지로(R5KL60F6P4): CTC 불량 의심 — 폴딩 시 화면 흑화<br>강릉(R5KL707ZSJ): 서브화면 흑화 — 데이터 이동 후 발생<br>동대전(R5KL708GTL): 화면 흑화 — 스마트스위치 후 발생</div>
+    <div class="ins-why">⚠ 8/5 엔지니어가 "홀IC 동작불"로 직접 진단 → 폴더블 특화 신규 불량 확정. 기존 S 시리즈 없는 패턴. 부품 수율 및 조립 검사 강화 필요.</div>
+  </div>
+  <div class="ins-card" style="--ic:#cf222e">
+    <div class="ins-signal" style="--sig-bg:#ffebe9;--sig-color:#a40e26">🔴 8/4~8/5 LOT 이슈 누적</div>
+    <div class="ins-title">전원키 클릭감 불량 — 3개 센터 독립 보고</div>
+    <div class="ins-count">📍 3건 / 계양(8/4) · 금촌(8/4) · 홍대(8/5)</div>
+    <div class="ins-body">계양(R5KL7012M2): "동일 단말 비교 시 클릭감 차이, 꽉 끼는 느낌"<br>금촌(R5KL70614Z): "전원키 하단쪽 클릭 시 뻑뻑함"<br>홍대(RFKL70CMBW): "버튼 상단부 클릭감 전혀 없음 — 2대 중 1대만 발생"</div>
+    <div class="ins-why">⚠ 3개 독립 센터에서 동일 HW 증상 → 조립 라인 공차 불균일 가능성. 8/5 추가 확인으로 신호 강도 상승 중.</div>
+  </div>
+</div>
+
+<!-- 차트 (외부 라이브러리 없음 - 순수 SVG/HTML) -->
+<div class="row2">
+  <div class="card"><div class="card-title">📱 모델별 분포</div><div id="modelChart" style="height:210px"></div></div>
+  <div class="card"><div class="card-title">🔧 이슈 유형 집중도 (8/3~8/5 누적)</div><div id="issueChart" style="height:210px"></div></div>
+  <div class="card"><div class="card-title">📅 일자별 문의 추이</div><div id="dailyChart" style="height:210px"></div></div>
+</div>
+
+<!-- 테이블 -->
+<div class="table-section">
+  <div class="card-title">📝 접수 문의 현황 — 증상 그룹별 요약 (122건 → 40개 그룹 · 8/3~8/5 · 유사건 통합)</div>
+  <div class="tbl-wrap">
+    <table><thead><tr>
+      <th>이슈유형</th><th>제조번호(SN)</th><th>모델</th><th>센터</th><th>버전</th><th colspan="2">문의 내용</th><th>일시</th>
+    </tr></thead><tbody id="tblBody"></tbody></table>
+  </div>
+</div>
+
+</div>
+<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · MHT 원본 122건 · 8/3~8/5 · 찍힘·스크래치·이물 → 외관 재분류</div>
+
+<script>
+/* ── 도넛 차트 ── */
+(function(){
+  var D=[{v:75,c:'#0969da',l:'SM-F971N (Fold8)'},{v:29,c:'#1a7f37',l:'SM-F976N (Fold8 Ultra)'},{v:14,c:'#d08002',l:'SM-F776N (Flip8)'},{v:4,c:'#8c959f',l:'기타'}];
+  var T=122,cx=95,cy=105,R=82,r=50,s=-Math.PI/2,p='',lg='';
+  D.forEach(function(d){
+    var a=2*Math.PI*d.v/T,e=s+a;
+    var x1=cx+R*Math.cos(s),y1=cy+R*Math.sin(s),x2=cx+R*Math.cos(e),y2=cy+R*Math.sin(e);
+    var xi=cx+r*Math.cos(s),yi=cy+r*Math.sin(s),xe=cx+r*Math.cos(e),ye=cy+r*Math.sin(e);
+    p+='<path d="M '+xi+' '+yi+' L '+x1+' '+y1+' A '+R+' '+R+' 0 '+(a>Math.PI?1:0)+' 1 '+x2+' '+y2+' L '+xe+' '+ye+' A '+r+' '+r+' 0 '+(a>Math.PI?1:0)+' 0 '+xi+' '+yi+' Z" fill="'+d.c+'" stroke="#fff" stroke-width="2"><title>'+d.l+': '+d.v+'건 ('+Math.round(d.v/T*100)+'%)</title></path>';
+    lg+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;flex-shrink:0;display:inline-block;background:'+d.c+'"></span>'+d.l+'<b style="color:#8c959f;font-weight:400;margin-left:auto">'+d.v+'건</b></div>';
+    s=e;
+  });
+  var el=document.getElementById('modelChart');
+  el.style.cssText='height:210px;display:flex;align-items:center;gap:6px;overflow:hidden';
+  el.innerHTML='<svg width="190" height="210" style="flex-shrink:0"><defs><style>.ct{font-family:inherit}</style></defs>'+p+'<text x="'+cx+'" y="'+(cy-10)+'" text-anchor="middle" font-size="22" font-weight="700" fill="#24292f" class="ct">'+T+'</text><text x="'+cx+'" y="'+(cy+10)+'" text-anchor="middle" font-size="12" fill="#8c959f" class="ct">건</text></svg><div style="flex:1;min-width:0">'+lg+'</div>';
+})();
+
+/* ── 가로 막대 차트 ── */
+(function(){
+  var C=[['외관',45],['화면',25],['APP·S/W',10],['송수신',9],['카메라',7],['기타',7],['전원',6],['송수화/사운드',5],['충전',4],['센서',1],['BT',1],['기구',1],['WiFi',1]];
+  var T=122,h='<div style="padding:2px 2px 0 0;height:205px;overflow-y:auto">';
+  C.forEach(function(d){
+    var pct=(d[1]/T*100).toFixed(1);
+    var bw=Math.max(3,Math.round(d[1]/45*100));
+    var col=d[1]>=35?'#cf222e':d[1]>=18?'#d08002':'#0969da';
+    h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:9px"><div style="width:72px;font-size:10px;color:#24292f;text-align:right;flex-shrink:0;white-space:nowrap">'+d[0]+'</div><div style="flex:1;background:#f0f0f0;border-radius:3px;height:14px"><div style="width:'+bw+'%;background:'+col+';height:100%;border-radius:3px;min-width:4px" title="'+d[0]+' '+d[1]+'건 ('+pct+'%)"></div></div><div style="width:48px;font-size:10px;color:#57606a;flex-shrink:0">'+d[1]+'건 '+pct+'%</div></div>';
+  });
+  document.getElementById('issueChart').innerHTML=h+'</div>';
+})();
+
+/* ── 스택 막대 차트 ── */
+(function(){
+  var D=[['8/3',1,0,0],['8/4',25,17,36],['8/5 (오전)',19,8,16]];
+  var cols=['#d4a72c','#0969da','#8c959f'],labs=['외관','화면','기타'],MAX=79,MH=130;
+  var lg='<div style="display:flex;gap:10px;margin-bottom:8px;justify-content:center">';
+  labs.forEach(function(l,i){lg+='<div style="display:flex;align-items:center;gap:3px;font-size:10px"><span style="width:10px;height:10px;background:'+cols[i]+';display:inline-block;border-radius:2px"></span>'+l+'</div>';});
+  lg+='</div>';
+  var bars='<div style="flex:1;display:flex;align-items:flex-end;gap:10px;padding:0 6px">';
+  D.forEach(function(d){
+    var tot=d[1]+d[2]+d[3];
+    bars+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:600;color:#24292f;margin-bottom:2px">'+tot+'건</div><div style="width:100%;max-width:48px;display:flex;flex-direction:column-reverse;border-radius:3px 3px 0 0;overflow:hidden">';
+    [d[1],d[2],d[3]].forEach(function(v,i){if(v>0)bars+='<div style="width:100%;height:'+Math.round(v/MAX*MH)+'px;background:'+cols[i]+'" title="'+labs[i]+': '+v+'건"></div>';});
+    bars+='</div><div style="font-size:11px;color:#24292f;margin-top:4px;text-align:center;white-space:pre-line">'+d[0]+'</div></div>';
+  });
+  bars+='</div>';
+  var el=document.getElementById('dailyChart');
+  el.style.cssText='height:210px;display:flex;flex-direction:column;padding:4px 6px 0;box-sizing:border-box';
+  el.innerHTML=lg+bars;
+})();
+
+/* ── 테이블 ── */
 const CAT_ORDER=['APP·S/W','화면','충전','카메라','송수화/사운드','송수신','전원','외관','센서','BT','기구(형합성)','WiFi','기타'];
 const CC={'APP·S/W':'cAPP','화면':'c화면','충전':'c충전','카메라':'c카메라','송수화/사운드':'c송수화','송수신':'c송수신','전원':'c전원','외관':'c외관','센서':'c센서','BT':'cBT','기구(형합성)':'c기구','WiFi':'cWiFi','기타':'c기타'};
-const INSIGHT_SNS=['R5KL7012M2','R5KL70614Z','RFKL70CMBW','R5KL705PGY','R5KL60F6P4','R5KL708GTL','R5KL707ZSJ','RFKL709SEP','R3KL608PV1','R5KL702EVM','R5KL7035T4'];
 const INQ=[
 {c:'APP·S/W',sg:'APP·S/W 기타',sn:'RFKL60HRYC, RFKL709QKX',m:'SM-F976N',cn:'2개 센터',v:'8/4·8/5',sy:"첫화면에서 구글계정 연동 인증으로 패턴 그림그리는 창에서 &quot;화&quot; 글자에 뒤로가기 표시에 겹쳐 보임",t:'8/4·8/5',cnt:2,ins:''},
 {c:'APP·S/W',sg:'삼성계정/로그인 오류',sn:'R5KL7093HA, R5KL7063RH',m:'SM-F971N',cn:'2개 센터',v:'8/4',sy:"삼성계정 로그인 하려하는데 인증번호가 안들어옵니다 확인방법있을까요?? 종전에 아이폰을 사용하셨다고 하십니다.",t:'8/4',cnt:2,ins:''},
@@ -176,32 +223,30 @@ INQ.forEach(r=>{
   if(r.c!==lastCat){
     const hdr=document.createElement('tr');
     hdr.className='cat-group-hdr';
-    const total=INQ.filter(x=>x.c===r.c).reduce((s,x)=>s+x.cnt,0);
-    hdr.innerHTML='<td colspan="8">▸ '+r.c+' &nbsp;<span style="font-weight:400;color:#57606a">총 '+total+'건</span></td>';
+    const tot=INQ.filter(x=>x.c===r.c).reduce((s,x)=>s+x.cnt,0);
+    hdr.innerHTML='<td colspan="8">▸ '+r.c+' &nbsp;<span style="font-weight:400;color:#57606a">총 '+tot+'건</span></td>';
     tbody.appendChild(hdr);
     lastCat=r.c;
   }
-  const isIns=r.ins!=='';
   const tr=document.createElement('tr');
-  if(isIns) tr.className='insight-row';
+  if(r.ins!=='') tr.className='insight-row';
   const cc=CC[r.c]||'c기타';
   let tag='';
   if(r.ins==='전원키') tag='<span style="background:#ffebe9;color:#a40e26;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">전원키★</span>';
   else if(r.ins==='홀IC') tag='<span style="background:#fbefff;color:#6e40c9;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">홀IC★</span>';
   else if(r.ins==='재부팅') tag='<span style="background:#fff8c5;color:#7d4e00;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">재부팅★</span>';
-  const cntBadge=r.cnt>1?'<span style="background:#0969da;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;margin-right:5px">'+r.cnt+'건</span>':'';
-  const sgLabel=r.cnt>1?'<div style="font-size:10px;color:#57606a;margin-bottom:3px">📂 '+r.sg+'</div>':'';
-  const snDisp=r.cnt>1?'<span style="font-size:10px;color:#8c959f">'+r.sn+'</span>':'<span style="font-family:monospace;font-size:11px">'+r.sn+'</span>';
+  const cb=r.cnt>1?'<span style="background:#0969da;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;margin-right:5px">'+r.cnt+'건</span>':'';
+  const sg=r.cnt>1?'<div style="font-size:10px;color:#57606a;margin-bottom:3px">📂 '+r.sg+'</div>':'';
+  const sn=r.cnt>1?'<span style="font-size:10px;color:#8c959f">'+r.sn+'</span>':'<span style="font-family:monospace;font-size:11px">'+r.sn+'</span>';
   tr.innerHTML='<td><span class="cat-badge '+cc+'">'+r.c+'</span></td>'
-    +'<td>'+snDisp+'</td>'
+    +'<td>'+sn+'</td>'
     +'<td style="font-size:11px">'+r.m+'</td>'
     +'<td style="font-size:11px">'+r.cn+'</td>'
     +'<td style="font-size:10px;color:#8c959f">'+r.v+'</td>'
-    +'<td colspan="2">'+sgLabel+cntBadge+r.sy+tag+'</td>'
+    +'<td colspan="2">'+sg+cb+r.sy+tag+'</td>'
     +'<td style="color:#8c959f;white-space:nowrap;font-size:10px">'+r.t+'</td>';
   tbody.appendChild(tr);
 });
-
 </script>
 </body>
 </html>
