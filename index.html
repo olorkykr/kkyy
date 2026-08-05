@@ -2,251 +2,489 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FFF8 EWP 서비스현황</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FFF8 EWP 품질 모니터링 대시보드</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#f6f8fa;color:#24292f;font-family:'Segoe UI','Noto Sans KR',sans-serif;min-height:100vh}
-.header{background:#fff;border-bottom:1px solid #d0d7de;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-.header-left h1{font-size:19px;font-weight:700;color:#0969da}
-.header-left .sub{font-size:12px;color:#656d76;margin-top:2px}
-.header-right{text-align:right;font-size:12px;color:#656d76}
-.badge{display:inline-block;background:#ddf4ff;color:#0550ae;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;border:1px solid #54aeff66}
-.content{padding:16px 24px}
-.kpi-row{display:flex;gap:12px;margin-bottom:14px}
-.kpi{flex:1;background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,#0969da)}
-.kpi-label{font-size:11px;color:#656d76;font-weight:500;letter-spacing:.3px}
-.kpi-val{font-size:26px;font-weight:700;color:#24292f;line-height:1.2;margin-top:4px}
-.kpi-unit{font-size:12px;color:#656d76;margin-left:2px}
-.kpi-sub{font-size:11px;color:#8c959f;margin-top:4px}
-.insight-banner{display:flex;gap:12px;margin-bottom:14px}
-.ins-card{flex:1;background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:14px 16px;border-left:4px solid var(--ic,#0969da)}
-.ins-signal{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:8px;background:var(--sig-bg);color:var(--sig-color)}
-.ins-title{font-size:14px;font-weight:700;color:#24292f;margin-bottom:4px}
-.ins-count{font-size:11px;font-weight:600;color:var(--ic);margin-bottom:5px}
-.ins-body{font-size:11px;color:#57606a;line-height:1.6}
-.ins-why{margin-top:8px;font-size:10px;color:#8c959f;padding-top:7px;border-top:1px solid #f0f0f0;line-height:1.5}
-.row2{display:flex;gap:12px;margin-bottom:14px}
-.card{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:14px}
-.card-title{font-size:11px;font-weight:600;color:#656d76;margin-bottom:10px;letter-spacing:.4px;text-transform:uppercase}
-.row2 .card:nth-child(1){flex:1}
-.row2 .card:nth-child(2){flex:1.6}
-.row2 .card:nth-child(3){flex:1}
-.table-section{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:14px;margin-bottom:16px}
-.tbl-wrap{overflow-x:auto;max-height:500px;overflow-y:auto}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f6f8fa;color:#1f2328;font-size:14px}
+.page-wrap{max-width:1400px;margin:0 auto;padding:16px}
+.header{background:#0969da;color:#fff;padding:14px 20px;border-radius:10px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.header .sub{font-size:12px;opacity:.85;margin-top:3px}
+.badge{background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600}
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:12px 14px;text-align:center}
+.kpi .val{font-size:26px;font-weight:700;color:#0969da;line-height:1.2}
+.kpi .lbl{font-size:11px;color:#57606a;margin-top:3px}
+.kpi.red .val{color:#cf222e}
+.kpi.grn .val{color:#1a7f37}
+/* insight */
+.section-title{font-size:12px;font-weight:600;color:#57606a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.insight-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ins-card{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:13px 15px;border-left:4px solid var(--ic,#0969da)}
+.ins-card .ic-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ins-card .ic-title{font-size:13px;font-weight:700;color:#1f2328}
+.ins-card .ic-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--ibg,#ddf4ff);color:var(--ifc,#0550ae)}
+.ins-card .ic-body{font-size:12px;color:#57606a;line-height:1.5}
+.ins-card .ic-meta{font-size:11px;color:#8c959f;margin-top:5px;font-style:italic}
+/* charts */
+.chart-row{display:grid;grid-template-columns:280px 1fr 1fr;gap:10px;margin-bottom:14px}
+.chart-box{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:14px}
+.chart-box h3{font-size:12px;font-weight:600;color:#57606a;margin-bottom:10px}
+/* table */
+.tbl-wrap{background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden;margin-bottom:10px}
+.tbl-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #d0d7de;background:#f6f8fa}
+.tbl-head h3{font-size:13px;font-weight:600}
+.tbl-ctrl{display:flex;gap:6px}
+.tbl-ctrl input,.tbl-ctrl select{border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;font-size:12px;background:#fff}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th{background:#f6f8fa;color:#57606a;font-weight:600;padding:8px 10px;text-align:left;border-bottom:2px solid #d0d7de;position:sticky;top:0;z-index:1;white-space:nowrap}
-td{padding:7px 10px;border-bottom:1px solid #f0f0f0;color:#24292f;vertical-align:top}
+th{background:#f6f8fa;padding:7px 10px;text-align:left;font-weight:600;color:#57606a;border-bottom:1px solid #d0d7de;position:sticky;top:0}
+td{padding:6px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:last-child td{border-bottom:none}
 tr:hover td{background:#f6f8fa}
-.cat-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600;white-space:nowrap;border:1px solid transparent}
-.c화면{background:#ddf4ff;color:#0550ae;border-color:#54aeff66}
-.c카메라{background:#dafbe1;color:#116329;border-color:#56d36466}
-.c외관{background:#fff8c5;color:#7d4e00;border-color:#d4a72c66}
-.cAPP{background:#fbefff;color:#6e40c9;border-color:#d2a8ff66}
-.c기타{background:#f6f8fa;color:#57606a;border-color:#d0d7de}
-.c송수신{background:#e6f4f1;color:#0e6b5e;border-color:#2da44e66}
-.c송수화{background:#fff3cd;color:#664d03;border-color:#d4a72c66}
-.c충전{background:#ffebe9;color:#a40e26;border-color:#ff818266}
-.c전원{background:#ffebe9;color:#a40e26;border-color:#ff818266}
-.c센서{background:#ddf4ff;color:#0969da;border-color:#54aeff66}
-.c기구{background:#fff3cd;color:#664d03;border-color:#d4a72c66}
-.cBT{background:#e6f4f1;color:#0e6b5e;border-color:#2da44e66}
-.cWiFi{background:#dafbe1;color:#116329;border-color:#56d36466}
-.cat-group-hdr td{background:#f6f8fa!important;color:#0969da;font-weight:700;font-size:11px;letter-spacing:.5px;padding:7px 10px;border-bottom:1px solid #d0d7de}
-.insight-row td{background:#fffbdd!important}
-.footer{text-align:center;padding:12px;color:#8c959f;font-size:11px;border-top:1px solid #d0d7de;background:#fff;margin-top:4px}
+.tbl-scroll{max-height:420px;overflow-y:auto}
+.cat-tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:500}
+.tag-화면{background:#ddf4ff;color:#0550ae}
+.tag-외관{background:#fff8c5;color:#7a4100}
+.tag-카메라{background:#fbefff;color:#6e40c9}
+.tag-전원{background:#ffebe9;color:#cf222e}
+.tag-송수화{background:#dafbe1;color:#116329}
+.tag-기타{background:#f0f0f0;color:#57606a}
+.tag-APP{background:#e6f4ff;color:#0069d9}
+.tag-충전{background:#fff3cd;color:#7a5000}
+.tag-송수신{background:#d1ecf1;color:#0c5460}
+.tag-센서{background:#f8d7da;color:#721c24}
+.tag-WiFi{background:#cce5ff;color:#004085}
+.tag-기구{background:#e2e3e5;color:#383d41}
+.footer{text-align:center;font-size:11px;color:#8c959f;padding:8px 0}
 </style>
 </head>
 <body>
+<div class="page-wrap">
+
 <div class="header">
-  <div class="header-left"><h1>FFF8 EWP 서비스현황 <span class="badge">Galaxy Z Fold8 · Flip8</span></h1><div class="sub">Samsung MX Service Engineer HotLine · 엔지니어 문의 분석 대시보드</div></div>
-  <div class="header-right"><div>기간: <strong style="color:#24292f">2026-08-03 ~ 08-05</strong></div><div style="margin-top:2px">최종 업데이트: 2026-08-05 12:27</div></div>
+  <div>
+    <div class="header h1">FFF8 서비스 엔지니어 EWP 품질 모니터링 대시보드</div>
+    <div class="sub">Galaxy Z Fold8 / Flip8 &nbsp;|&nbsp; 2026.08.03 ~ 08.05 &nbsp;|&nbsp; KakaoTalk HotLine 기반</div>
+  </div>
+  <span class="badge">최종 업데이트: 2026-08-05</span>
 </div>
-<div class="content">
 
 <!-- KPI -->
 <div class="kpi-row">
-  <div class="kpi" style="--accent:#0969da"><div class="kpi-label">총 문의</div><div class="kpi-val">122<span class="kpi-unit">건</span></div><div class="kpi-sub">8/3(1) · 8/4(78) · 8/5(43)</div></div>
-  <div class="kpi" style="--accent:#1a7f37"><div class="kpi-label">총 메시지</div><div class="kpi-val">1,133<span class="kpi-unit">건</span></div><div class="kpi-sub">전체 채팅 메시지</div></div>
-  <div class="kpi" style="--accent:#cf222e"><div class="kpi-label">참여 센터</div><div class="kpi-val">91<span class="kpi-unit">개</span></div><div class="kpi-sub">전국 서비스센터</div></div>
-  <div class="kpi" style="--accent:#8250df"><div class="kpi-label">참여 인원</div><div class="kpi-val">142<span class="kpi-unit">명</span></div><div class="kpi-sub">엔지니어/품질팀</div></div>
-  <div class="kpi" style="--accent:#d08002"><div class="kpi-label">주요 기종</div><div class="kpi-val" style="font-size:18px">Z Fold8</div><div class="kpi-sub">SM-F971N 75건 · SM-F976N 29건</div></div>
+  <div class="kpi red"><div class="val" id="kpiTotal">149</div><div class="lbl">총 문의 건수</div></div>
+  <div class="kpi"><div class="val">105</div><div class="lbl">참여 서비스 센터</div></div>
+  <div class="kpi"><div class="val">110</div><div class="lbl">참여 인원 (명)</div></div>
+  <div class="kpi"><div class="val" style="color:#d08002">8/3~8/5</div><div class="lbl">데이터 기간</div></div>
+  <div class="kpi grn"><div class="val">1,523</div><div class="lbl">총 HotLine 메시지</div></div>
 </div>
 
-<!-- 인사이트 -->
-<div style="margin-bottom:6px"><span style="background:#cf222e;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px">📅 오늘(8/5) 신규 이슈 — 최신 날짜 우선 정렬</span></div>
+<!-- Insights -->
+<div class="section-title">품질 인사이트 (8/5 기준 최신)</div>
 <div class="insight-banner">
-  <div class="ins-card" style="--ic:#d08002;border-width:2px;border-color:#d08002">
-    <div class="ins-signal" style="--sig-bg:#fff8c5;--sig-color:#7d4e00">🟡 8/5 신규·급증</div>
-    <div class="ins-title">전원불 · 무한재부팅 — 사용 1일차 집중 발생</div>
-    <div class="ins-count">📍 3건 / 8/5 오전 09:35~11:29 접수</div>
-    <div class="ins-body">이천(R5KL7035T4): "개봉 부팅 시 기기 온도 상승 경고 후 전원꺼짐"<br>태릉(R3KL608PV1): "8/4 구매 후 8/5 오전부터 무한재부팅"<br>용산(R5KL702EVM): "8/4 개봉 후 8/5 오전 재부팅 → 전원불, 강제재부팅 중 멈춤"</div>
-    <div class="ins-why">⚠ 모두 8/4 개봉 후 8/5 오전(사용 1일차) 동일 패턴 → SW(업데이트/앱 충돌) 또는 HW(배터리/PMIC) 원인 규명 필요. 즉각 RDM 로그 분석 권고.</div>
+
+  <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
+    <div class="ic-head">
+      <span class="ic-title">⚠️ 힌지/이음소리 크랙</span>
+      <span class="ic-badge">22건 🔴 최다</span>
+    </div>
+    <div class="ic-body">개봉 직후 메인액정 이음소리·힌지라인 볼록 튀어오름·UTG 크랙이 집중 접수됨. 8/3 최초 1건 → 8/4 11건 → 8/5 10건으로 <strong>3일 연속 지속</strong>.</div>
+    <div class="ic-meta">주요 센터: 하남, 서울산, 부평, 마포, 수원, 이수 등 전국 분산</div>
   </div>
-  <div class="ins-card" style="--ic:#8250df;border-width:2px;border-color:#8250df">
-    <div class="ins-signal" style="--sig-bg:#fbefff;--sig-color:#6e40c9">🟣 8/5 신규 불량 확인</div>
-    <div class="ins-title">Hall IC 동작 불량 — 8/5 대전센터 직접 진단</div>
-    <div class="ins-count">📍 패턴 5건 (8/4~8/5 · 홀IC 명칭 직접 언급)</div>
-    <div class="ins-body">대전(R5KL705PGY): <strong>"홀IC 동작불 — 펼쳤을때 메인화면 전환안됨, 재부팅 후 일시 정상"</strong><br>을지로(R5KL60F6P4): CTC 불량 의심 — 폴딩 시 화면 흑화<br>강릉(R5KL707ZSJ): 서브화면 흑화 — 데이터 이동 후 발생<br>동대전(R5KL708GTL): 화면 흑화 — 스마트스위치 후 발생</div>
-    <div class="ins-why">⚠ 8/5 엔지니어가 "홀IC 동작불"로 직접 진단 → 폴더블 특화 신규 불량 확정. 기존 S 시리즈 없는 패턴. 부품 수율 및 조립 검사 강화 필요.</div>
+
+  <div class="ins-card" style="--ic:#cf222e;--ibg:#ffebe9;--ifc:#cf222e">
+    <div class="ic-head">
+      <span class="ic-title">⚠️ Hall IC / CTC 화면흑화</span>
+      <span class="ic-badge">7건 🔴 위험</span>
+    </div>
+    <div class="ic-body">외부·내부화면 동시 흑화, CTC불량 의심 재현. 데이터 이동 중 발생 패턴 다수. 8/4 을지로·동대전·강릉·신정 → 8/5 상무·휘경·이천으로 <strong>지속 확산</strong>.</div>
+    <div class="ic-meta">폴더블 특화 H/W 불량. 출하 전 IQC 검출 미흡 가능성</div>
   </div>
-  <div class="ins-card" style="--ic:#cf222e">
-    <div class="ins-signal" style="--sig-bg:#ffebe9;--sig-color:#a40e26">🔴 8/4~8/5 LOT 이슈 누적</div>
-    <div class="ins-title">전원키 클릭감 불량 — 3개 센터 독립 보고</div>
-    <div class="ins-count">📍 3건 / 계양(8/4) · 금촌(8/4) · 홍대(8/5)</div>
-    <div class="ins-body">계양(R5KL7012M2): "동일 단말 비교 시 클릭감 차이, 꽉 끼는 느낌"<br>금촌(R5KL70614Z): "전원키 하단쪽 클릭 시 뻑뻑함"<br>홍대(RFKL70CMBW): "버튼 상단부 클릭감 전혀 없음 — 2대 중 1대만 발생"</div>
-    <div class="ins-why">⚠ 3개 독립 센터에서 동일 HW 증상 → 조립 라인 공차 불균일 가능성. 8/5 추가 확인으로 신호 강도 상승 중.</div>
+
+  <div class="ins-card" style="--ic:#d08002;--ibg:#fff8c5;--ifc:#7a4100">
+    <div class="ic-head">
+      <span class="ic-title">🔋 전원불 / 무한재부팅</span>
+      <span class="ic-badge">6건 🟠 급증</span>
+    </div>
+    <div class="ic-body">8/5 단일일 <strong>5건 집중</strong> (8/4 1건 대비 급증). 수령 다음날 전원불, 충전 후 켜지지 않음, 발열 동반 강제재부팅 패턴. 1일차 사용 중 집중 발생.</div>
+    <div class="ic-meta">8/5 센터: 태릉, 용산, 이천, 오산, 김해 (이천 - 부팅 시 과열 경고)</div>
+  </div>
+
+  <div class="ins-card" style="--ic:#d08002;--ibg:#fff8c5;--ifc:#7a4100">
+    <div class="ic-head">
+      <span class="ic-title">🔬 화면 흑점 / 명점</span>
+      <span class="ic-badge">7건 🟠 출하불량</span>
+    </div>
+    <div class="ic-body">개봉 직후 발견되는 메인·서브화면 흑점·명점 급증. 외력 없이 발생, <strong>출하 품질 불량 의심</strong>. 공정이미지·출하사진 요청 증가 추세. 8/4 3건 → 8/5 4건.</div>
+    <div class="ic-meta">구포, 수지, 춘천(8/4) / 북대구, 나주, 사하, 동탄(8/5)</div>
+  </div>
+
+  <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+    <div class="ic-head">
+      <span class="ic-title">🔑 전원키 / 지문인식 불량</span>
+      <span class="ic-badge">5건 🟡 LOT의심</span>
+    </div>
+    <div class="ic-body">전원키 클릭감 저하 (계양·오산)·지문인식 무반응 (대곡·남인천·남인천) 복수 독립 센터에서 <strong>동일 증상</strong> 접수. 특정 LOT 집중 가능성 검토 필요.</div>
+    <div class="ic-meta">강화필름 부착 후 지문키 감도 저하 패턴 공통. S/W 분석 요청 중</div>
+  </div>
+
+  <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+    <div class="ic-head">
+      <span class="ic-title">📷 카메라 결로 (여름 환경)</span>
+      <span class="ic-badge">3건 🟡 초기신호</span>
+    </div>
+    <div class="ic-body">차량 에어컨 앞 거치 후 카메라 윈도우 결로 발생. 8/5 은평·남양 동일 패턴. 여름 고온다습 환경 특성. <strong>방수 신뢰성 이슈로 확대</strong> 가능성 모니터링 필요.</div>
+    <div class="ic-meta">8/4 대곡(습기) → 8/5 은평·남양(결로) 연속. 동일 유발 환경</div>
+  </div>
+
+</div>
+
+<!-- Charts -->
+<div class="chart-row">
+  <div class="chart-box">
+    <h3>모델별 분포</h3>
+    <div id="modelChart"></div>
+  </div>
+  <div class="chart-box">
+    <h3>이슈 유형 집중도</h3>
+    <div id="issueChart"></div>
+  </div>
+  <div class="chart-box">
+    <h3>일자별 문의 추이</h3>
+    <div id="dailyChart"></div>
   </div>
 </div>
 
-<!-- 차트 (외부 라이브러리 없음 - 순수 SVG/HTML) -->
-<div class="row2">
-  <div class="card"><div class="card-title">📱 모델별 분포</div><div id="modelChart" style="height:210px"></div></div>
-  <div class="card"><div class="card-title">🔧 이슈 유형 집중도 (8/3~8/5 누적)</div><div id="issueChart" style="height:210px"></div></div>
-  <div class="card"><div class="card-title">📅 일자별 문의 추이</div><div id="dailyChart" style="height:210px"></div></div>
-</div>
-
-<!-- 테이블 -->
-<div class="table-section">
-  <div class="card-title">📝 접수 문의 현황 — 증상 그룹별 요약 (122건 → 40개 그룹 · 8/3~8/5 · 유사건 통합)</div>
-  <div class="tbl-wrap">
-    <table><thead><tr>
-      <th>이슈유형</th><th>제조번호(SN)</th><th>모델</th><th>센터</th><th>버전</th><th colspan="2">문의 내용</th><th>일시</th>
-    </tr></thead><tbody id="tblBody"></tbody></table>
+<!-- Table -->
+<div class="tbl-wrap">
+  <div class="tbl-head">
+    <h3>접수 문의 현황 <span id="tblCount" style="color:#57606a;font-weight:400;font-size:12px"></span></h3>
+    <div class="tbl-ctrl">
+      <select id="filterCat"><option value="">전체 카테고리</option></select>
+      <select id="filterDate"><option value="">전체 날짜</option><option>8/3</option><option>8/4</option><option>8/5</option></select>
+      <input id="searchInp" placeholder="센터/증상 검색..." style="width:160px">
+    </div>
+  </div>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr>
+        <th style="width:50px">날짜</th>
+        <th style="width:70px">카테고리</th>
+        <th style="width:150px">서비스센터</th>
+        <th style="width:110px">모델</th>
+        <th style="width:120px">제조번호</th>
+        <th>증상 요약</th>
+      </tr></thead>
+      <tbody id="tblBody"></tbody>
+    </table>
   </div>
 </div>
 
+<div class="footer">FFF8 EWP 품질 모니터링 | 데이터 출처: KakaoTalk ★★FFF8 서비스 엔지니어 HotLine★★ | 총 1,523건 메시지 파싱 → 149건 문의 추출</div>
 </div>
-<div class="footer">FFF8 EWP 서비스현황 · Samsung MX Quality · MHT 원본 122건 · 8/3~8/5 · 찍힘·스크래치·이물 → 외관 재분류</div>
 
 <script>
-/* ── 도넛 차트 ── */
-(function(){
-  var D=[{v:75,c:'#0969da',l:'SM-F971N (Fold8)'},{v:29,c:'#1a7f37',l:'SM-F976N (Fold8 Ultra)'},{v:14,c:'#d08002',l:'SM-F776N (Flip8)'},{v:4,c:'#8c959f',l:'기타'}];
-  var T=122,cx=95,cy=105,R=82,r=50,s=-Math.PI/2,p='',lg='';
-  D.forEach(function(d){
-    var a=2*Math.PI*d.v/T,e=s+a;
-    var x1=cx+R*Math.cos(s),y1=cy+R*Math.sin(s),x2=cx+R*Math.cos(e),y2=cy+R*Math.sin(e);
-    var xi=cx+r*Math.cos(s),yi=cy+r*Math.sin(s),xe=cx+r*Math.cos(e),ye=cy+r*Math.sin(e);
-    p+='<path d="M '+xi+' '+yi+' L '+x1+' '+y1+' A '+R+' '+R+' 0 '+(a>Math.PI?1:0)+' 1 '+x2+' '+y2+' L '+xe+' '+ye+' A '+r+' '+r+' 0 '+(a>Math.PI?1:0)+' 0 '+xi+' '+yi+' Z" fill="'+d.c+'" stroke="#fff" stroke-width="2"><title>'+d.l+': '+d.v+'건 ('+Math.round(d.v/T*100)+'%)</title></path>';
-    lg+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;flex-shrink:0;display:inline-block;background:'+d.c+'"></span>'+d.l+'<b style="color:#8c959f;font-weight:400;margin-left:auto">'+d.v+'건</b></div>';
-    s=e;
-  });
-  var el=document.getElementById('modelChart');
-  el.style.cssText='height:210px;display:flex;align-items:center;gap:6px;overflow:hidden';
-  el.innerHTML='<svg width="190" height="210" style="flex-shrink:0"><defs><style>.ct{font-family:inherit}</style></defs>'+p+'<text x="'+cx+'" y="'+(cy-10)+'" text-anchor="middle" font-size="22" font-weight="700" fill="#24292f" class="ct">'+T+'</text><text x="'+cx+'" y="'+(cy+10)+'" text-anchor="middle" font-size="12" fill="#8c959f" class="ct">건</text></svg><div style="flex:1;min-width:0">'+lg+'</div>';
-})();
-
-/* ── 가로 막대 차트 ── */
-(function(){
-  var C=[['외관',45],['화면',25],['APP·S/W',10],['송수신',9],['카메라',7],['기타',7],['전원',6],['송수화/사운드',5],['충전',4],['센서',1],['BT',1],['기구',1],['WiFi',1]];
-  var T=122,h='<div style="padding:2px 2px 0 0;height:205px;overflow-y:auto">';
-  C.forEach(function(d){
-    var pct=(d[1]/T*100).toFixed(1);
-    var bw=Math.max(3,Math.round(d[1]/45*100));
-    var col=d[1]>=35?'#cf222e':d[1]>=18?'#d08002':'#0969da';
-    h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:9px"><div style="width:72px;font-size:10px;color:#24292f;text-align:right;flex-shrink:0;white-space:nowrap">'+d[0]+'</div><div style="flex:1;background:#f0f0f0;border-radius:3px;height:14px"><div style="width:'+bw+'%;background:'+col+';height:100%;border-radius:3px;min-width:4px" title="'+d[0]+' '+d[1]+'건 ('+pct+'%)"></div></div><div style="width:48px;font-size:10px;color:#57606a;flex-shrink:0">'+d[1]+'건 '+pct+'%</div></div>';
-  });
-  document.getElementById('issueChart').innerHTML=h+'</div>';
-})();
-
-/* ── 스택 막대 차트 ── */
-(function(){
-  var D=[['8/3',1,0,0],['8/4',25,17,36],['8/5 (오전)',19,8,16]];
-  var cols=['#d4a72c','#0969da','#8c959f'],labs=['외관','화면','기타'],MAX=79,MH=130;
-  var lg='<div style="display:flex;gap:10px;margin-bottom:8px;justify-content:center">';
-  labs.forEach(function(l,i){lg+='<div style="display:flex;align-items:center;gap:3px;font-size:10px"><span style="width:10px;height:10px;background:'+cols[i]+';display:inline-block;border-radius:2px"></span>'+l+'</div>';});
-  lg+='</div>';
-  var bars='<div style="flex:1;display:flex;align-items:flex-end;gap:10px;padding:0 6px">';
-  D.forEach(function(d){
-    var tot=d[1]+d[2]+d[3];
-    bars+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:600;color:#24292f;margin-bottom:2px">'+tot+'건</div><div style="width:100%;max-width:48px;display:flex;flex-direction:column-reverse;border-radius:3px 3px 0 0;overflow:hidden">';
-    [d[1],d[2],d[3]].forEach(function(v,i){if(v>0)bars+='<div style="width:100%;height:'+Math.round(v/MAX*MH)+'px;background:'+cols[i]+'" title="'+labs[i]+': '+v+'건"></div>';});
-    bars+='</div><div style="font-size:11px;color:#24292f;margin-top:4px;text-align:center;white-space:pre-line">'+d[0]+'</div></div>';
-  });
-  bars+='</div>';
-  var el=document.getElementById('dailyChart');
-  el.style.cssText='height:210px;display:flex;flex-direction:column;padding:4px 6px 0;box-sizing:border-box';
-  el.innerHTML=lg+bars;
-})();
-
-/* ── 테이블 ── */
-const CAT_ORDER=['APP·S/W','화면','충전','카메라','송수화/사운드','송수신','전원','외관','센서','BT','기구(형합성)','WiFi','기타'];
-const CC={'APP·S/W':'cAPP','화면':'c화면','충전':'c충전','카메라':'c카메라','송수화/사운드':'c송수화','송수신':'c송수신','전원':'c전원','외관':'c외관','센서':'c센서','BT':'cBT','기구(형합성)':'c기구','WiFi':'cWiFi','기타':'c기타'};
-const INQ=[
-{c:'APP·S/W',sg:'APP·S/W 기타',sn:'RFKL60HRYC, RFKL709QKX',m:'SM-F976N',cn:'2개 센터',v:'8/4·8/5',sy:"첫화면에서 구글계정 연동 인증으로 패턴 그림그리는 창에서 &quot;화&quot; 글자에 뒤로가기 표시에 겹쳐 보임",t:'8/4·8/5',cnt:2,ins:''},
-{c:'APP·S/W',sg:'삼성계정/로그인 오류',sn:'R5KL7093HA, R5KL7063RH',m:'SM-F971N',cn:'2개 센터',v:'8/4',sy:"삼성계정 로그인 하려하는데 인증번호가 안들어옵니다 확인방법있을까요?? 종전에 아이폰을 사용하셨다고 하십니다.",t:'8/4',cnt:2,ins:''},
-{c:'APP·S/W',sg:'스마트스위치 후 이상',sn:'R5KL701B05, R5KL705QRQ',m:'SM-F971N',cn:'2개 센터',v:'8/4',sy:"아이폰 13미니에서 스마트스위치 무선으로 데이터 이동후 화면UI 색감이상으로 RDM분석 가능할까요?",t:'8/4',cnt:2,ins:''},
-{c:'APP·S/W',sg:'앱/기능 이상',sn:'R3KL70BJ1G, R5KL70603D, R5KL10BGVV, RFKL60JB65',m:'SM-F776N 외 3종',cn:'4개 센터',v:'8/4·8/5',sy:"회사업무용으로 사용하는 롯데마트 모아앱 잠금설정과 휴대폰 화면잠금설정과 연동된다고함. 어느쪽이든 잠금설정하는대로 같이",t:'8/4·8/5',cnt:4,ins:''},
-{c:'화면',sg:'LCD 크랙/파손',sn:'R5KL708SVS',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"제품을 받자마자 개봉시 내부 픽셀 나가있었다고 합니다 제품 출하 사진확인 부탁드립니다",t:'8/4',cnt:1,ins:''},
-{c:'화면',sg:'서브화면 출력이상',sn:'R3KL60BGKX, R3KL70BH0V, R5KL60G367, R3KL70013M 외 1건',m:'SM-F776N 외 3종',cn:'5개 센터',v:'8/4·8/5',sy:"화면 하단부 안나옴",t:'8/4·8/5',cnt:5,ins:''},
-{c:'화면',sg:'화면 기타',sn:'RFKL707QT8, R5KL60F4D9, R3KL7084S6, R5KL704D19 외 2건',m:'SM-F971N 외 1종',cn:'6개 센터',v:'8/4·8/5',sy:"개통 하고 사용하려고 확인했는데 액정에 빛 샘 동일 부위 눌림 흔적 발생되어 출하 이미지 확인 요청",t:'8/4·8/5',cnt:6,ins:''},
-{c:'화면',sg:'화면 깜박/떨림',sn:'R5KL7055VC, R5KL704CAM, R5KL70843P, R5KL704AVL 외 1건',m:'SM-F971N 외 1종',cn:'5개 센터',v:'8/4·8/5',sy:"제품 구입하고 바로 서브액정부분 깜박임 발생으로 내방하심| 확인해보니 화면 중하단부분쪽을 살짝 눌렸을때 증상이 확인이",t:'8/4·8/5',cnt:5,ins:''},
-{c:'화면',sg:'화면 흑점/명점/백점',sn:'RFKL70AFEY, RFKL709ZAH',m:'SM-F976N',cn:'2개 센터',v:'8/4',sy:"내부명점발생 외력으로는 보기 어려움. 명전 주면 같은 화면 오목한부위 다수확인됨 스왑 가능하다하면 스교체 진행하려합니",t:'8/4',cnt:2,ins:''},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'R5KL60F6P4',m:'SM-F971N',cn:'모바일을지로센터',v:'ZFW',sy:"CTC불량의심 외부화면및 내부화면흑화 증상재현 일정시간지나면 외부화면 표출퇴나 내부화면은흐과및 폴딩시 외부도 흑화되거나 터치안",t:'8/4 15:00',cnt:1,ins:'홀IC'},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'R5KL708GTL',m:'SM-F971N',cn:'모바일동대전',v:'ZGI',sy:"데이터 이동후 펼치니 화면 흑화/14일 불량확인서 요청건/이슈사항 있을까요?",t:'8/4 15:11',cnt:1,ins:'홀IC'},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'R5KL707ZSJ',m:'SM-F971N',cn:'모바일강릉센터',v:'ZFW',sy:"서브화면 흑화 송수화음불 입니다. 삼성스토어에서 데이터 이동 후 유심변경하고 테스트 과정에서 나타났다고 합니다. 서브화면이 부",t:'8/4 15:21',cnt:1,ins:'홀IC'},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'RFKL709SEP',m:'SM-F976N',cn:'모바신정센터',v:'ZFW',sy:"개봉후 확인시 서브LCD 화면 흑화 main 화면 정상으로 나옵니다. 재부팅 동일합니다. 미개통건으로 RX착하 가능할까요",t:'8/4 17:53',cnt:1,ins:'홀IC'},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'R5KL705PGY',m:'SM-F971N',cn:'모바일대전센터',v:'ZG1',sy:"홀IC 동작불 펼쳤을때 메인화면으로 전환안됨 , 재부팅후 일시적으로 정상동작하신다하셨으나 증상 재발되어 내방하심 , 실제로 증",t:'8/5 12:09',cnt:1,ins:'홀IC'},
-{c:'화면',sg:'화면 흑화 (Hall IC 의심)',sn:'R5KL7027A5',m:'SM-F971N',cn:'1개 센터',v:'8/5',sy:"서브화면흑화고장 벨소리동작이상 삐이이 소리남",t:'8/5',cnt:1,ins:''},
-{c:'충전',sg:'충전 이상',sn:'R5KL705WHT, R3KL707BNE, RFKL70B0XM, RFKL70BAGS',m:'SM-F971N 외 3종',cn:'4개 센터',v:'8/4',sy:"대리점에서 개통위해 개봉 후 처음 홈화면 진입 과정에서 전원꺼지더니 전원불. 충전불 상황 입니다.",t:'8/4',cnt:4,ins:''},
-{c:'카메라',sg:'카메라 결로/습기',sn:'R5KL700LYT, RFKL703MLZ, R5KL7023CW, R5KL60EWLR',m:'SM-F971N 외 1종',cn:'4개 센터',v:'8/4·8/5',sy:"고객 차량에서 사용 후(에어컨 앞에 거치) 카메라 윈도우에 결로 현상 발생 하였다고 하는데 요즘 날씨가 고온 다습해서",t:'8/4·8/5',cnt:4,ins:''},
-{c:'카메라',sg:'카메라 기타',sn:'R5KL7068LJ',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"가로로했을때 카메라홀 오른쪽 상단기준 폴딩부 위쪽 누르면 들뜨는느낌이 든다고하시는데 혹시 가이드좀 받을수있을까요?? ",t:'8/4',cnt:1,ins:''},
-{c:'카메라',sg:'카메라 동작 불량',sn:'RFKL70AP36, RFKL70ELTB',m:'SM-F976N',cn:'2개 센터',v:'8/4',sy:"전면 셀프카메라 동작 불량 불량으로 판단 하면 될까요?",t:'8/4',cnt:2,ins:''},
-{c:'송수화/사운드',sg:'스피커/수화음 불량',sn:'R5KL708C8B, R5KL7046CJ, R5KL700M5H, RFKL70BKJA 외 1건',m:'SM-F971N 외 1종',cn:'5개 센터',v:'8/4·8/5',sy:"상단 하단 스피커 동작안됩니다",t:'8/4·8/5',cnt:5,ins:''},
-{c:'송수신',sg:'NFC/기타 기능불',sn:'R5KL60FY1Q',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"NFC 실행불 빠른분석 부탁드립니다.",t:'8/4',cnt:1,ins:''},
-{c:'송수신',sg:'USIM/개통 이상',sn:'R3KL609X5M, R5KL60G3X3, R5KL708B5F, R5KL706H29 외 4건',m:'SM-F971N 외 2종',cn:'8개 센터',v:'8/4·8/5',sy:"개통후 블루투스 활성화안되고 전원키 동작이안됩니다. 분석가능할까요",t:'8/4·8/5',cnt:8,ins:''},
-{c:'전원',sg:'전원불/무한재부팅',sn:'R5KL7035T4',m:'SM-F971N',cn:'모바일이천센터',v:'ZFW',sy:"개봉 하고 부팅하면 기기 온도 상승 경고 뜨다가 전원 꺼짐",t:'8/5 09:35',cnt:1,ins:'재부팅'},
-{c:'전원',sg:'전원불/무한재부팅',sn:'R3KL608PV1',m:'SM-F776N',cn:'모바일태릉센터',v:'ZFW',sy:"8월4일구매후 5일 오늘 아침부터 무한재부팅",t:'8/5 10:29',cnt:1,ins:'재부팅'},
-{c:'전원',sg:'전원불/무한재부팅',sn:'R5KL702EVM',m:'SM-F971N',cn:'모바일용산센터',v:'-',sy:"8월 4일 개봉건 0805일 사용중 10시정도부터 재부팅되더니 전원안들어옴 현재 강제 재부팅 1회되어 재부팅중멈춤 이후 제품내",t:'8/5 11:29',cnt:1,ins:'재부팅'},
-{c:'전원',sg:'전원불/무한재부팅',sn:'R5KL706GF2',m:'SM-F971N',cn:'1개 센터',v:'8/5',sy:"전원불로 접수 구매후 어제 받고 저녁에 충전을 꼽아놨다고 합니다 아침에 전원이 안켜짐으로 방문 하셨습니다",t:'8/5',cnt:1,ins:''},
-{c:'전원',sg:'전원키 클릭감 이상',sn:'R5KL70614Z',m:'SM-F971N',cn:'모바일금촌센터 접수번호: 2026',v:'ZGI',sy:"전원키 클릭감이 뻑뻑합니다 전원키 중앙부는 정상이나 하단쪽으로 클릭하면 뻑뻑합니다 정상인지 불량인지 기준이 있을까요?",t:'8/4 17:29',cnt:1,ins:'전원키'},
-{c:'전원',sg:'전원키 클릭감 이상',sn:'RFKL70CMBW',m:'SM-F976N',cn:'홍대센터',v:'ZGI',sy:"버튼하단 상단부분 클릭시 전혀 클릭감이 없습니다. 고객님이 두대 구매 했는데 한대는 이상없는데 한대만 클릭감이 없습니다. 혹시",t:'8/5 12:12',cnt:1,ins:'전원키'},
-{c:'외관',sg:'개봉 후 찍힘/스크래치',sn:'RFKL70AFV8, R3KL60BGQK, R5KL701BR7, R5KL705RPS 외 26건',m:'SM-F971N 외 3종',cn:'30개 센터',v:'8/3·8/4·8/5',sy:"서브액정 상단에 불량화소? 점? 같은게 보입니다. 이게 빛에 이리저리 비춰보다보면 빤짝하고 잠시 보이는 형태라 사진촬",t:'8/3·8/4·8/5',cnt:30,ins:''},
-{c:'외관',sg:'백글라스/외부 자국',sn:'R5KL706WZB',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"제품 픽업 후 백글라스 외관 불량확인 요청드립니다",t:'8/4',cnt:1,ins:''},
-{c:'외관',sg:'외관 기타',sn:'R5KL700M46',m:'SM-F971N',cn:'1개 센터',v:'8/5',sy:"화면눌림 출하 이미지 요청드립니다",t:'8/5',cnt:1,ins:''},
-{c:'외관',sg:'유격/벌어짐',sn:'RFKL707P0F, R5KL706DL3',m:'SM-F976N 외 1종',cn:'2개 센터',v:'8/4·8/5',sy:"흰지부 우측상단에 유격발생 문의",t:'8/4·8/5',cnt:2,ins:''},
-{c:'외관',sg:'이물 유입',sn:'R5KL7012M2',m:'SM-F971N',cn:'모바일 계양센터',v:'ZGI',sy:"전원키 클릭감 동일단말 비교시 확연히 차이남, 타이트하게 꽉 끼는 느낌 이물 없음",t:'8/4 16:22',cnt:1,ins:'전원키'},
-{c:'외관',sg:'이물 유입',sn:'R5KL706PPL, R5KL706GG7, R5KL705AD5, R5KL60FXGZ 외 1건',m:'SM-F971N',cn:'5개 센터',v:'8/4·8/5',sy:"SUBOCTA 화면 오른쪽 상단부분 화면이상 내부 이물추정",t:'8/4·8/5',cnt:5,ins:''},
-{c:'외관',sg:'힌지/폴딩부 이상',sn:'R5KL707W4W, R5KL70933A, RFKL700ZS7, R5KL703BYA 외 1건',m:'SM-F971N 외 1종',cn:'5개 센터',v:'8/4·8/5',sy:"갑자기 UTG크랙발생하였다합니다. 확인좀 부탁드립니다",t:'8/4·8/5',cnt:5,ins:''},
-{c:'센서',sg:'지문/센서 불량',sn:'R5KL709F8T',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"지문인식안됨 잠금 화면에서 지문으로 열려면 아무반응 없음 삼성페이 실행후 지문으로 결재하려고 지문을 입력하면 아무반응",t:'8/4',cnt:1,ins:''},
-{c:'BT',sg:'블루투스 연결 불량',sn:'R5KL706907',m:'SM-F971N',cn:'1개 센터',v:'8/5',sy:"고객님 께서 일부 사용하는 블루투스 제품이 연결이 잘 안되고 연결 안되고 나면 항목 터치가 안되는 현상으로 호환성 문",t:'8/5',cnt:1,ins:''},
-{c:'기구(형합성)',sg:'힌지/폴딩 각도',sn:'R5KL7056CF',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"고객제품은 프리스탑 각도가 90 넘어가면 자동으로 펼쳐지는데 진열제품들은 100도 정도에도 고정으로 유지하고있어서 불",t:'8/4',cnt:1,ins:''},
-{c:'WiFi',sg:'WiFi/스마트스위치',sn:'R5KL708VM2',m:'SM-F971N',cn:'1개 센터',v:'8/4',sy:"제품 수령 후 스마트스위치 진행하려고 와이파이 연결하니 기기 잠겨있다고 함 RDX추출 진행했습니다. K존 글 번호 5",t:'8/4',cnt:1,ins:''},
-{c:'기타',sg:'기타 기타',sn:'R5KL701B4V, R5KL60FG6V, R5KL7006B0, R5KL70415J 외 3건',m:'SM-F971N 외 1종',cn:'7개 센터',v:'8/4·8/5',sy:"유투브 쇼츠 확인중 넘어가지 않고, 인스타 사용중 사진 확인시 메뉴자체가 옆으로 넘어간다함, 키패드 사용중 눌리지 않",t:'8/4·8/5',cnt:7,ins:''}
+/* ===================== 데이터 ===================== */
+var INQ = [
+  {d:'8/5',c:'모바일남인천센터',m:'SM-F976N',cat:'센서',sn:'RFKL70ES3B',acc:'202608051626P08777',s:'지문인식안됨 로그분석 요청드립니다'},
+  {d:'8/5',c:'모바일 남양센터',m:'SM-F976N',cat:'카메라',sn:'RFKL60JV9H',acc:'202608051604E35200',s:'고객 차량에서 사용 후(에어컨 앞에 거치) 카메라 메인광각카메라 윈도우에 결로 현상 발생 하였다고 하는데 방수결과 확인 가능할까요?'},
+  {d:'8/5',c:'모바일 분당센터',m:'SM-F976NZWIKOO',cat:'화면',sn:'RFKL705VFS',acc:'202608051628D06707',s:'14일이내 오늘 제품 수령하시고 제품 사용중에 내부 화면 오른쪽 상단 데코 부분 이상으로 출하시 제품 상태 확인이 가능할까요? 테두리 부분쪽으로 부탁 드리겠습니다'},
+  {d:'8/5',c:'모바일금오센터',m:'SM-F971NLVVKOC',cat:'APP·S/W',sn:'R5KL709AS7',acc:'202608051603D48703',s:'영상촬영 - 카메라앱 실행 시 오류 팝업 뜸 - 영상 : 26년 8월 5월, 16시 01분 증상재현 RDM 등록(추출)완료 분석결과 오래 걸릴까요?'},
+  {d:'8/5',c:'홍대센터',m:'SM-F976NZVIKOC',cat:'화면',sn:'RFKL709TN3',acc:'202608051603D49402',s:'화면부 점 있는데..출하장시 검ㅊㄹ 수준인가요?? 공정이미지 부탁드립니다.'},
+  {d:'8/5',c:'이기안 (이갼)/T/프로 / 모바일대',m:'SM-F976NZVIKOC',cat:'카메라',sn:'RFKL703WS4',acc:'202608051609F19906',s:'제품 개봉 후 스크레치 있음 출하사진 요청합니다.'},
+  {d:'8/5',c:'모바일평내센터',m:'SM-F971NZKEKOC',cat:'화면',sn:'R5KL701AHJ',acc:'202608051558D81300',s:'유튜브 실행 증 화면꺼짐 재현불 증상재현 30분이내 로그추출함'},
+  {d:'8/5',c:'모바일 관악센터',m:'SM-F971NZKVKOC',cat:'화면',sn:'R5KL70843P',acc:'202608042125WEB652',s:'4K지원하는 외부 디스플레이 덱스 연결 시 화면 떨림 발생됨 FHD에서는 정상 작동 됨 https://quickshare.samsungcloud.com/kNYfx5GPyfdb 삼성계정 -leedongkunn@outl'},
+  {d:'8/5',c:'모바일동탄센터',m:'SM-F976N',cat:'충전',sn:'RFKL709YJX',acc:'202608051550D62300',s:'사제 케이블 W수 표기 제품 사용시 45W 절반 이하정도만 나온다고 불만을 얘기하시는데 혹시 배터리 상태에 따른 누설전류 가이드 등이 있을까요? 사제케이블이다 보니 점검은 불가능하다고 얘기는 하였습니다'},
+  {d:'8/5',c:'모바일서전주센터',m:'SM-F971NZWIKOC',cat:'송수신',sn:'R5KL706BLT',acc:'202608051140D61FC3',s:'개통 후 사용중 유심 인식 불량으로 대리점 통해 유심 2회 교체 하였으나 유심 인식 안됨 RDM분석요청 합니다.'},
+  {d:'8/5',c:'모바일 양주센터',m:'SM-F976NZKIKOO',cat:'외관',sn:'RFKL60D3YV',acc:'202608051548D30D69',s:'언박싱 직후 힌지 찍힘확인으로 인한 출하 사진 부탁드립니다'},
+  {d:'8/5',c:'모바일이천센터',m:'SM-F971NLVIKOC',cat:'화면',sn:'R5KL705V39',acc:'202608051510D32SF1',s:'메인화면 사용 중에 ctc불량 처럼 노이즈 화면 간헐적으로 출력됨 iqc 폴딩정밀검사는 이상 없는데 로그로 분석될까요?'},
+  {d:'8/5',c:'모바일휘경센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL700M5H',acc:'202608041616D19702',s:'SM-R420 BT 연결상태에서 Gemini, 유투브사용시 간헐 기계음소리가 발생함 오전에 문의드렸던건인데 다시 한번 확인요청드립니다.'},
+  {d:'8/5',c:'모바일속초센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL60FG6V',acc:'202608050915E12900',s:'기아차량 디지털키 등록이 안됨 마지막 시도 익일 저녁 기아터넥터팀과 차량에 문제없음 확인되었다고 합니다. 고객 기기불량 주장하시는데 확인 부탁드립니다 어우 기아에서도 이상없다고 나온다는데... 저희쪽에서 해결 할 방'},
+  {d:'8/5',c:'모바일 남포센터',m:'SM-F976NZWIKOC',cat:'송수신',sn:'RFKL700VEL',acc:'202608051455G25SF1',s:'특정 제품 블루투스가 끊깁니다. 제품은 필립스 모델명은 TAT3708 입니다. 워치 및 다른 제품 연결 정상 필립스 모델만 전화 통화하면 블루투스 연결이 풀리면서 블루투스 클릭해야 전화가 됩니다. 제품 호환성문제로 '},
+  {d:'8/5',c:'모바일 의정부센터',m:'SM-F971NZKIKOD',cat:'카메라',sn:'R5KL706HAB',acc:'202608051456D05F04',s:'구입 후 대리점에서 필름붙혀주셨고 그 후 언방싱 했는데 외관 기스가 발견되었다고 하여 출하사진 부탁드립니다'},
+  {d:'8/5',c:'모바일 광양센터',m:'SM-F971NZKIKOD',cat:'화면',sn:'R5KL706GN6',acc:'202608051505F37104',s:'폴딩시 어두운곳에서 화면꺼놓은 상태에서 충전기 꽂으면 전체화면 한번 번쩍하면서 충전표시되는 증상. 동일모델 사모님은 왼쪽화면만 번쩍거린다고하심. 폴딩화면에서 상단스피커 막을때와 하단스피커막을때 음량이 다르다고하는데 '},
+  {d:'8/5',c:'모바일서안양센터',m:'SM-F776N',cat:'화면',sn:'R3KL60ANP2',acc:'202608051405D54102',s:'커버화면 이모지 배경화면 적용안됨 화면에는 블러처리된 배경만 뜸 이슈사항 있을까요? @손미나﻿ 케이존에 등록했습니다. 539746'},
+  {d:'8/5',c:'모바일 사하센터',m:'SM-SM-F971NZWIKOC',cat:'화면',sn:'R5KL708JH6',acc:'202608051455D53603',s:'구입2일차 메인화면 6시방향 P-CAP쪽 흑점 출하이미지요청 및 불량확인 판정부탁드립니다'},
+  {d:'8/5',c:'모바일 송파 센터',m:'SM-F976NZWIKOC',cat:'외관',sn:'RFKL707HG9',acc:'202608051432D10SF2',s:'어제 제품 받아서 3번정도 열었는대 갑자기 안펴지고 케이스 벌어짐 출하이미지 요청드립니다'},
+  {d:'8/5',c:'모바일홍대센터',m:'SM-F971NZKIKOC',cat:'송수신',sn:'R5KL708EZ3',acc:'202608051307D49402',s:'블루투스 연결 끊김 .연결안됨. 단말기 초기화 후 버즈 워치 다 동일 하게 검색안됨 따로 이슈가 있을까요?'},
+  {d:'8/5',c:'모바일 하남센터',m:'SM-F971N',cat:'기타',sn:'R5KL707ZGB',acc:'202608051412D46502',s:'제품수령후 좌측 도장이상으로 공정이미지 확인 부탁드립니다~'},
+  {d:'8/5',c:'모바일노원센터',m:'SM-F971NZKIKOO',cat:'WiFi',sn:'R5KL7044ZQ',acc:'202608051355D20457',s:'wifi 연결 안됨 증상재현상태 https://quickshare.samsungcloud.com/pDZTUFkbAjMV wifi초기화 하고 해결 됐습니다'},
+  {d:'8/5',c:'모바일나주센터',m:'SM-F766NZRAKOC',cat:'카메라',sn:'R5KL705WR3',acc:'202608051331F36A02',s:'4일 저녁에 유투브영상 재생중에 고주파음 소리발생'},
+  {d:'8/5',c:'모바일을지로센터',m:'SM-F971NZWIKOC',cat:'APP·S/W',sn:'R5KL705BKQ',acc:'202608051331D53SF1',s:'문자메세지항목만 스마트스위치로 무선이동시 최초 1시간정도에서 체감3분동안 90%정도 이동되어 4분남음 됨 메세지 총갯수 76,781개 대화목록 5,000개 중 절반정도만 이동됨 기간 24년2월3일 ~ 26년8월4일 '},
+  {d:'8/5',c:'모바일영등포센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL708E9F',acc:'202608051347E01701',s:'구입 2일차 금일 필름 부착하다 찍힘 발결하여 방문 공정이미지 확인 요청드립니다.'},
+  {d:'8/5',c:'모바일김포센터',m:'SM-F776NZKEKOC',cat:'송수화/사운드',sn:'R3KL705P3M',acc:'202608051244E22476',s:'상단 하단 스피커 동작불,소리관련 작업시 멈춤 고객 센터내에서 대기중입니다. 진행상황이 어떻게 될까요?'},
+  {d:'8/5',c:'모바일 사하센터',m:'SM-F776NZWEKOD',cat:'송수화/사운드',sn:'R3KL60BHCG',acc:'202608051233G09333',s:'고객 발열 심함 호소, 8월 5일 11시15분 ~ 11시20분 차량내 유튜브 5분시청간 발열이 심하다는 강한 크레임 제기, 진단툴 결과상 이상없음 안내 했으나 고객 불만으로 추가 특이사항 여부 RDM 로그 분석요청드'},
+  {d:'8/5',c:'모바일상록센터',m:'SM-F776NZKEKOC',cat:'외관',sn:'R3KL707JBZ',acc:'202608051334D63333',s:'힌지에 기름기 같은게 묻어 나온다고 하심 . 닦으면 닦이는듯 하나 움직이면 살짝 베어나오는듯 합니다. 힌지 구동부에 윤활성분 같은게 나올수 있는지 문의 드립니다.'},
+  {d:'8/5',c:'모바일휘경센터',m:'SM-F971N',cat:'화면',sn:'R5KL7068XZ',acc:'202608051317D19SF3',s:'3일 오후 10시경쯤 커버화면이 노랗게 색감이 변해서 메인액정을 확인하니 흑화상태였다고함. 전원재부팅후 자동업데이트진행되고 이후 정상적으로 동작중이나 제품불량이 주장. 현재는 미재현상태이나 RDM분석요청드립니다.'},
+  {d:'8/5',c:'모바일나주센터',m:'SM-F971N',cat:'화면',sn:'R5KL708L8D',acc:'202608051257F36A02',s:'8월 4일 수령 후 화면 화살표 표시 방향에 흑점 발견으로 내방 사진 첨부 qksrud 0.25 수준 화면 흑색 외부 깨끗 확인'},
+  {d:'8/5',c:'모바일율량센터',m:'SM-F971NZWIKOC',cat:'화면',sn:'R5KL709GQ4',acc:'202608050940F07565',s:'어두운곳에서 서브액정 화면 두번눌러 켜기 후 두번눌러 끄기 하고 지문으로 화면시키면 상단쪽 화면 경광등 나간것같이 화면 깜빡임 화면켜고 지문인식 되게 설정하면 그런증상 안나옴 결과나왔을까요?'},
+  {d:'8/5',c:'모바일 강서센터',m:'SM-F971NZKIKOC',cat:'외관',sn:'R5KL7067ZR',acc:'202608051303D16117',s:'외부 액정 좌중하단부 내부에 점 같이 화면 눌림 번짐'},
+  {d:'8/5',c:'모바일동탄센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL706SQA',acc:'202608051247D62300',s:'8월 3일 수령 이후 특정 고객과 통화시 상대방 통화음 끊김 현장 내에서도 재현됩니다. 분석 가능할까요?'},
+  {d:'8/5',c:'모바일오산센터',m:'SM-F776NLIEKOC',cat:'전원',sn:'R3KL609X5M',acc:'202608051109E32199',s:'개통후 블루투스 활성화안되고 전원키 동작이안됩니다. 분석가능할까요 @양수진﻿ 스왑재고가 없다합니다..'},
+  {d:'8/5',c:'모바일용인센터',m:'SM-F971N',cat:'카메라',sn:'R5KL701B4V',acc:'202608051126E36100',s:'유투브 쇼츠 확인중 넘어가지 않고, 인스타 사용중 사진 확인시 메뉴자체가 옆으로 넘어간다함, 키패드 사용중 눌리지 않음 현장 증상재현되지 않는부분으로 분석요청합니다.'},
+  {d:'8/5',c:'홍대센터',m:'SM-F976NZKIKOO',cat:'기타',sn:'RFKL70CMBW',acc:'202608051112D49777',s:'버튼하단 상단부분 클릭시 전혀 클릭감이 없습니다. 고객님이 두대 구매 했는데 한대는 이상없는데 한대만 클릭감이 없습니다. 혹시 스왑 진행 해도 될까요?'},
+  {d:'8/5',c:'모바일광명센터',m:'SM-F971NLVIKOC',cat:'카메라',sn:'R5KL705V88',acc:'202608041601E16111',s:'통화중 근접센서 안되면서 카메라도 보안정책성 문구뜨면서 켜지지 않음 자가진단 테스트시 센서오류 카메라는 진입도 안됨 8월5일 10시 카메라 안됨 근접센서 안됨 발생 새벽에 업그레이드 이후 발생되었다고 합니다.'},
+  {d:'8/5',c:'모바일제주센터',m:'SM-F971N',cat:'외관',sn:'RFKL707QT8',acc:'202608051138G08SF1',s:'개통 하고 사용하려고 확인했는데 액정에 빛 샘 동일 부위 눌림 흔적 발생되어 출하 이미지 확인 요청'},
+  {d:'8/5',c:'모바일송파센터',m:'SM-F971NZKIKOC',cat:'송수신',sn:'R5KL706907',acc:'202608051107D10SF2',s:'고객님 께서 일부 사용하는 블루투스 제품이 연결이 잘 안되고 연결 안되고 나면 항목 터치가 안되는 현상으로 호환성 문제인지 확인 부탁드립니다.'},
+  {d:'8/5',c:'모바일 동탄센터',m:'SM-F776NZWEKOD',cat:'화면',sn:'R3KL60BGQK',acc:'202608041846WEB651',s:'제품 개봉후 화면우측중앙 멍자국 액정 출하사진 요청드립니다'},
+  {d:'8/5',c:'모바일서전주센터',m:'SM-F971N',cat:'외관',sn:'R5KL701BR7',acc:'202608051113D61602',s:'8월 5일 개봉건 SUB UB 긁힘 자국 발견 사진 상 화살표 끝 부위 카메라 촬영 미세하게 찍혀 현미경 촬영 추가 개봉시 발견주장건 출하사진 확인 될까요?'},
+  {d:'8/5',c:'모바일오산센터',m:'SM-F971NZWIKOD',cat:'외관',sn:'R5KL707W4W',acc:'202608051135E32199',s:'갑자기 UTG크랙발생하였다합니다. 확인좀 부탁드립니다'},
+  {d:'8/5',c:'모바일남광주센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL705RPS',acc:'202608051117D33636',s:'8월 4일 개봉건 힌지 상단쪽 흠집보임에 대한 방문 고객 직접 오픈하지는 않으시고 대리점 개통 후 받으셨는데 외관상 문제로 방문 하셨는데요 출하 이미지 확인 가능할까요?'},
+  {d:'8/5',c:'모바일평택센터',m:'SM-F976NZKIKOC',cat:'외관',sn:'RFKL60J6A9',acc:'202608051109E11858',s:'8월 4일 개봉 폴딩부 흑점발생 눌림보이나 최초출하사진 요청으로 확인부탁드립니다'},
+  {d:'8/5',c:'모바일김포센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL708C8B',acc:'202608051105E22476',s:'상단 하단 스피커 동작안됩니다'},
+  {d:'8/5',c:'모바일용산센터',m:'SM-F971NZKIKOC',cat:'전원',sn:'R5KL702EVM',acc:'202608051110D21SF2',s:'8월 4일 개봉건 0805일 사용중 10시정도부터 재부팅되더니 전원안들어옴 현재 강제 재부팅 1회되어 재부팅중멈춤 이후 제품내 발열지속되며 강제재부팅은 안되고 전원불 고객분 분해수리 윈치않으시어 분해는 못하는 중입니'},
+  {d:'8/5',c:'모바일 상무센터',m:'SM-F971N',cat:'외관',sn:'R5KL7064N3',acc:'202608051116D10A79',s:'백글라스 이물로 이미지 확인요청 드립니다'},
+  {d:'8/5',c:'모바일 제주센터',m:'SM-F776N',cat:'화면',sn:'R3KL60BGKX',acc:'202608051056G08SF2',s:'화면 하단부 안나옴'},
+  {d:'8/5',c:'모바일 삼성강남센터',m:'SM-F971NLVIKOO',cat:'화면',sn:'R5KL7055VC',acc:'202608041139WEB651',s:'제품 구입하고 바로 서브액정부분 깜박임 발생으로 내방하심| 확인해보니 화면 중하단부분쪽을 살짝 눌렸을때 증상이 확인이 됩니다'},
+  {d:'8/5',c:'모바일 상무센터',m:'SM-F971N',cat:'화면',sn:'R5KL7027A5',acc:'202608051027D59120',s:'서브화면흑화고장 벨소리동작이상 삐이이 소리남'},
+  {d:'8/5',c:'모바일경산센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL60G3X3',acc:'202608051017G36416',s:'8월 4일 개통후 사용중 알람소리 발생됨 해제방법 알림관련 팝업 및 해제방법 없음 재부팅 후 일시적으로 되나 한시간정도 뒤 재발생 증상으로 인입되어 혹시 RDM분석 가능할까요? 요청해놓았습니다. 혹시 분석결과가 오래'},
+  {d:'8/5',c:'모바일금천센터',m:'SM-F971NLVIKOO',cat:'외관',sn:'R5KL706PPL',acc:'202608051018D1750',s:'재문의드립니다. SUBOCTA 화면 오른쪽 상단부분 화면이상 이물추정 이거 출하사진은 받았으나 출하사진에는 정면이라 안보이고 제품을 빗겨서 봐야 보이는데 기준내면 정상으로 봐야되는건가요?'},
+  {d:'8/5',c:'북천안센터',m:'SM-F971NZKIKOD',cat:'APP·S/W',sn:'R5KL7046CJ',acc:'202608050953D60A02',s:'전화 수신 및 벨소리 설정시 고주파 삐 소리 나옵니다. 센터 자가진단 스피커 동작 확인 중 삐소리 한번 재현 되었습니다 K존 글번호: 539711'},
+  {d:'8/5',c:'모바일수지센터',m:'SM-F971NLVIKOD',cat:'화면',sn:'R5KL704CAM',acc:'202608051021E28212',s:'서브화면 켜진채로 내부화면을 펼치면 화면반응이 늦으며 아이콘배열이 왼쪽하단으로 쏠려있다가 몇초뒤 정상으로 아이콘배열이 됩니다. 안전모드에서도 동일 증상입니다 불량 여부 확인 부탁드립니다'},
+  {d:'8/5',c:'모바일서안양센터',m:'SM-F971NLVIKOC',cat:'외관',sn:'R5KL700M46',acc:'202608051025D54102',s:'화면눌림 출하 이미지 요청드립니다'},
+  {d:'8/5',c:'모바일태릉센터',m:'SM-F776N',cat:'전원',sn:'R3KL608PV1',acc:'202608051012D41703',s:'8월4일구매후 5일 오늘 아침부터 무한재부팅'},
+  {d:'8/5',c:'모바일경산센터',m:'SM-F971NZKIKOC',cat:'외관',sn:'R5KL60G1DK',acc:'202608050901G36416',s:'카메라 내부 이물로 스팩IN 정상안내드렸으나 고객 기준뭔지 보여달라요구하시고 카메라로촬영했을때 안보일저도로 작습니다. 출하이미지 우선요청드리고 저희 이물및 스크레치 기준내용 고객께 공개 가능하는지도문의드립니다. @이'},
+  {d:'8/5',c:'평촌센터',m:'SM-F776NZWEKOD',cat:'외관',sn:'R3KL707N8R',acc:'202608050931E23100',s:'서브액정 흰색 점 보임 내부 기포처럼 보이며 외관상 찍힘등 손상흔적은 없습니다. 통신사향입니다.'},
+  {d:'8/5',c:'모바일목포센터',m:'SM-F776NZWEKOC',cat:'화면',sn:'R3KL70BJ1G',acc:'202608050940F07565',s:'회사업무용으로 사용하는 롯데마트 모아앱 잠금설정과 휴대폰 화면잠금설정과 연동된다고함. 어느쪽이든 잠금설정하는대로 같이 바뀐다고함. 혹시 아시는 프로님 계실까요??'},
+  {d:'8/5',c:'모바일동광주센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL7006SB',acc:'202608050948P18736',s:'언박싱 직 후 단말기가 아래 상태였다고 합니다 중앙 하단부 X 형태의 크랙이 강하게 보이고 중앙을 기준으로 크랙 확산되어 있고 외부 충격 흔적은 없습니다 불량 여부 확인 부탁드립니다'},
+  {d:'8/5',c:'모바일 항동지식산업센터',m:'SM-F776NLIEKOC',cat:'카메라',sn:'R3KL701E0V',acc:'202608050947E14601',s:'상단 카메라 윗쪽 부분으로 그림처럼 기스가 나있다고합니다. 해당 이미지 있나요?'},
+  {d:'8/5',c:'연수센터',m:'SM-F976N',cat:'화면',sn:'RFKL60HRYC',acc:'202608050929P33SF2',s:'첫화면에서 구글계정 연동 인증으로 패턴 그림그리는 창에서 화 글자에 뒤로가기 표시에 겹쳐 보임'},
+  {d:'8/5',c:'모바일 충주',m:'SM-F976NZKIKOD',cat:'외관',sn:'RFKL70884G',acc:'202608050921F12SF4',s:'제품 개봉 하자마자 백글라스에 찍힘 있었다고 하는데 출하 이미지 확인 가능할까요?'},
+  {d:'8/5',c:'배성민',m:'SM-F971NZKVKOC',cat:'기타',sn:'R5KL7099HL',acc:'202608050903G05SF2',s:'서브UB VTCAM기준 5시방향 세로1CM가량 내부자국인지 닦아도 안지워지는상황이라 출하이미지 확인좀가능할까요?'},
+  {d:'8/5',c:'모바일김포센터',m:'SM-F976N',cat:'외관',sn:'RFKL707P0F',acc:'202608050908E22509',s:'흰지부 우측상단에 유격발생 문의 육안으로 봤을때는 차이가 없어 보입니다만 고객 불량 주장으로 공차 기준이 있는지 문의드립니다'},
+  {d:'8/5',c:'모바일이천센터',m:'SM-F971NZKIKOC',cat:'전원',sn:'R5KL7035T4',acc:'202608050909D32101',s:'개봉 하고 부팅하면 기기 온도 상승 경고 뜨다가 전원 꺼짐'},
+  {d:'8/5',c:'모바일태릉센터',m:'SM-F976N',cat:'외관',sn:'RFKL709RTB',acc:'202608050906D41701',s:'메인화면 우하단모서리부분 찍힘 멍 줄감 발생 고객 과실없음 기기불량 주장 반품요청 출하 이미지 요청합니다 태릉센터 박상민프로님 요청건입니다'},
+  {d:'8/5',c:'모바일 김해 센터',m:'SM-F971N',cat:'충전',sn:'R5KL706GF2',acc:'202608050901G23444',s:'전원불로 접수 구매후 어제 받고 저녁에 충전을 꼽아놨다고 합니다 아침에 전원이 안켜짐으로 방문 하셨습니다'},
+  {d:'8/5',c:'모바일 태릉',m:'SM-F971NLVIKOC',cat:'외관',sn:'R5KL705W3W',acc:'202608050904D41701',s:'구매후 개봉시 힌지부 절삭형식 크랙으로 출하사진 요청합니다.'},
+  {d:'8/5',c:'모바일 북대구센터',m:'SM-F976NZWIKOC',cat:'화면',sn:'RFKL70E2Q6',acc:'202608050902G42310',s:'서브화면에 하얀점이 보입니다 박스 개봉하고 있었다고합니다 외부 눌린자국 / 긁힌자국은 아닙니다 화면켰을때 명점은 보이지않습니다 출하사진 확인가능 할까요'},
+  {d:'8/5',c:'모바일 은평센터',m:'SM-F971N',cat:'카메라',sn:'R5KL700LYT',acc:'202608050907D09SF1',s:'고객 차량에서 사용 후(에어컨 앞에 거치) 카메라 윈도우에 결로 현상 발생 하였다고 하는데 요즘 날씨가 고온 다습해서 많이 발생 하고 있는거 같습니다. 혹시 결로인지 침수인지 판별 법이나 예방법이 있는지 문의 드립니'},
+  {d:'8/5',c:'모바일디지털시티센터',m:'SM-F971NZKIKOO',cat:'외관',sn:'R5KL70933A',acc:'202608050902D90SF1',s:'08/03일에 제품 받으시고 사용 중 폴딩부에 x자가 생기면서 외부 크랙이 갔다고 합니다. 불량여부 확인 가능할까요?'},
+  {d:'8/4',c:'모바일은평센터',m:'SM-F776NZKEKOC',cat:'외관',sn:'R3KL705PJF',acc:'202608041746D09SF8',s:'플림 우측하단 데코 찍힘 개봉 후 찍힘으로 오셨는데 공정 이미지 받아볼 수 있을까요?'},
+  {d:'8/4',c:'모바일남포센터',m:'SM-F976NZKIKOC',cat:'화면',sn:'RFKL700ZS7',acc:'202608041749G25300',s:'데이터 이동 중 화면이 갈라졌는데 제품 불량으로 봐야 할까요? 의견 부탁드립니다. 외관은 양호하네요'},
+  {d:'8/4',c:'모바일 분당센터',m:'SM-F971NZKIKOC',cat:'화면',sn:'R5KL708SVS',acc:'202608041741D06501',s:'제품을 받자마자 개봉시 내부 픽셀 나가있었다고 합니다 제품 출하 사진확인 부탁드립니다 혹시 출하사진 요청은 조금 걸리나요~??'},
+  {d:'8/4',c:'모바신정센터',m:'SM-F976NZVIKOC',cat:'화면',sn:'RFKL709SEP',acc:'202608041735D44FC3',s:'개봉후 확인시 서브LCD 화면 흑화 main 화면 정상으로 나옵니다. 재부팅 동일합니다. 미개통건으로 RX착하 가능할까요'},
+  {d:'8/4',c:'모바일북수원센터',m:'SM-F971NLVIKOC',cat:'화면',sn:'R5KL701B05',acc:'202608041732P09EF1',s:'아이폰 13미니에서 스마트스위치 무선으로 데이터 이동후 화면UI 색감이상으로 RDM분석 가능할까요?'},
+  {d:'8/4',c:'모바일 강릉센터',m:'SM-F971NLVIKOC',cat:'화면',sn:'R5KL705WHT',acc:'202608041743E02250',s:'대리점에서 개통위해 개봉 후 처음 홈화면 진입 과정에서 전원꺼지더니 전원불. 충전불 상황 입니다.'},
+  {d:'8/4',c:'모바일포항센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL708B5F',acc:'202608041730G44668',s:'3일 어제 저녁 제품 받으시고 오늘 개통전 오후 2시경 LCD 중앙부 크랙 발생으로 출하 사진 확인 가능한지 과실여부 확인 요청드립니다. 고객 인터뷰 특이상 과실은 없었고 개통전 단말이라 RX예외반품 적용 가능 한지'},
+  {d:'8/4',c:'모바일세종센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL700788',acc:'202608041731F30SF1',s:'메인액정 눌림 찍힘 흔적 제품 받자마자 이렇게 되어있었다고 합니다. 출하당시 사진 확인 가능할까요'},
+  {d:'8/4',c:'모바일여의도센터',m:'SM-F971NZWIKOC',cat:'화면',sn:'R5KL60G367',acc:'202608041722D51SF1',s:'서브액정안쪽 도색이상'},
+  {d:'8/4',c:'모바일동탄센터',m:'SM-F971N',cat:'외관',sn:'R5KL708THE',acc:'202608041705D62300',s:'금일 개통 후 내부 화면 찍힘 식별로 인한 고객 불량건의로 인한 출하사진요청드립니다 출하사진 상 외관 손상 보이지 않는데 유상 안내로 하면 될까요?'},
+  {d:'8/4',c:'모바일서수원센터',m:'SM-F971NZWIKOC',cat:'전원',sn:'R5KL705QRQ',acc:'202608041654E40001',s:'전원키 눌러도 전원안켜지고, 스마트스위치 이동중 전원꺼졌다고함. 증상재현불 분석요청드립니다 로그업로드 확인 부탁드립니다'},
+  {d:'8/4',c:'모바일 분당센터',m:'SM-F971NZKIKOD',cat:'외관',sn:'R5KL706H29',acc:'202608041717D06501',s:'제품 토요일에 수령 개통완료후 개봉하라고해서 오늘 개통후에 제품 여닫는 동작 몇번 하셨다고 하는데 내부 PL크랙 발생되셨다고 합니다'},
+  {d:'8/4',c:'모바일남광주',m:'SM-F976NZKIKOC',cat:'송수신',sn:'R3KL701QEP',acc:'202608041645D33103',s:'미개통폰 유심트레이 안빠짐 내방 당시 유심 핀으로 누르면 쑥들어거가 유심 트레이 안나옴 따로 확인 할게 있나요 ?'},
+  {d:'8/4',c:'모바일강동센터',m:'SM-F971NZWIKOC',cat:'송수화/사운드',sn:'R5KL70603D',acc:'202608041634E18103',s:'벨소리, 문자알림음 소리날 때 삐~ 고주파음 함께 들림, 테스트모드에서 SPK 소리는 정상 동작 RDM 분석 요청합니다.'},
+  {d:'8/4',c:'모바일 남포센터',m:'SM-F971NZWIKOC',cat:'기타',sn:'R5KL706FRQ',acc:'202608041616G25300',s:'방금 배송 받고 받은지 30분도 안되었다고 합니다. 언박싱 후 외관 살펴보는데 백글 하단 부분에 검은 자국이 있습니다. 출하이미지 부탁드립니다. 혹시 많이 기다려야 할가요? 고객님이 독촉하시네요 ㅠㅠ'},
+  {d:'8/4',c:'모바일평내',m:'SM-F971NLVIKOC',cat:'외관',sn:'R5KL60F4D9',acc:'202608041624D81300',s:'SUB UB 쪽 화면 벌어짐 문의 외부 디스플레이(Sub Display) 글라스(Glass) 및 후면 글라스(Glass) 와 메탈 사이 간격(Gap) 부분으로 내부 형상이 보입니다(색상차이, 형상차이 등). 이것과 '},
+  {d:'8/4',c:'모바일춘천센터',m:'SM-F976NZWIKOO',cat:'화면',sn:'RFKL70AFEY',acc:'202608040923WEB652',s:'내부명점발생 외력으로는 보기 어려움. 명전 주면 같은 화면 오목한부위 다수확인됨 스왑 가능하다하면 스교체 진행하려합니다. 안되면 무상수리로 부품교체는 합의 되어있습니다.'},
+  {d:'8/4',c:'모바일수지센터',m:'SM-S931NDBEKOC',cat:'화면',sn:'R3CY80BGLH',acc:'202608041557E28SF2',s:'셀카 쪽 흑점으로 출하사진 부탁드립니다'},
+  {d:'8/4',c:'모바일원주',m:'SM-F971NZKIKOD',cat:'외관',sn:'R5KL706GG7',acc:'202608041620E03SF1',s:'금일 제품 개봉 하자마다 확인 메인화면 오른쪽 상단 모서리부분 데코사이부분 이물확인 세척 진행해보도 보임 확인 부탁드립니다'},
+  {d:'8/4',c:'모바일 양주센터',m:'SM-F971NZWPKOC',cat:'기타',sn:'R5KL7006B0',acc:'202608041535D30D69',s:'사제 강화필름 한쪽만 안붙는다고 불량이라고 주장하시는데 공정 출하 이미지 받을수있을까요?'},
+  {d:'8/4',c:'모바일용인센터',m:'SM-F971NZKIKOD',cat:'외관',sn:'R5KL703BYA',acc:'202608041557E36SF1',s:'힌지이탈로 외관사진 부탁드립니다.'},
+  {d:'8/4',c:'모바일진접센터',m:'SM-F971NZKIKOC',cat:'APP·S/W',sn:'R5KL7093HA',acc:'202608041602D83203',s:'삼성계정 로그인 하려하는데 인증번호가 안들어옵니다 확인방법있을까요?? 종전에 아이폰을 사용하셨다고 하십니다.'},
+  {d:'8/4',c:'모바일영등포센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL708BJ8',acc:'202608041534E01900',s:'금일 제품 개봉 후 보호필름 부치다 찍힘 확인 하셨다고 방문 하셨습니다. 프론트라도 교체해달라고 요청하시는데 무상 교체헤도 될까요??'},
+  {d:'8/4',c:'모바일 계양센터',m:'SM-F971NZKIKOC',cat:'전원',sn:'R5KL7012M2',acc:'202608041554E13FC6',s:'전원키 클릭감 동일단말 비교시 확연히 차이남, 타이트하게 꽉 끼는 느낌 이물 없음'},
+  {d:'8/4',c:'모바일광명센터',m:'SM-F971',cat:'APP·S/W',sn:'R5KL7063RH',acc:'202608041601E16111',s:'삼성계정 로그인안됨 삭제후 재등록시 오류남'},
+  {d:'8/4',c:'모바일 북전주센터',m:'SM-F971N',cat:'APP·S/W',sn:'R5KL702CF3',acc:'202608041226P37701',s:'고객전 단말기에서 폴드8로 정보이동 중 검색 100프로에서 넘어가지지 않습니다. 폴드8문제는 아닌거 같은데 전단말기에서 해볼수있는게 있을까요? 외장메모리로 옮기려해도 튕깁니다 >>> 스마트스위치 앱 개선 필요 // '},
+  {d:'8/4',c:'모바일광명센터',m:'SM-F976NZWIKOD',cat:'카메라',sn:'RFKL703MLZ',acc:'202608041541E16111',s:'8월 4일 개통 결로현상 데이터 이동후 결로 발생되었다고합니다. 해당건 이슈 있을까요 ?'},
+  {d:'8/4',c:'모바일광주센터',m:'SM-F776NZWEKOD',cat:'충전',sn:'R3KL707BNE',acc:'202608041538D82511',s:'1차내방시 집에서 다이소산 무선충전기사용시 충전잘안됨으로 내방하여 센터 정품충전기 이상없음 확인후 귀가였으나 2차 차량내 고객 설치한 거치대형 무선충전기에서 충전안됨및 지연관련 재방문함. 종전단말 플립4제품사용시에는'},
+  {d:'8/4',c:'모바일이천센터',m:'SM-F776NZKEKOC',cat:'화면',sn:'R3KL70013M',acc:'202608041524D32SF1',s:'개봉 하고 부팅해보니 첨부사진 처럼 화면 출력이상 발생 [김수렴] 2026-08-04 15:36 https://quickshare.samsungcloud.com/eMR5CCaqHunP'},
+  {d:'8/4',c:'모바일해운대센터',m:'SM-F976NZWVKOC',cat:'카메라',sn:'RFKL70AP36',acc:'202608041518G29SF2',s:'전면 셀프카메라 동작 불량 불량으로 판단 하면 될까요?'},
+  {d:'8/4',c:'모바일 분당센터',m:'SM-F976NZWIKOC',cat:'카메라',sn:'RFKL70ELTB',acc:'202608041505D06SF1',s:'카메라 테스트시 초광각 카메라 동작 안됨 IQC 테스트시에 확인 고객 제품 미리받기로 통해 1일에 수령 하시다 어제 개통후 사용중에 동작 안됨으로 방문 하심 로그분석 부탁 드립니다'},
+  {d:'8/4',c:'모바일서초센터',m:'SM-F976NZKVKOC',cat:'외관',sn:'RFKL70B0XM',acc:'202608041454D14700',s:'고속 충전시 힌지 부분에서 전기 자력이 느껴진다함. 삼성정품 충전기 EP-TA8000 모델입니다.혹시 확인되는 내용있을까요??'},
+  {d:'8/4',c:'모바일강릉센터',m:'SM-F971NZKIKOO',cat:'화면',sn:'R5KL707ZSJ',acc:'202608041514E02250',s:'서브화면 흑화 송수화음불 입니다. 삼성스토어에서 데이터 이동 후 유심변경하고 테스트 과정에서 나타났다고 합니다. 서브화면이 부팅과정에서 로고까진 뜨다가 부팅되면 안들어옵니다. 하드리셋 시도 시 부팅로고 뜨다가 하드리'},
+  {d:'8/4',c:'모바일동대전',m:'SM-F971NLVIKOC',cat:'화면',sn:'R5KL708GTL',acc:'202608041445P10SF7',s:'데이터 이동후 펼치니 화면 흑화/14일 불량확인서 요청건/이슈사항 있을까요?'},
+  {d:'8/4',c:'모바일진주센터',m:'SM-F971NZWIKOD',cat:'외관',sn:'R5KL705AD5',acc:'202608041450G04517',s:'구입 후 필름붙이면서 확인된건데 서브액정 상단 리시버 홀 우측부위 흰색 이물? 이 보임 공정출하 사진도 요청드립니다.'},
+  {d:'8/4',c:'모바일을지로센터',m:'SM-F971NZKIKOC',cat:'화면',sn:'R5KL60F6P4',acc:'202608041411D53200',s:'CTC불량의심 외부화면및 내부화면흑화 증상재현 일정시간지나면 외부화면 표출퇴나 내부화면은흐과및 폴딩시 외부도 흑화되거나 터치안됨 증상재현 스왑진행하겠습니다'},
+  {d:'8/4',c:'모바일홍대센터',m:'SM-F971NZWIKOO',cat:'화면',sn:'R5KL704AVL',acc:'202608041428D49402',s:'제품 박스 개봉 후 화면 깜박임 발생.혹시 스왑진행 해도 될까요?'},
+  {d:'8/4',c:'모바일 관악센터',m:'SM-F976NZVIKOC',cat:'APP·S/W',sn:'RFKL709QKX',acc:'202608041400E07147',s:'블루투스 연결을 시도를 할려다가 블루투스 연결 안됨 8월4일 오후 1시~2시 정도에 차량에 연결 할려고 하지만 연결이 안됨 버즈3 연결 시도 하였으나 동일하게 연결이 안됨 HW 문제인지 SW문제 인지 확인 요청 드립'},
+  {d:'8/4',c:'모바일금천센터',m:'SM-F776NZKEKOC',cat:'외관',sn:'R3KL60AP0E',acc:'202608041428D17501',s:'힌지및 베젤찍힘으로 고객 과실불인정으로 이미지 사진문의드립니다'},
+  {d:'8/4',c:'모바일당진센터',m:'SM-F976NZKIKOC',cat:'외관',sn:'RFKL60JW8A',acc:'202608041408F31SF1',s:'개봉후 접었다 펴고 UTG 크랙 공정이미지 확인 가능할까요'},
+  {d:'8/4',c:'모바일 사하센터',m:'SM-F971NZWIKOO',cat:'외관',sn:'R5KL706JXD',acc:'202608041420G09333',s:'14시 개봉 중 외관 스크래치 확인 양불판정 및 출하이미지 요청합니다. 볼륨버튼 부분입니다.'},
+  {d:'8/4',c:'모바일 구포센터',m:'SM-F976N',cat:'화면',sn:'RFKL709ZAH',acc:'202608041405G18258',s:'8월 4일 개봉건 메인화면 좌측 하단부 흑점 불량으로 봐야할까요?'},
+  {d:'8/4',c:'모바일서대구센터',m:'SM-F971NZWIKOC',cat:'카메라',sn:'R5KL7068LJ',acc:'202608041411G14327',s:'가로로했을때 카메라홀 오른쪽 상단기준 폴딩부 위쪽 누르면 들뜨는느낌이 든다고하시는데 혹시 가이드좀 받을수있을까요?? 고객 제품불량인거같다고 주장하십니다'},
+  {d:'8/4',c:'모바일강서센터',m:'SM-F976NZVPKOC',cat:'화면',sn:'RFKL707140',acc:'202608041409D16SF1',s:'외부 화면 녹색 깜박임 발생 대리점 dp 상품인데 불량 판정이 될까요?'},
+  {d:'8/4',c:'모바일 밀양',m:'SM-F971NZKIKOC',cat:'화면',sn:'R5KL70415J',acc:'202608041412P40SF1',s:'필름 들뜸으로 필름 제거 필름 불량 아님 화면 외부막 들뜸'},
+  {d:'8/4',c:'모바일대곡센터',m:'SM-F976N',cat:'카메라',sn:'R5KL7023CW',acc:'202608041402G48FF3',s:'주머니에서 꺼내고보니 카메라뒤쪽에 습기가 차있다고 하셔서 오셨는데 지금은 괜찮구요. 특이사항이 있을가요?'},
+  {d:'8/4',c:'모바일 동탄센터',m:'SM-F976NZVIKOC',cat:'외관',sn:'RFKL709SB6',acc:'202608041259D62SF8',s:'제품 개봉후 백글라스부분 점 찍혀있음 출하사진 요청 드립니다'},
+  {d:'8/4',c:'모바일광양센터',m:'SM-F976N',cat:'송수화/사운드',sn:'RFKL70BKJA',acc:'202608041350F37104',s:'수신시 상단스피커 소리불현상으로 *#0*#스피커테스트시 상단스피커 소리안남증상입니다. 수리모드로 진행시에는 정상동작건으로 빠른 확인 가능할까요?'},
+  {d:'8/4',c:'모바일상무센터',m:'SM-F776N',cat:'화면',sn:'R3KL7084S6',acc:'202608041322D59SF1',s:'수신시 서브통화표시내용이안나옴 메인화면도 수신번호가안뜸'},
+  {d:'8/4',c:'모바일강북센터',m:'SM-F776NZKEKOO',cat:'기타',sn:'R3KL70B2VH',acc:'202608041338D15SF1',s:'PC연결이 아예안됩니다.. 스왑처리해도 될까요.'},
+  {d:'8/4',c:'모바일 김해 센터',m:'SM-S948N',cat:'화면',sn:'R5KL10BGVV',acc:'202607291441G23SF1',s:'글번호 539413 모바일김해센터/SM-S948N/ ZG3 / 배경및 잠금화면저절로바뀜 /미재현/R5KL10BGVV 고객원하는 배경화면설정후 사용 몇일 지나면 배경화면이 추전에 인터렉티브로 변경되어 방문함 같은증상3'},
+  {d:'8/4',c:'모바일대곡센터',m:'SM-F971N',cat:'화면',sn:'R5KL709F8T',acc:'202608041319G48415',s:'지문인식안됨 잠금 화면에서 지문으로 열려면 아무반응 없음 삼성페이 실행후 지문으로 결재하려고 지문을 입력하면 아무반응 없음 지문 새로 등록 하려고 하면 아무 반응 없음 진단툴 확인시 지문 fail 뜸 기기불량 같습니'},
+  {d:'8/4',c:'모바일남인천센터',m:'SM-F971N',cat:'화면',sn:'R5KL704D19',acc:'202608041205P08SF2',s:'서브화면에서 지문 터치시 화면 깜빡임 발생 어두운곳에서 보임 로그 분석요청드립니다'},
+  {d:'8/4',c:'모바일 발안센터',m:'SM-F971NZKIKOC',cat:'APP·S/W',sn:'R5KL708VM2',acc:'202608041230E34101',s:'제품 수령 후 스마트스위치 진행하려고 와이파이 연결하니 기기 잠겨있다고 함 RDX추출 진행했습니다. K존 글 번호 539644 입니다'},
+  {d:'8/4',c:'모바일왕십리센터',m:'SM-F971NLVIKOO',cat:'기구(형합성)',sn:'R5KL7056CF',acc:'202608041252D43500',s:'고객제품은 프리스탑 각도가 90 넘어가면 자동으로 펼쳐지는데 진열제품들은 100도 정도에도 고정으로 유지하고있어서 불량이라고 주장하시는데 기존 제품과 달라진건가요 ?'},
+  {d:'8/4',c:'모바일 북대구 센터',m:'SM-F971N',cat:'외관',sn:'R5KL70880M',acc:'202608041242G42677',s:'개봉 후 폴딩 부 찍힘으로 공정 사진 요청 드립니다'},
+  {d:'8/4',c:'모바일정읍센터',m:'SM-F971NZWIKOC',cat:'외관',sn:'R5KL60FXGZ',acc:'202608041027F11SF2',s:'외부 액정 쪽 이물 먼지 유입 확인 되었으나 팀장님 상담후 퇴실 하셨습니다 서대구 센터에서 비슷한 제보 올려서 올려 봅니다'},
+  {d:'8/4',c:'모바일서대구센터',m:'SM-F976NZKIKOC',cat:'외관',sn:'RFKL70AJ5S',acc:'202608041204G14152',s:'미개통폰 개봉하자마자 서브액정쪽 흰색이물 크기 0.15mm이상으로 보이는데 불량으로 판단하면될까요??'},
+  {d:'8/4',c:'모바일부산센터',m:'SM-F971NZWIKOC',cat:'송수신',sn:'R5KL60FY1Q',acc:'202608041203P31611',s:'NFC 실행불 빠른분석 부탁드립니다.'},
+  {d:'8/4',c:'모바일 진해센터',m:'SM-F976N',cat:'송수신',sn:'RFKL709T83',acc:'202608041226P37701',s:'KT 통신향으로 고객 요심 넣었을때 통신사 확인 문구 나오고 다른 유심을 넣으면 정보조회를 실패하였습니다.잠시후에 이용하세요 라고 문구가 나옵니다. 통신사 문제 일까요??'},
+  {d:'8/4',c:'모바일광명센터',m:'SM-F971N',cat:'송수신',sn:'R5KL60FX32',acc:'202608031055WEB657',s:'8월 2일 개통 전면 강화필름 부착 지문키 누르는감떨어짐 해당건 이슈있을까요?'},
+  {d:'8/4',c:'모바일칠곡센터',m:'SM-F971NZWIKOC',cat:'기타',sn:'R5KL7082WF',acc:'202608041208D80FG2',s:'고객 박스 개봉후 스크레치 로인해 제품교환요청중'},
+  {d:'8/4',c:'모바일진주센터',m:'SM-F776NZKEKOC',cat:'송수신',sn:'R3KL60AQ3J',acc:'202608041130G04FC2',s:'사전예약고객으로 개통전 7월 30일 미리 받아서 데이터이동을 하셨다합니다. 이후 8월 4일 오늘 개통 후 방문을 하셨는데, 최초 개통일을 큐봇 7월30일로 하는게 맞나요 오늘 사전개통했으니 8월4일 오늘로 하는게 맞'},
+  {d:'8/4',c:'모바일 구리센터',m:'SM-F971NZGIKOO',cat:'화면',sn:'R5KL707Y4X',acc:'202608041157D12200',s:'메인 액정 보호필름 무료부착 쿠폰 (1장) 이 없다고 합니다. 사전구매혜택으로 항목에 있는걸로 확인되는데 혜택에 나오지 않습니다. 확인부탁드립니다.'},
+  {d:'8/4',c:'모바일 안산센터',m:'SM-F971NZKIKOC',cat:'화면',sn:'R5KL60EV3K',acc:'202608041145E17SF2',s:'서브lcd 내부 굴곡발생함 공정사진 요청합니다'},
+  {d:'8/4',c:'모바일 분당센터',m:'SM-F971NZKIKOC',cat:'외관',sn:'R5KL700G7M',acc:'202608041136D06SF1',s:'외부 화면 좌측부 프레임 액정 사이 이물?유입된 상태로 불량 여부 확인 부탁드립니다'},
+  {d:'8/4',c:'모바일 삼성강남센터',m:'SM-F971NZGIKOO',cat:'외관',sn:'R5KL706WZB',acc:'202608041059F33SF6',s:'제품 픽업 후 백글라스 외관 불량확인 요청드립니다'},
+  {d:'8/4',c:'모바일수지센터',m:'SM-F971N',cat:'외관',sn:'R5KL706DL3',acc:'202608041017E28314',s:'화면 펼친후 모서리부분 손으로 누르면 유격발생문의 드립니다. 고객님 콜센터선 문의후 방문건인데 콜센터에서는 유격이 발생되면 안된다고 안내받고 오셧습니다. 누르기전후 사진입니다'},
+  {d:'8/4',c:'모바일서귀포',m:'SM-F976NZVPKOD',cat:'화면',sn:'RFKL60JB65',acc:'202607231703G28SF1',s:'판매점 리테일 모드 설치중 홈화면무한 로딩증상'},
+  {d:'8/4',c:'모바일 방배센터',m:'SM-F971NZKIKOC',cat:'화면',sn:'R5KL60FC9J',acc:'202608040914D13600',s:'어두운곳에서 접은 상태로 화면켜면 서브액정 깜빡힘 발생 8월3일 오후11시1분에 발생된 영상 확인함 빠른분석 부탁드립니다 K존 글번호 539630 https://quickshare.samsungcloud.com/b6'},
+  {d:'8/4',c:'모바일강동센터',m:'SM-F971NZWIKOC',cat:'화면',sn:'R5KL7081WC',acc:'202608040946E18103',s:'개봉 후 내부 화면 우측면 끝단이 쭈글쭈글하다고 방문하심 / 화면은 정상 동작합니다. 확인 부탁드립니다.'},
+  {d:'8/4',c:'모바일부평센터',m:'SM-F971N',cat:'송수화/사운드',sn:'R5KL60EWMK',acc:'202608040902D42SF4',s:'상단 무지를 시 이음소리 발생'},
+  {d:'8/4',c:'모바일서울산',m:'SM-F976NZVIKOC',cat:'외관',sn:'RFKL703XTN',acc:'202608032321WEB652',s:'개봉후 접었다 폈는데 중앙부 힌지라인쪽 볼록하게 튀어나옴'},
+  {d:'8/4',c:'모바일율량',m:'SM-F976NZKIKOC',cat:'기타',sn:'RFKL702BNL',acc:'202608031845WEB653',s:'다이렉트샵에서 구매하고 고객님이 개봉하였는데 기스가 있다고 방문하셨는데 필름이 부착되어 있습니다. 출하시 부착여부 확인 가능 할까요?'},
+  {d:'8/4',c:'모바일광양센터',m:'SM-F971N',cat:'외관',sn:'R5KL702G7P',acc:'202608040901F37104',s:'카메라 데코부분 찍힘? 개봉직후 확인주장하시는데 공정사진 확인 요청드립니다'},
+  {d:'8/3',c:'모바일 하남센터',m:'SM-F976N',cat:'화면',sn:'RFKL702BQJ',acc:'202608031740D46502',s:'제품수령후 메인액정 하단부분 좌우로 눌렀을때 이음소리난다고하는데 불량기준확인부탁드립니다. 출하정보확인시 필름이 부착된상태인지 추가문의드립니다~'}
 ];
-INQ.sort((a,b)=>CAT_ORDER.indexOf(a.c)-CAT_ORDER.indexOf(b.c));
-let lastCat='';
-const tbody=document.getElementById('tblBody');
-INQ.forEach(r=>{
-  if(r.c!==lastCat){
-    const hdr=document.createElement('tr');
-    hdr.className='cat-group-hdr';
-    const tot=INQ.filter(x=>x.c===r.c).reduce((s,x)=>s+x.cnt,0);
-    hdr.innerHTML='<td colspan="8">▸ '+r.c+' &nbsp;<span style="font-weight:400;color:#57606a">총 '+tot+'건</span></td>';
-    tbody.appendChild(hdr);
-    lastCat=r.c;
+
+/* ===================== 도넛 차트 ===================== */
+(function(){
+  var D=[
+    {v:91,c:'#0969da',l:'SM-F971N (Fold8)'},
+    {v:37,c:'#1a7f37',l:'SM-F976N (Fold8 Ultra)'},
+    {v:18,c:'#d08002',l:'SM-F776N (Flip8)'},
+    {v:3,c:'#8c959f',l:'기타'}
+  ];
+  var total=D.reduce(function(a,b){return a+b.v;},0);
+  var cx=110,cy=105,R=72,r=44,gap=3;
+  var paths='',labels='',legends='';
+  var start=0;
+  for(var i=0;i<D.length;i++){
+    var ang=(D[i].v/total)*360*(Math.PI/180);
+    var end=start+ang;
+    var x1=cx+R*Math.sin(start),y1=cy-R*Math.cos(start);
+    var x2=cx+R*Math.sin(end),y2=cy-R*Math.cos(end);
+    var ix1=cx+r*Math.sin(start),iy1=cy-r*Math.cos(start);
+    var ix2=cx+r*Math.sin(end),iy2=cy-r*Math.cos(end);
+    var large=D[i].v/total>0.5?1:0;
+    var gapAng=gap/R;
+    var gx1=cx+R*Math.sin(start+gapAng),gy1=cy-R*Math.cos(start+gapAng);
+    var gx2=cx+R*Math.sin(end-gapAng),gy2=cy-R*Math.cos(end-gapAng);
+    var gi1=cx+r*Math.sin(start+gapAng),gi1y=cy-r*Math.cos(start+gapAng);
+    var gi2=cx+r*Math.sin(end-gapAng),gi2y=cy-r*Math.cos(end-gapAng);
+    paths+='<path d="M '+gx1+' '+gy1+' A '+R+' '+R+' 0 '+large+' 1 '+gx2+' '+gy2+' L '+gi2+' '+gi2y+' A '+r+' '+r+' 0 '+large+' 0 '+gi1+' '+gi1y+' Z" fill="'+D[i].c+'"/>';
+    var mid=start+ang/2;
+    var lx=cx+(R+16)*Math.sin(mid),ly=cy-(R+16)*Math.cos(mid);
+    var pct=Math.round(D[i].v/total*100);
+    labels+='<text x="'+lx+'" y="'+ly+'" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="'+D[i].c+'" font-weight="600">'+pct+'%</text>';
+    legends+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="width:10px;height:10px;border-radius:2px;background:'+D[i].c+';flex-shrink:0"></div><span style="font-size:11px;color:#57606a">'+D[i].l+' ('+D[i].v+'건)</span></div>';
+    start=end;
   }
-  const tr=document.createElement('tr');
-  if(r.ins!=='') tr.className='insight-row';
-  const cc=CC[r.c]||'c기타';
-  let tag='';
-  if(r.ins==='전원키') tag='<span style="background:#ffebe9;color:#a40e26;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">전원키★</span>';
-  else if(r.ins==='홀IC') tag='<span style="background:#fbefff;color:#6e40c9;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">홀IC★</span>';
-  else if(r.ins==='재부팅') tag='<span style="background:#fff8c5;color:#7d4e00;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">재부팅★</span>';
-  const cb=r.cnt>1?'<span style="background:#0969da;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;margin-right:5px">'+r.cnt+'건</span>':'';
-  const sg=r.cnt>1?'<div style="font-size:10px;color:#57606a;margin-bottom:3px">📂 '+r.sg+'</div>':'';
-  const sn=r.cnt>1?'<span style="font-size:10px;color:#8c959f">'+r.sn+'</span>':'<span style="font-family:monospace;font-size:11px">'+r.sn+'</span>';
-  tr.innerHTML='<td><span class="cat-badge '+cc+'">'+r.c+'</span></td>'
-    +'<td>'+sn+'</td>'
-    +'<td style="font-size:11px">'+r.m+'</td>'
-    +'<td style="font-size:11px">'+r.cn+'</td>'
-    +'<td style="font-size:10px;color:#8c959f">'+r.v+'</td>'
-    +'<td colspan="2">'+sg+cb+r.sy+tag+'</td>'
-    +'<td style="color:#8c959f;white-space:nowrap;font-size:10px">'+r.t+'</td>';
-  tbody.appendChild(tr);
-});
+  var svg='<svg width="220" height="210" viewBox="0 0 220 210">'+paths+labels+'<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2328">'+total+'</text><text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="11" fill="#57606a">총 문의</text></svg>';
+  document.getElementById('modelChart').innerHTML='<div style="display:flex;flex-direction:column;align-items:center"><div>'+svg+'</div><div style="width:100%;padding:0 10px">'+legends+'</div></div>';
+})();
+
+/* ===================== 가로 막대 차트 ===================== */
+(function(){
+  var C=[
+    ['화면',45,'#0969da'],['외관',44,'#d08002'],['카메라',13,'#6e40c9'],
+    ['송수화/사운드',10,'#1a7f37'],['송수신',9,'#0598bc'],['기타',8,'#8c959f'],
+    ['APP·S/W',8,'#e5534b'],['전원',6,'#cf222e'],['충전',3,'#f6a623']
+  ];
+  var max=C[0][1];
+  var html='<div style="padding:4px 0">';
+  for(var i=0;i<C.length;i++){
+    var pct=Math.round(C[i][1]/max*100);
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">'
+      +'<div style="width:68px;text-align:right;font-size:11px;color:#57606a;flex-shrink:0">'+C[i][0]+'</div>'
+      +'<div style="flex:1;background:#f0f0f0;border-radius:3px;height:16px;position:relative">'
+      +'<div style="width:'+pct+'%;background:'+C[i][2]+';height:100%;border-radius:3px;transition:width .5s"></div>'
+      +'</div>'
+      +'<div style="width:28px;font-size:11px;font-weight:600;color:'+C[i][2]+';flex-shrink:0">'+C[i][1]+'건</div>'
+      +'</div>';
+  }
+  html+='</div>';
+  document.getElementById('issueChart').innerHTML=html;
+})();
+
+/* ===================== 스택 막대 차트 ===================== */
+(function(){
+  var D=[
+    {l:'8/3',f:0,u:1,p:0,o:0},
+    {l:'8/4',f:46,u:20,p:7,o:2},
+    {l:'8/5',f:45,u:16,p:11,o:1}
+  ];
+  var cols={f:'#0969da',u:'#1a7f37',p:'#d08002',o:'#8c959f'};
+  var lbls={f:'Fold8',u:'Fold8 Ultra',p:'Flip8',o:'기타'};
+  var maxV=75;
+  var legend='<div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap">';
+  for(var k in cols) legend+='<div style="display:flex;align-items:center;gap:3px"><div style="width:10px;height:10px;border-radius:2px;background:'+cols[k]+'"></div><span style="font-size:11px;color:#57606a">'+lbls[k]+'</span></div>';
+  legend+='</div>';
+  var html=legend+'<div style="display:flex;gap:8px;align-items:flex-end;height:150px;padding-bottom:24px;position:relative">';
+  // Y axis
+  for(var i=0;i<=3;i++){
+    var yv=Math.round(maxV*i/3);
+    var yp=100-Math.round(i/3*100);
+    html+='<div style="position:absolute;left:0;right:0;top:'+yp+'%;border-top:1px dashed #e1e4e8;pointer-events:none"><span style="position:absolute;left:-2px;top:-9px;font-size:10px;color:#8c959f;transform:translateX(-100%)">'+yv+'</span></div>';
+  }
+  for(var di=0;di<D.length;di++){
+    var d=D[di];
+    var tot=d.f+d.u+d.p+d.o;
+    html+='<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative">';
+    html+='<div style="width:100%;display:flex;flex-direction:column-reverse;border-radius:4px;overflow:hidden">';
+    var keys=['f','u','p','o'];
+    for(var ki=0;ki<keys.length;ki++){
+      var kk=keys[ki];
+      if(d[kk]>0){
+        var hp=Math.round(d[kk]/maxV*126);
+        html+='<div style="background:'+cols[kk]+';height:'+hp+'px;width:100%"></div>';
+      }
+    }
+    html+='</div>';
+    html+='<div style="position:absolute;bottom:-20px;font-size:11px;font-weight:600;color:#1f2328">'+d.l+'</div>';
+    html+='<div style="position:absolute;top:-18px;font-size:11px;font-weight:700;color:#1f2328">'+tot+'건</div>';
+    html+='</div>';
+  }
+  html+='</div>';
+  document.getElementById('dailyChart').innerHTML=html;
+})();
+
+/* ===================== 테이블 ===================== */
+(function(){
+  var CAT_MAP={
+    '화면':'화면','외관':'외관','카메라':'카메라','전원':'전원',
+    '송수화/사운드':'송수화','APP·S/W':'APP','충전':'충전','송수신':'송수신',
+    '기타':'기타','센서':'센서','WiFi':'WiFi','기구(형합성)':'기구'
+  };
+  // populate filter
+  var cats={};
+  INQ.forEach(function(q){cats[q.cat]=1;});
+  var sel=document.getElementById('filterCat');
+  Object.keys(cats).sort().forEach(function(c){
+    var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);
+  });
+
+  function render(){
+    var cat=document.getElementById('filterCat').value;
+    var dt=document.getElementById('filterDate').value;
+    var kw=document.getElementById('searchInp').value.toLowerCase();
+    var rows=INQ.filter(function(q){
+      if(cat&&q.cat!==cat) return false;
+      if(dt&&q.d!==dt) return false;
+      if(kw&&!(q.c.toLowerCase().includes(kw)||q.s.toLowerCase().includes(kw)||q.m.toLowerCase().includes(kw))) return false;
+      return true;
+    });
+    document.getElementById('tblCount').textContent='('+rows.length+'건)';
+    var tb=document.getElementById('tblBody');
+    tb.innerHTML='';
+    rows.forEach(function(q){
+      var cls='tag-'+(CAT_MAP[q.cat]||'기타');
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td style="white-space:nowrap;font-weight:600">'+q.d+'</td>'
+        +'<td><span class="cat-tag '+cls+'">'+q.cat+'</span></td>'
+        +'<td style="font-size:11px">'+q.c+'</td>'
+        +'<td style="font-size:11px;color:#57606a">'+q.m+'</td>'
+        +'<td style="font-size:11px;font-family:monospace;color:#0969da">'+q.sn+'</td>'
+        +'<td style="font-size:12px;line-height:1.4">'+q.s+'</td>';
+      tb.appendChild(tr);
+    });
+  }
+  document.getElementById('filterCat').addEventListener('change',render);
+  document.getElementById('filterDate').addEventListener('change',render);
+  document.getElementById('searchInp').addEventListener('input',render);
+  render();
+})();
 </script>
 </body>
 </html>
