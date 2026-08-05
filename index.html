@@ -76,7 +76,7 @@ tr:hover td{background:#f6f8fa}
       금촌(R5KL70614Z): "전원키 하단쪽 클릭 시 뻑뻑함"<br>
       홍대(RFKL70CMBW): "버튼 상단부 클릭감 전혀 없음 — 2대 중 1대만 발생"
     </div><div class="ins-why">⚠ 감지 이유: 3개 독립 센터에서 동일 HW 증상 → 조립 라인 공차 불균일 가능성. 8/5 추가 확인으로 신호 강도 상승 중.</div></div>
-</div>><div class="row2"><div class="card"><div class="card-title">📱 모델별 분포</div><div style="position:relative;height:220px"><canvas id="modelChart"></canvas></div></div><div class="card"><div class="card-title">🔧 이슈 유형 집중도 (8/3~8/5 누적)</div><div style="position:relative;height:220px"><canvas id="issueChart"></canvas></div></div><div class="card"><div class="card-title">📅 일자별 문의 추이</div><div style="position:relative;height:220px"><canvas id="dailyChart"></canvas></div></div>
+</div><div class="row2"><div class="card"><div class="card-title">📱 모델별 분포</div><div style="position:relative;height:220px"><canvas id="modelChart"></canvas></div></div><div class="card"><div class="card-title">🔧 이슈 유형 집중도 (8/3~8/5 누적)</div><div style="position:relative;height:220px"><canvas id="issueChart"></canvas></div></div><div class="card"><div class="card-title">📅 일자별 문의 추이</div><div style="position:relative;height:220px"><canvas id="dailyChart"></canvas></div></div>
 </div><div class="table-section"><div class="card-title">📝 접수 문의 현황 — 증상 그룹별 요약 (122건 → 40개 그룹 · 8/3~8/5 · 유사건 통합)</div><div class="tbl-wrap"><table><thead><tr><th>이슈유형</th><th>접수번호</th><th>제조번호(SN)</th><th>모델</th><th>센터</th><th>버전</th><th>문의 내용</th><th>일시</th></tr></thead><tbody id="tblBody"></tbody></table></div>
 </div>
 </div>
@@ -105,7 +105,7 @@ borderRadius:4,borderSkipped:false
 }]
 },
 options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=CATS.indexOf(ctx.label);return ' '+ctx.raw+'% ('+VALS[i]+'건)';}}},
+plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=CATS.indexOf(ctx.label);return ' '+ctx.raw+'% ('+VALS[i]+'건)';}}}},
 scales:{x:{grid:{display:false},ticks:{color:'#24292f',font:{size:9}}},
 y:{grid:{color:'#f0f0f0'},ticks:{color:'#57606a',font:{size:10},callback:v=>v+'%'}}}}
 });
