@@ -12,12 +12,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .header h1{font-size:17px;font-weight:700}
 .header .sub{font-size:12px;opacity:.85;margin-top:3px}
 .badge{background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600}
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
 .kpi{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:12px 14px;text-align:center}
 .kpi .val{font-size:26px;font-weight:700;color:#0969da;line-height:1.2}
 .kpi .lbl{font-size:11px;color:#57606a;margin-top:3px}
 .kpi.red .val{color:#cf222e}
 .kpi.grn .val{color:#1a7f37}
+
+/* Tab nav */
+.tab-nav{display:flex;gap:0;border-bottom:2px solid #d0d7de;margin-bottom:14px}
+.tab-btn{padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:#57606a;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s}
+.tab-btn:hover{color:#0969da}
+.tab-btn.active{color:#0969da;border-bottom-color:#0969da}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Insight tab */
 .section-title{font-size:12px;font-weight:600;color:#57606a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
 .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .ins-card{background:#fff;border:1px solid #d0d7de;border-radius:10px;border-left:5px solid var(--ic,#0969da);overflow:hidden;display:flex;flex-direction:column}
@@ -30,6 +40,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .b-red{background:#ffebe9;color:#cf222e}
 .b-orange{background:#fff3cd;color:#7a4100}
 .b-green{background:#dafbe1;color:#116329}
+.b-blue{background:#ddf4ff;color:#0550ae}
 .ins-summary{font-size:11px;color:#57606a;line-height:1.5}
 .ins-body{padding:0;max-height:150px;overflow-y:auto;flex:1}
 .ins-body::-webkit-scrollbar{width:4px}
@@ -45,7 +56,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .case-center{font-size:11px;color:#1f2328}
 .case-sn{font-size:11px;font-family:ui-monospace,SFMono-Regular,monospace;color:#0969da;word-break:break-all}
 .case-sym{font-size:11px;color:#57606a;line-height:1.35;grid-column:1/-1;padding-top:1px}
-.more-note{font-size:11px;color:#8c959f;padding:6px 12px;background:#f6f8fa;text-align:center;font-style:italic;border-top:1px solid #e8eaed}
+
+/* Inquiry tab */
+.inq-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.filter-grp{display:flex;gap:4px}
+.filter-btn{padding:5px 12px;font-size:12px;font-weight:600;border:1px solid #d0d7de;border-radius:6px;cursor:pointer;background:#fff;color:#57606a;transition:all .15s}
+.filter-btn:hover{border-color:#0969da;color:#0969da}
+.filter-btn.on{background:#0969da;border-color:#0969da;color:#fff}
+.filter-btn.on-grn{background:#1a7f37;border-color:#1a7f37;color:#fff}
+.filter-btn.on-pur{background:#6e40c9;border-color:#6e40c9;color:#fff}
+.inq-count{font-size:12px;color:#57606a;margin-left:auto}
+.inq-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden}
+.inq-table th{background:#f6f8fa;padding:8px 12px;font-size:11px;font-weight:600;color:#57606a;text-align:left;border-bottom:1px solid #d0d7de;white-space:nowrap}
+.inq-table td{padding:7px 12px;font-size:12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.inq-table tr:last-child td{border-bottom:none}
+.inq-table tr:hover td{background:#f6f8fa}
+.model-tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700}
+.m-fold8u{background:#fff3cd;color:#7a4100}
+.m-fold8{background:#ddf4ff;color:#0550ae}
+.m-flip8{background:#dafbe1;color:#116329}
+.m-etc{background:#f6f8fa;color:#57606a}
+.cat-tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;background:#f6f8fa;color:#57606a}
+.sn-mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11px;color:#0969da}
+.sym-text{font-size:11px;color:#444;line-height:1.4}
 .footer{text-align:center;font-size:11px;color:#8c959f;padding:12px 0 4px}
 </style>
 </head>
@@ -54,20 +87,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <div class="header">
   <div>
-    <div class="header h1">FFF8 서비스 엔지니어 EWP 품질 모니터링 대시보드</div>
+    <h1>FFF8 서비스 엔지니어 EWP 품질 모니터링 대시보드</h1>
     <div class="sub">Galaxy Z Fold8 / Flip8 &nbsp;|&nbsp; 2026.08.05 기준 &nbsp;|&nbsp; KakaoTalk HotLine 기반</div>
   </div>
   <span class="badge">2026-08-06 07:51 업데이트</span>
 </div>
 
 <div class="kpi-row">
-  <div class="kpi red"><div class="val">78</div><div class="lbl">총 문의 건수</div></div>
-  <div class="kpi"><div class="val">60</div><div class="lbl">참여 서비스센터</div></div>
-  <div class="kpi"><div class="val">62</div><div class="lbl">참여 인원</div></div>
+  <div class="kpi red"><div class="val">86</div><div class="lbl">총 문의 건수</div></div>
+  <div class="kpi"><div class="val">13</div><div class="lbl">인사이트 카드</div></div>
+  <div class="kpi"><div class="val">3종</div><div class="lbl">모델 (Fold8U/Fold8/Flip8)</div></div>
   <div class="kpi"><div class="val" style="color:#d08002">8/5</div><div class="lbl">데이터 기간</div></div>
   <div class="kpi grn"><div class="val">871</div><div class="lbl">총 HotLine 메시지</div></div>
 </div>
 
+<!-- Tab Nav -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('insight',this)">🔍 품질 인사이트</button>
+  <button class="tab-btn" onclick="switchTab('inquiry',this)">📋 모델별 문의내역</button>
+</div>
+
+<!-- ======= TAB 1: INSIGHT ======= -->
+<div id="tab-insight" class="tab-panel active">
 <div class="section-title">품질 인사이트 — 8/5 기준 최신 · 긴급순위 정렬 (센터·S/N 포함)</div>
 <div class="insight-grid">
 
@@ -151,7 +192,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- #5 전원키/지문 🟡 -->
+<!-- #5 케이스/베젤 벌어짐 🟠 NEW -->
+<div class="ins-card" style="--ic:#d08002;--ibg:#fff3cd;--ifc:#7a4100">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">🛡️ 케이스·베젤 벌어짐 · 뜸 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">3건</span><span class="b-level b-orange">🟠 구조 이탈</span></div>
+    </div>
+    <div class="ins-summary">베젤-데코 사이 뜸, 케이스 미세 휘어짐, 개봉 직후 발생. 힌지 크랙과 별개인 케이스 구조 이탈 패턴. 육안 이질감 동반.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">17:40</span><span class="case-center">모바일 강서센터</span><span class="case-sn">RFKL70BM67</span><div class="case-sym">사이드 베젤-데코 사이 뜸. 케이스 미세 휘어짐. 육안 확인, 손으로 만져도 이질감</div></div>
+    <div class="case-row"><span class="case-date">16:31</span><span class="case-center">모바일 분당센터</span><span class="case-sn">RFKL705VFS</span><div class="case-sym">수령 당일 사용 중 내부화면 오른쪽 상단 데코 부분 이상 — 14일 이내</div></div>
+    <div class="case-row"><span class="case-date">14:56</span><span class="case-center">모바일 송파센터</span><span class="case-sn">RFKL707HG9</span><div class="case-sym">수령 다음날 3회 개봉 후 갑자기 안펴지고 케이스 벌어짐</div></div>
+  </div>
+</div>
+
+<!-- #6 SUB UB 빛번짐 🟠 NEW -->
+<div class="ins-card" style="--ic:#d08002;--ibg:#fff3cd;--ifc:#7a4100">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">📺 SUB UB 빛번짐 · 내부자국 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">5건</span><span class="b-level b-orange">🟠 UB레이어 이슈</span></div>
+    </div>
+    <div class="ins-summary">서브 UB 끝단 빛번짐, 내부자국, 이물 추정. 정면 출하사진엔 보이지 않고 비스듬히 봐야 보임. 흑점/명점과 다른 UB 레이어 패턴.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">17:17</span><span class="case-center">모바일 거제센터</span><span class="case-sn">R5KL7029T2</span><div class="case-sym">외부 끝단부 UB 빛번짐. 정상 범위 여부 문의</div></div>
+    <div class="case-row"><span class="case-date">11:44</span><span class="case-center">모바일서전주센터</span><span class="case-sn">R5KL701BR7</span><div class="case-sym">8/5 개봉건 SUB UB 긁힘 자국 발견. 카메라 방향 화살표 끝 부위</div></div>
+    <div class="case-row"><span class="case-date">11:00</span><span class="case-center">모바일금천센터</span><span class="case-sn">R5KL706PPL</span><div class="case-sym">SUBOCTA 우측 상단 이물 추정. 출하사진 정면엔 안보임, 비스듬히 봐야 확인</div></div>
+    <div class="case-row"><span class="case-date">10:18</span><span class="case-center">평촌센터</span><span class="case-sn">R3KL707N8R</span><div class="case-sym">서브액정 흰색 점. 내부 기포처럼 보임. 외관 손상 흔적 없음</div></div>
+    <div class="case-row"><span class="case-date">09:37</span><span class="case-center">배성민(센터)</span><span class="case-sn">R5KL7099HL</span><div class="case-sym">SUB UB 5시 방향 세로 1cm 내부자국. 닦아도 안지워짐</div></div>
+  </div>
+</div>
+
+<!-- #7 전원키/지문 🟡 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
@@ -167,7 +244,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- #6 카메라 결로 🟡 -->
+<!-- #8 카메라 결로 🟡 -->
 <div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
   <div class="ins-head">
     <div class="ins-head-top">
@@ -183,28 +260,272 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- #7 고주파 삐 소리 🟣 풀와이드 -->
+<!-- #9 서브화면 깜빡임 🟡 NEW -->
+<div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">📱 서브화면 깜빡임 · 이상 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">4건</span><span class="b-level b-green">🟡 초기 패턴</span></div>
+    </div>
+    <div class="ins-summary">구입 직후 서브액정 깜박임, 백화, 경광등 현상. 커버화면 단독 이상으로 홀IC 흑화와 다른 패턴. 일부 SUB UB 교체 대상 포함.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">15:21</span><span class="case-center">모바일 순천센터</span><span class="case-sn">R5KL7068WN</span><div class="case-sym">커버화면 백화 깜빡임. SUB UB 무상수리 가능 여부 문의</div></div>
+    <div class="case-row"><span class="case-date">13:16</span><span class="case-center">모바일율량센터</span><span class="case-sn">R5KL709GQ4</span><div class="case-sym">어두운 곳에서 지문 켜기 후 상단 화면 경광등처럼 깜빡임</div></div>
+    <div class="case-row"><span class="case-date">11:16</span><span class="case-center">모바일 삼성강남센터</span><span class="case-sn">R5KL7055VC</span><div class="case-sym">구입 직후 서브액정 깜박임 발생. 첫 내방</div></div>
+    <div class="case-row"><span class="case-date">09:23</span><span class="case-center">모바일 북대구센터</span><span class="case-sn">RFKL70E2Q6</span><div class="case-sym">개봉 중 서브화면 하얀점. 명점과 다름, 화면 켰을 때는 안보임</div></div>
+  </div>
+</div>
+
+<!-- #10 폴딩 화면 전환 지연 🟡 NEW -->
+<div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">⏱️ 폴딩 화면 전환 지연 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">2건</span><span class="b-level b-green">🟡 S/W 이슈 의심</span></div>
+    </div>
+    <div class="ins-summary">서브화면 사용 중 내부화면으로 전환 시 화면 늦게 켜짐, 아이콘 쏠림. 안전모드에서도 재현 → S/W 문제 가능성. 독립 센터 2곳.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">18:22</span><span class="case-center">모바일 세종센터</span><span class="case-sn">R5KL703BKZ</span><div class="case-sym">서브화면 사용 후 폴더 열어 내부화면 전환 시 늦게 켜짐</div></div>
+    <div class="case-row"><span class="case-date">10:49</span><span class="case-center">모바일수지센터</span><span class="case-sn">R5KL704CAM</span><div class="case-sym">내부화면 펼치면 반응 늦음 + 아이콘 왼쪽 하단 쏠림 → 수초 후 복귀</div></div>
+  </div>
+</div>
+
+<!-- #11 블루투스 전면 불량 🟡 NEW -->
+<div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">📶 블루투스 전면 불량 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">3건</span><span class="b-level b-green">🟡 H/W 불량 의심</span></div>
+    </div>
+    <div class="ins-summary">초기화 후에도 버즈·워치 전체 검색 불가(홍대). 일부 BT 연결 불가, 특정 디바이스 끊김. H/W 수준 BT 이슈 가능성.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">14:42</span><span class="case-center">모바일홍대센터</span><span class="case-sn">R5KL708EZ3</span><div class="case-sym">⚠️ 초기화 후에도 버즈·워치 전체 BT 검색 안됨. H/W 이슈 의심</div></div>
+    <div class="case-row"><span class="case-date">11:54</span><span class="case-center">모바일송파센터</span><span class="case-sn">R5KL706907</span><div class="case-sym">일부 BT 제품 연결 안됨 + 해당 항목 터치 불가 동반</div></div>
+    <div class="case-row"><span class="case-date">13:04</span><span class="case-center">모바일오산센터</span><span class="case-sn">R3KL609X5M</span><div class="case-sym">개통 후 BT 활성화 안됨 + 전원키 동작 불가 동반</div></div>
+  </div>
+</div>
+
+<!-- #12 스피커 완전 동작불 🟡 NEW -->
+<div class="ins-card" style="--ic:#1a7f37;--ibg:#dafbe1;--ifc:#116329">
+  <div class="ins-head">
+    <div class="ins-head-top">
+      <span class="ins-title">🔇 스피커 완전 동작불 <span style="font-size:10px;background:#0969da;color:#fff;padding:1px 5px;border-radius:4px;margin-left:4px">신규</span></span>
+      <div class="ins-badges"><span class="b-count">2건</span><span class="b-level b-green">🟡 김포센터 집중</span></div>
+    </div>
+    <div class="ins-summary">상단·하단 스피커 동시 동작불. 소리 작업 시 멈춤 동반. 동일 센터(김포) 당일 2건 — 특정 LOT 집중 가능성.</div>
+  </div>
+  <div class="ins-body">
+    <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">13:53</span><span class="case-center">모바일김포센터</span><span class="case-sn">R3KL705P3M</span><div class="case-sym">상단·하단 스피커 동작불. 소리 관련 작업 시 멈춤</div></div>
+    <div class="case-row"><span class="case-date">11:31</span><span class="case-center">모바일김포센터</span><span class="case-sn">R5KL708C8B</span><div class="case-sym">상단·하단 스피커 동작 안됨</div></div>
+  </div>
+</div>
+
+<!-- #13 고주파 삐 소리 🟣 풀와이드 -->
 <div class="ins-card" style="--ic:#6e40c9;--ibg:#fbefff;--ifc:#6e40c9;grid-column:1/-1">
   <div class="ins-head">
     <div class="ins-head-top">
       <span class="ins-title">🔊 사운드 재생 중 고주파 "삐" 이상음 — 폴딩 특화 교차범주 패턴</span>
       <div class="ins-badges">
-        <span class="b-count" style="background:#fbefff;color:#6e40c9">3건</span>
+        <span class="b-count" style="background:#fbefff;color:#6e40c9">4건</span>
         <span class="b-level" style="background:#fbefff;color:#6e40c9">🟣 신규 패턴 · 누락 주의</span>
       </div>
     </div>
-    <div class="ins-summary">알람·전화벨·알림음 등 사운드 동작 중 또는 폴딩/언폴딩 시 고주파 "삐~" 소리 동반. 테스트모드 SPK 정상이나 실사용 중만 재현. ⚠️ 카테고리가 송수화/사운드·APP·S/W·화면으로 분산되어 단순 집계 시 누락됨.</div>
+    <div class="ins-summary">알람·전화벨·알림음·유튜브 등 사운드 동작 중 또는 폴딩/언폴딩 시 고주파 "삐~" 소리 동반. 자가진단 SPK 테스트에서도 재현. ⚠️ 카테고리가 송수화/사운드·APP·S/W·화면으로 분산되어 단순 집계 시 누락됨.</div>
   </div>
   <div class="ins-body" style="max-height:none">
     <div class="case-header"><span>시간</span><span>서비스센터</span><span>S/N</span></div>
+    <div class="case-row"><span class="case-date">18:20</span><span class="case-center">모바일 청담센터</span><span class="case-sn">R5KL708VSH</span><div class="case-sym">유심 등록 후 테스트 중 벨소리/알림음 발생 시 삐 소리 재현</div></div>
     <div class="case-row"><span class="case-date">18:14</span><span class="case-center">모바일목포센터</span><span class="case-sn">R5KL700GDE</span><div class="case-sym">소리 출력 시 삐~~ 소리 같이 출력됨</div></div>
     <div class="case-row"><span class="case-date">14:06</span><span class="case-center">모바일나주센터</span><span class="case-sn">R5KL705WR3</span><div class="case-sym">8/4 저녁 유튜브 영상 재생 중 고주파음 소리 발생</div></div>
-    <div class="case-row"><span class="case-date">10:57</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 SPK 테스트 중 삐소리 1회 재현 (K존 539711)</div></div>
+    <div class="case-row"><span class="case-date">10:57</span><span class="case-center">북천안센터</span><span class="case-sn">R5KL7046CJ</span><div class="case-sym">전화 수신·벨소리 설정 시 고주파 삐 소리. 자가진단 SPK 테스트 중 삐소리 1회 재현</div></div>
   </div>
 </div>
 
 </div><!-- /insight-grid -->
-<div class="footer">FFF8 EWP 품질 모니터링 | 데이터 출처: KakaoTalk ★★FFF8 서비스 엔지니어 HotLine★★ | 2026-08-06 07:51 기준 스냅샷 · 871건 메시지 파싱 → 78건 문의 추출</div>
+</div><!-- /tab-insight -->
+
+<!-- ======= TAB 2: INQUIRY TABLE ======= -->
+<div id="tab-inquiry" class="tab-panel">
+<div class="inq-controls">
+  <div class="filter-grp">
+    <button class="filter-btn on" data-m="all" onclick="setFilter('m','all',this)">전체</button>
+    <button class="filter-btn" data-m="Fold8 Ultra" onclick="setFilter('m','Fold8 Ultra',this)">Fold8 Ultra</button>
+    <button class="filter-btn" data-m="Fold8" onclick="setFilter('m','Fold8',this)">Fold8</button>
+    <button class="filter-btn" data-m="Flip8" onclick="setFilter('m','Flip8',this)">Flip8</button>
+  </div>
+  <div class="filter-grp">
+    <button class="filter-btn on" data-c="all" onclick="setFilter('c','all',this)">전체 증상</button>
+    <button class="filter-btn" data-c="외관" onclick="setFilter('c','외관',this)">외관</button>
+    <button class="filter-btn" data-c="화면" onclick="setFilter('c','화면',this)">화면</button>
+    <button class="filter-btn" data-c="전원" onclick="setFilter('c','전원',this)">전원</button>
+    <button class="filter-btn" data-c="카메라" onclick="setFilter('c','카메라',this)">카메라</button>
+    <button class="filter-btn" data-c="송수화/사운드" onclick="setFilter('c','송수화/사운드',this)">사운드</button>
+    <button class="filter-btn" data-c="송수신" onclick="setFilter('c','송수신',this)">송수신</button>
+    <button class="filter-btn" data-c="기타" onclick="setFilter('c','기타',this)">기타</button>
+  </div>
+  <span class="inq-count" id="inq-count">86건</span>
 </div>
+<table class="inq-table" id="inq-table">
+  <thead>
+    <tr>
+      <th>시간</th>
+      <th>모델</th>
+      <th>증상 분류</th>
+      <th>서비스센터</th>
+      <th>S/N</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody id="inq-tbody"></tbody>
+</table>
+</div><!-- /tab-inquiry -->
+
+<div class="footer">FFF8 EWP 품질 모니터링 | 데이터 출처: KakaoTalk ★★FFF8 서비스 엔지니어 HotLine★★ | 2026-08-06 07:51 기준 스냅샷 · 871건 메시지 파싱 → 86건 문의 추출</div>
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const DATA=[
+  {m:'Fold8 Ultra',c:'기타',t:'09:19',cn:'모바일 순천센터',sn:'R5KL70480V',s:'화면 중앙 멍 다량 발생 폴딩부가 울퉁불퉁 합니다'},
+  {m:'Fold8 Ultra',c:'기타',t:'10:00',cn:'모바일동광주센터',sn:'R5KL7006SB',s:'언박싱 직후 단말기 이상 상태'},
+  {m:'Fold8 Ultra',c:'기타',t:'10:37',cn:'모바일서안양센터',sn:'R5KL700M46',s:'화면눌림'},
+  {m:'Fold8 Ultra',c:'기타',t:'10:53',cn:'모바일 경주센터',sn:'R5KL7066BP',s:'개통 불가. 유심 삽입 시 리젝 6회 발생'},
+  {m:'Fold8 Ultra',c:'기타',t:'11:29',cn:'모바일용산센터',sn:'R5KL702EVM',s:'8/4 개봉건 — 전원불 발생'},
+  {m:'Fold8 Ultra',c:'기타',t:'11:36',cn:'모바일남광주센터',sn:'R5KL705RPS',s:'8/4 개봉건 — 힌지 상단 흠집'},
+  {m:'Fold8 Ultra',c:'기타',t:'12:10',cn:'모바일제주센터',sn:'RFKL707QT8',s:'개통 후 확인 시 액정 빛샘'},
+  {m:'Fold8 Ultra',c:'기타',t:'12:16',cn:'모바일용인센터',sn:'R5KL701B4V',s:'유튜브 쇼츠 넘어가지 않음'},
+  {m:'Fold8 Ultra',c:'기타',t:'13:10',cn:'모바일 강서센터',sn:'R5KL7067ZR',s:'외부 액정 좌중하단부 내부 점 같이 화면 눌림 번짐'},
+  {m:'Fold8 Ultra',c:'기타',t:'13:55',cn:'모바일영등포센터',sn:'R5KL708E9F',s:'구입 2일차 이상'},
+  {m:'Fold8 Ultra',c:'기타',t:'13:59',cn:'모바일을지로센터',sn:'R5KL705BKQ',s:'스마트스위치 문자 이동 중 오류'},
+  {m:'Fold8 Ultra',c:'기타',t:'14:39',cn:'모바일 하남센터',sn:'R5KL707ZGB',s:'수령 후 좌측 도장 이상'},
+  {m:'Fold8 Ultra',c:'기타',t:'15:32',cn:'모바일속초센터',sn:'R5KL60FG6V',s:'기아차량 디지털키 등록 안됨'},
+  {m:'Fold8 Ultra',c:'기타',t:'16:04',cn:'모바일서전주센터',sn:'R5KL706BLT',s:'개통 후 유심 인식 불량 — 유심 2회 교체 후에도 인식 안됨'},
+  {m:'Fold8 Ultra',c:'송수신',t:'11:54',cn:'모바일송파센터',sn:'R5KL706907',s:'일부 BT 제품 연결 안되고 해당 항목 터치 불가'},
+  {m:'Fold8 Ultra',c:'송수신',t:'14:16',cn:'모바일노원센터',sn:'R5KL7044ZQ',s:'WiFi 연결 안됨 증상 재현'},
+  {m:'Fold8 Ultra',c:'송수신',t:'14:42',cn:'모바일홍대센터',sn:'R5KL708EZ3',s:'⚠️ 초기화 후에도 버즈·워치 전체 BT 검색 안됨'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'10:57',cn:'북천안센터',sn:'R5KL7046CJ',s:'전화 수신 및 벨소리 설정 시 고주파 삐 소리'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'11:02',cn:'모바일경산센터',sn:'R5KL60G3X3',s:'알람 해제 방법 없음 — 재부팅 후 재발'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'11:31',cn:'모바일김포센터',sn:'R5KL708C8B',s:'상단·하단 스피커 동작 안됨'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'13:08',cn:'모바일동탄센터',sn:'R5KL706SQA',s:'특정 고객 통화 시 상대방 음성 끊김 — 현장 재현'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'15:34',cn:'모바일휘경센터',sn:'R5KL700M5H',s:'BT 연결 중 Gemini·유튜브 사용 시 간헐 기계음'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'18:14',cn:'모바일목포센터',sn:'R5KL700GDE',s:'소리 출력 시 삐~~ 소리 같이 출력됨'},
+  {m:'Fold8 Ultra',c:'송수화/사운드',t:'18:20',cn:'모바일 청담센터',sn:'R5KL708VSH',s:'벨소리·알림음 발생 시 삐 하는 소리 동반'},
+  {m:'Fold8 Ultra',c:'외관',t:'09:09',cn:'모바일디지털시티센터',sn:'R5KL70933A',s:'8/3 수령 후 폴딩부 X자 외부 크랙'},
+  {m:'Fold8 Ultra',c:'외관',t:'09:24',cn:'모바일 태릉',sn:'R5KL705W3W',s:'개봉 시 힌지부 절삭 형식 크랙'},
+  {m:'Fold8 Ultra',c:'외관',t:'10:28',cn:'모바일경산센터',sn:'R5KL60G1DK',s:'카메라 내부 이물 스팩IN'},
+  {m:'Fold8 Ultra',c:'외관',t:'11:43',cn:'모바일오산센터',sn:'R5KL707W4W',s:'사용 중 갑자기 UTG 크랙 발생'},
+  {m:'Fold8 Ultra',c:'외관',t:'15:21',cn:'모바일 의정부센터',sn:'R5KL706HAB',s:'대리점 필름 부착 후 언박싱 시 외관 기스 발견'},
+  {m:'Fold8 Ultra',c:'전원',t:'09:29',cn:'모바일 김해센터',sn:'R5KL706GF2',s:'수령 당일 충전 꽂고 아침에 전원 미켜짐'},
+  {m:'Fold8 Ultra',c:'전원',t:'09:35',cn:'모바일이천센터',sn:'R5KL7035T4',s:'부팅 시 기기 온도 상승 경고 → 전원 꺼짐'},
+  {m:'Fold8 Ultra',c:'전원',t:'17:55',cn:'모바일 남포센터',sn:'R5KL7054XB',s:'유튜브 시청 중 슬립 후 재펼침 시 화면 미출력'},
+  {m:'Fold8 Ultra',c:'전원',t:'18:00',cn:'모바일평내센터',sn:'R5KL701AHJ',s:'유튜브 실행 중 화면 꺼짐. 30분 이내 로그 추출'},
+  {m:'Fold8 Ultra',c:'충전',t:'15:20',cn:'모바일 광양센터',sn:'R5KL706GN6',s:'폴딩 시 충전기 꽂으면 전체화면 번쩍'},
+  {m:'Fold8 Ultra',c:'카메라',t:'09:21',cn:'모바일 은평센터',sn:'R5KL700LYT',s:'차량 에어컨 앞 거치 후 카메라 결로'},
+  {m:'Fold8 Ultra',c:'카메라',t:'12:11',cn:'모바일광명센터',sn:'R5KL705V88',s:'통화 중 근접센서 불가 + 카메라 보안정책 문구'},
+  {m:'Fold8 Ultra',c:'카메라',t:'16:30',cn:'모바일금오센터',sn:'R5KL709AS7',s:'영상촬영 이상'},
+  {m:'Fold8 Ultra',c:'화면',t:'09:37',cn:'배성민',sn:'R5KL7099HL',s:'SUB UB 5시 방향 세로 1cm 내부자국'},
+  {m:'Fold8 Ultra',c:'화면',t:'10:49',cn:'모바일수지센터',sn:'R5KL704CAM',s:'내부화면 펼치면 반응 늦음 + 아이콘 왼쪽 하단 쏠림'},
+  {m:'Fold8 Ultra',c:'화면',t:'11:00',cn:'모바일금천센터',sn:'R5KL706PPL',s:'SUBOCTA 화면 이상 이물 추정 — 비스듬히 봐야 확인'},
+  {m:'Fold8 Ultra',c:'화면',t:'11:05',cn:'모바일 상무센터',sn:'R5KL7027A5',s:'서브화면 흑화 + 벨소리 삐이이 소리'},
+  {m:'Fold8 Ultra',c:'화면',t:'11:16',cn:'모바일 삼성강남센터',sn:'R5KL7055VC',s:'구입 직후 서브액정 깜박임'},
+  {m:'Fold8 Ultra',c:'화면',t:'11:44',cn:'모바일서전주센터',sn:'R5KL701BR7',s:'8/5 개봉건 SUB UB 긁힘 자국'},
+  {m:'Fold8 Ultra',c:'화면',t:'13:16',cn:'모바일율량센터',sn:'R5KL709GQ4',s:'서브액정 경광등처럼 깜빡임'},
+  {m:'Fold8 Ultra',c:'화면',t:'13:25',cn:'모바일나주센터',sn:'R5KL708L8D',s:'8/4 수령 후 흑점 발견'},
+  {m:'Fold8 Ultra',c:'화면',t:'13:35',cn:'모바일휘경센터',sn:'R5KL7068XZ',s:'커버화면 노랗게 변색 후 메인 흑화'},
+  {m:'Fold8 Ultra',c:'화면',t:'15:02',cn:'모바일 사하센터',sn:'R5KL708JH6',s:'구입 2일차 메인화면 6시 방향 흑점'},
+  {m:'Fold8 Ultra',c:'화면',t:'15:21',cn:'모바일 순천센터',sn:'R5KL7068WN',s:'커버화면 백화 깜빡임'},
+  {m:'Fold8 Ultra',c:'화면',t:'15:44',cn:'모바일이천센터',sn:'R5KL705V39',s:'메인화면 CTC불량 노이즈 간헐 출력'},
+  {m:'Fold8 Ultra',c:'화면',t:'16:06',cn:'모바일 관악센터',sn:'R5KL70843P',s:'외부 디스플레이 덱스 연결 시 화면 떨림'},
+  {m:'Fold8 Ultra',c:'화면',t:'16:40',cn:'모바일 부평센터',sn:'R54KL705NZBX',s:'게임 시작 시 주변 화면 노이즈'},
+  {m:'Fold8 Ultra',c:'화면',t:'17:17',cn:'모바일 거제센터',sn:'R5KL7029T2',s:'UB 끝단 빛번짐'},
+  {m:'Fold8 Ultra',c:'화면',t:'17:41',cn:'모바일을지로센터',sn:'RFKL70ES3B',s:'개봉 직후 메인화면 흑화. 재부팅 초반 5초 화면 미출력'},
+  {m:'Fold8 Ultra',c:'화면',t:'18:22',cn:'모바일 세종센터',sn:'R5KL703BKZ',s:'서브화면 사용 후 내부화면 전환 시 늦게 켜짐'},
+  {m:'Fold8',c:'기타',t:'09:55',cn:'연수센터',sn:'RFKL60HRYC',s:'구글계정 인증 화면 레이아웃 이상'},
+  {m:'Fold8',c:'기타',t:'11:32',cn:'모바일평택센터',sn:'RFKL60J6A9',s:'8/4 개봉건'},
+  {m:'Fold8',c:'기타',t:'12:12',cn:'홍대센터',sn:'RFKL70CMBW',s:'전원버튼 상단/하단 클릭감 없음'},
+  {m:'Fold8',c:'기타',t:'14:04',cn:'모바일 청담센터',sn:'RFKL7076HE',s:'지문키 살짝 건드리면 이음 발생'},
+  {m:'Fold8',c:'기타',t:'16:24',cn:'홍대센터',sn:'RFKL709TN3',s:'화면 내 점 — 출하 검출 수준 확인 요청'},
+  {m:'Fold8',c:'송수신',t:'15:30',cn:'모바일 남포센터',sn:'RFKL700VEL',s:'특정 BT 제품 끊김'},
+  {m:'Fold8',c:'외관',t:'09:30',cn:'모바일태릉센터',sn:'RFKL709RTB',s:'메인화면 우하단 모서리 찍힘'},
+  {m:'Fold8',c:'외관',t:'09:36',cn:'모바일김포센터',sn:'RFKL707P0F',s:'힌지부 우측 상단 유격 발생'},
+  {m:'Fold8',c:'외관',t:'09:40',cn:'모바일 충주',sn:'RFKL70884G',s:'개봉 직후 백글라스 찍힘'},
+  {m:'Fold8',c:'외관',t:'14:56',cn:'모바일 송파센터',sn:'RFKL707HG9',s:'3회 개봉 후 케이스 벌어짐'},
+  {m:'Fold8',c:'외관',t:'15:56',cn:'모바일 양주센터',sn:'RFKL60D3YV',s:'언박싱 직후 힌지 찍힘'},
+  {m:'Fold8',c:'외관',t:'16:31',cn:'모바일 분당센터',sn:'RFKL705VFS',s:'내부화면 오른쪽 상단 데코 이상'},
+  {m:'Fold8',c:'외관',t:'16:48',cn:'모바일 청담센터',sn:'RFKL705VCV',s:'자급제 외관 B면 기준'},
+  {m:'Fold8',c:'외관',t:'17:40',cn:'모바일 강서센터',sn:'RFKL70BM67',s:'베젤-데코 사이 뜸. 케이스 미세 휘어짐. 육안 확인'},
+  {m:'Fold8',c:'충전',t:'16:04',cn:'모바일동탄센터',sn:'RFKL709YJX',s:'사제 케이블 45W 절반 이하 출력'},
+  {m:'Fold8',c:'카메라',t:'16:21',cn:'',sn:'RFKL703WS4',s:'개봉 후 스크래치 확인'},
+  {m:'Fold8',c:'카메라',t:'16:43',cn:'모바일 남양센터',sn:'RFKL60JV9H',s:'차량 에어컨 앞 거치 후 카메라 결로'},
+  {m:'Fold8',c:'화면',t:'09:23',cn:'모바일 북대구센터',sn:'RFKL70E2Q6',s:'개봉 중 서브화면 하얀점'},
+  {m:'Flip8',c:'기타',t:'10:17',cn:'모바일목포센터',sn:'R3KL70BJ1G',s:'롯데마트 모아앱 잠금과 화면잠금 연동 현상'},
+  {m:'Flip8',c:'기타',t:'11:19',cn:'모바일 제주센터',sn:'R3KL60BGKX',s:'화면 하단부 미출력'},
+  {m:'Flip8',c:'기타',t:'15:13',cn:'모바일서안양센터',sn:'R3KL60ANP2',s:'커버화면 이모지 배경화면 적용 안됨'},
+  {m:'Flip8',c:'기타',t:'17:33',cn:'모바일경주센터',sn:'RFKL704Q77',s:'화면 전체 붉은색으로 나타나는 증상 5회'},
+  {m:'Flip8',c:'송수화/사운드',t:'13:53',cn:'모바일김포센터',sn:'R3KL705P3M',s:'상단·하단 스피커 동작불. 소리 작업 시 멈춤'},
+  {m:'Flip8',c:'송수화/사운드',t:'14:06',cn:'모바일나주센터',sn:'R5KL705WR3',s:'유튜브 재생 중 고주파음 발생'},
+  {m:'Flip8',c:'외관',t:'09:57',cn:'모바일 항동지식산업센터',sn:'R3KL701E0V',s:'상단 카메라 위쪽 기스'},
+  {m:'Flip8',c:'외관',t:'13:44',cn:'모바일상록센터',sn:'R3KL707JBZ',s:'힌지 기름기 묻어나옴'},
+  {m:'Flip8',c:'전원',t:'10:29',cn:'모바일태릉센터',sn:'R3KL608PV1',s:'8/4 구매 후 8/5 아침 무한재부팅'},
+  {m:'Flip8',c:'전원',t:'13:04',cn:'모바일오산센터',sn:'R3KL609X5M',s:'BT 활성화 안됨 + 전원키 동작 불가'},
+  {m:'Flip8',c:'전원',t:'13:51',cn:'모바일 사하센터',sn:'R3KL60BHCG',s:'차량 내 5분 유튜브 시청 후 발열 강한 크레임'},
+  {m:'Flip8',c:'전원',t:'16:59',cn:'모바일 북전주센터',sn:'R3KL7084TA',s:'카메라 앱 실행불 — 재부팅 후 정상'},
+  {m:'Flip8',c:'화면',t:'10:18',cn:'평촌센터',sn:'R3KL707N8R',s:'서브액정 흰색 점. 내부 기포처럼 보임'},
+  {m:'Flip8',c:'화면',t:'11:47',cn:'모바일 동탄센터',sn:'R3KL60BGQK',s:'개봉 후 화면 우측 중앙 멍자국'},
+];
+
+let fModel='all', fCat='all';
+function setFilter(type, val, btn) {
+  if(type==='m'){
+    fModel=val;
+    document.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'));
+  } else {
+    fCat=val;
+    document.querySelectorAll('[data-c]').forEach(b=>b.classList.remove('on'));
+  }
+  btn.classList.add('on');
+  renderTable();
+}
+
+const MODEL_CLASS={
+  'Fold8 Ultra':'model-tag m-fold8u',
+  'Fold8':'model-tag m-fold8',
+  'Flip8':'model-tag m-flip8',
+  '기타':'model-tag m-etc'
+};
+
+function renderTable() {
+  const rows = DATA.filter(r=>{
+    if(fModel!=='all' && r.m!==fModel) return false;
+    if(fCat!=='all' && r.c!==fCat) return false;
+    return true;
+  });
+  document.getElementById('inq-count').textContent = rows.length+'건';
+  const tbody = document.getElementById('inq-tbody');
+  tbody.innerHTML = rows.map(r=>`<tr>
+    <td class="case-date">${r.t}</td>
+    <td><span class="${MODEL_CLASS[r.m]||'model-tag m-etc'}">${r.m}</span></td>
+    <td><span class="cat-tag">${r.c}</span></td>
+    <td>${r.cn}</td>
+    <td class="sn-mono">${r.sn}</td>
+    <td class="sym-text">${r.s}</td>
+  </tr>`).join('');
+}
+renderTable();
+</script>
+
 </body>
 </html>
